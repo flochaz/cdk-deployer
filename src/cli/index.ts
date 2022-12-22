@@ -1,34 +1,51 @@
 #!/usr/bin/env node
 
-import * as path from 'path';
 import * as chalk from 'chalk';
 import { Command } from 'commander';
 import { checkGenericAWSCredentials } from './checkCredentials';
 import { createZip } from './createZip';
 import { generateCDKDeployerCfnTemplate } from './generateCDKDeployerCfnTemplate';
 import { getProjectFiles } from './getProjectFiles';
-import { gitAddAndPush } from './gitAddAndPush';
-import { populateContentSpec } from './populateContentSpec';
 import { uploadCDKAppZip } from './uploadCDKAppZip';
 
 export const ARCHIVE_NAME = 'cdk_app.zip';
 
 async function run() {
-  const program = new Command();
-
-  program
+  const program = new Command()
     .description(
-      'A simple tool to make your CDK app deployable through a click to deploy button. \n \n Prerequisite : Export AWS credentials from Workshop studio page !',
+      'A simple tool to make your CDK app deployable through a click to deploy button. \n \n Prerequisite : Export AWS credentials !',
     )
-    .option('-gh, --github-repo-name <string>', 'Name of the repo', 'aws-samples/aws-cdk-examples')
-    .option('-b --s3-bucket-name <string>', 'S3 bucket to use to upload the CDK Deployer stack and potentially the zip file')
-    .option('-kp --s3-key-prefix <string>', 'S3 key prefix to use to upload the CDK Deployer stack and potentially the zip file')
-    .option('-b, --branch <string>', 'Branch to use', 'main')
-    .option('-p, --cdk-project-path <string>', 'Path to the cdk app', './')
+    .option('--github-repo-name <string>', 'Name of the repo example: "aws-samples/aws-cdk-examples"')
+    .option(
+      '--s3-bucket-name <string>',
+      'S3 bucket to use to upload the CDK Deployer stack and potentially the zip file',
+    )
+    .option(
+      '--s3-key-prefix <string>',
+      'S3 key prefix to use to upload the CDK Deployer stack and potentially the zip file',
+    )
+    .option(
+      '--s3-bucket-region <string>',
+      'S3 bucket region to use to upload the CDK Deployer stack and potentially the zip file',
+      'us-east-1',
+    )
+    .option('--public-read', 'Make the S3 bucket public read', false)
+    .option('--github-repo-branch <string>', 'Branch to use', 'main')
+    .option('--cdk-project-path <string>', 'Path to the cdk app', './')
+    .option('--stack-name <string>', 'Name of the stack to deploy')
     .parse();
+  // .option('--cdk-parameters [{<string>:<string>}]', 'CDK parameters to pass to the CDK app. Needs to be provided as an array of tuple, the key being the parmater name and value the parameter value');
 
-  const options = program.opts();
-
+  const options: {
+    githubRepoName: string;
+    s3BucketName?: string | undefined;
+    s3KeyPrefix?: string | undefined;
+    s3BucketRegion: string;
+    publicRead: boolean;
+    githubRepoBranch: string;
+    cdkProjectPath: string;
+    stackName?: string | undefined;
+  } = program.opts();
 
   try {
     await checkGenericAWSCredentials();
@@ -44,12 +61,8 @@ async function run() {
 
       if (!isCDKAppRoot) {
         throw new Error(
-          `No cdk.json file found running \`git ls-files\` in project located at ${process.cwd()}: \n\n did you add your cdk code to git ? are you sure you are on the root of the cdk project ?`,
+          `No cdk.json file found running \`git ls-files\` in project located at ${process.cwd()}: \n\n did you add your cdk code to git ? are you sure you are on the root of the cdk project ?`
         );
-      }
-
-      if (options.verbose) {
-        console.log(chalk.grey(`Files : ${JSON.stringify(files, null, 2)}`));
       }
 
       await createZip(ARCHIVE_NAME, options.cdkProjectPath, files).catch((e) => {
@@ -58,25 +71,13 @@ async function run() {
       await uploadCDKAppZip(options);
     }
 
-
-    if (!options.skipTemplates) {
-      console.log(chalk.white('Generating the deployer stack ...'));
-      await generateCDKDeployerCfnTemplate(options.cdkProjectPath, options.workshopRepoPath);
-      console.info(
-        chalk.green.bold(
-          `The cloudformation capable of deploying cdk app as part of Workshop studio event prorvisioning step has been created under ${path.join(options.workshopRepoPath, 'static')} folder`,
-        ),
-      );
-
-      await populateContentSpec(options);
-    }
-
-    const filesToPush = [];
-    !options.skipTemplates ? filesToPush.push('contentspec.yaml') : null;
-    !options.skipTemplates ? filesToPush.push('static/CDKDeployer.template.json') : null;
-
-    await gitAddAndPush(options.workshopRepoPath, 'chore: Add Deployer Stack static artifact', filesToPush);
-    console.log(chalk.green.bold('You are all done !'));
+    console.log(chalk.white('Generating the deployer stack ...'));
+    const link = await generateCDKDeployerCfnTemplate(options);
+    console.info(
+      chalk.green.bold(
+        `You can now add the following markdown to your README.md : https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=${link})`,
+      ),
+    );
   } catch (error) {
     console.error(chalk.red.bold((error as Error).message));
     process.exit(1);

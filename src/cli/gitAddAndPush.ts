@@ -1,5 +1,5 @@
 import { execSync } from 'child_process';
-import inquirer from 'inquirer';
+import * as inquirer from 'inquirer';
 
 export async function gitAddAndPush(repoPath: string, commitMessage: string, files: string[]) {
   try {

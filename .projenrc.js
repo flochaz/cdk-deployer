@@ -18,7 +18,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'promptly',
     'proxy-agent',
     '@types/archiver',
-    '@types/inquirer',
+    '@types/inquirer@8',
   ],
   // packageName: undefined,  /* The "name" in package.json. */
 
@@ -29,6 +29,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
   bin: { 'cdk-deployer': 'lib/cli.js' },
 });
+
+project.gitignore.include('!/lib/');
 
 project.testTask.reset('jest --group=unit');
 
