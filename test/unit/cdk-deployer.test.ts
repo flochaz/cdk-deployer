@@ -11,7 +11,7 @@ import { App } from 'aws-cdk-lib';
 
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import { BuildSpec } from 'aws-cdk-lib/aws-codebuild';
-import { CdkDeployer } from '../src/cdk-deployer';
+import { CdkDeployer } from '../../src/cdk-deployer';
 
 
 describe ('CdkDeployer test default', () => {
@@ -30,11 +30,12 @@ describe ('CdkDeployer test default', () => {
         type: 'String',
       },
     },
+    env: {
+      region: 'eu-west-1',
+    },
   });
 
   const template = Template.fromStack(CdkDeployerStack);
-
-  // console.log(JSON.stringify(template.toJSON(), null, 2))
 
   test('CdkDeployer creates the proper Cfn parameters', () => {
 
@@ -499,7 +500,7 @@ describe ('CdkDeployer test default', () => {
         },
         Role: Match.anyValue(),
         Handler: 'index.handler',
-        Runtime: 'nodejs18.x',
+        Runtime: 'nodejs16.x',
         Timeout: 60,
       }),
     );
@@ -513,7 +514,7 @@ describe ('CdkDeployer test default', () => {
         },
         Role: Match.anyValue(),
         Handler: 'index.handler',
-        Runtime: 'nodejs18.x',
+        Runtime: 'nodejs16.x',
         Timeout: 60,
       }),
     );
@@ -542,7 +543,7 @@ describe ('CdkDeployer test custom buildspec from object', () => {
       phases: {
         install: {
           'runtime-versions': {
-            nodejs: 18,
+            nodejs: 16,
           },
           'commands': [
             'echo "Custom BuildSpec"',
@@ -580,7 +581,7 @@ describe ('CdkDeployer test custom buildspec from object', () => {
         },
         Role: Match.anyValue(),
         Handler: 'index.handler',
-        Runtime: 'nodejs18.x',
+        Runtime: 'nodejs16.x',
         Timeout: 60,
       }),
     );
@@ -616,7 +617,7 @@ describe ('CdkDeployer test custom buildspec from file', () => {
         },
         Role: Match.anyValue(),
         Handler: 'index.handler',
-        Runtime: 'nodejs18.x',
+        Runtime: 'nodejs16.x',
         Timeout: 60,
       }),
     );

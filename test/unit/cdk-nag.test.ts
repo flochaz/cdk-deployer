@@ -12,7 +12,7 @@ import { App, Aspects } from 'aws-cdk-lib';
 import { Annotations, Match } from 'aws-cdk-lib/assertions';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AwsSolutionsChecks, NagSuppressions } from 'cdk-nag';
-import { CdkDeployer } from '../src/cdk-deployer';
+import { CdkDeployer } from '../../src/cdk-deployer';
 
 const mockApp = new App();
 
@@ -32,6 +32,18 @@ const stack = new CdkDeployer(mockApp, {
 });
 
 Aspects.of(stack).add(new AwsSolutionsChecks());
+
+NagSuppressions.addResourceSuppressionsByPath(
+  stack,
+  'CDKDeployer/StartBuildFunction/Resource',
+  [{ id: 'AwsSolutions-L1', reason: 'Latest version of NodeJS runtime (18) dropped aws-sdk dependency, fallbacking to NodeJS 16' }],
+);
+
+NagSuppressions.addResourceSuppressionsByPath(
+  stack,
+  'CDKDeployer/ReportBuildFunction/Resource',
+  [{ id: 'AwsSolutions-L1', reason: 'Latest version of NodeJS runtime (18) dropped aws-sdk dependency, fallbacking to NodeJS 16' }],
+);
 
 NagSuppressions.addResourceSuppressionsByPath(
   stack,

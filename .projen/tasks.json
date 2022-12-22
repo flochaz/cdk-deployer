@@ -203,11 +203,23 @@
       "description": "Run tests",
       "steps": [
         {
-          "exec": "jest --passWithNoTests --updateSnapshot",
-          "receiveArgs": true
-        },
+          "exec": "jest --group=unit"
+        }
+      ]
+    },
+    "test:integ": {
+      "name": "test:integ",
+      "steps": [
         {
-          "spawn": "eslint"
+          "exec": "jest --group=integ"
+        }
+      ]
+    },
+    "test:unit": {
+      "name": "test:unit",
+      "steps": [
+        {
+          "exec": "jest --group=unit"
         }
       ]
     },

@@ -301,7 +301,7 @@ export class CdkDeployer extends cdk.Stack {
     });
 
     const startBuildFunction = new Function(this, 'StartBuildFunction', {
-      runtime: Runtime.NODEJS_18_X,
+      runtime: Runtime.NODEJS_16_X,
       code: Code.fromInline(startBuild(props.deployBuildSpec, props.destroyBuildSpec)),
       handler: 'index.handler',
       timeout: Duration.seconds(60),
@@ -324,7 +324,7 @@ export class CdkDeployer extends cdk.Stack {
     });
 
     const reportBuildFunction = new Function(this, 'ReportBuildFunction', {
-      runtime: Runtime.NODEJS_18_X,
+      runtime: Runtime.NODEJS_16_X,
       code: Code.fromInline(reportBuild),
       handler: 'index.handler',
       timeout: Duration.seconds(60),

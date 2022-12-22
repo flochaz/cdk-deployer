@@ -1,6 +1,14 @@
 {
   "dependencies": [
     {
+      "name": "@aws-cdk/cloudformation-diff",
+      "type": "build"
+    },
+    {
+      "name": "@aws-cdk/cx-api",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "version": "^27",
       "type": "build"
@@ -21,8 +29,16 @@
       "type": "build"
     },
     {
+      "name": "aws-cdk",
+      "type": "build"
+    },
+    {
       "name": "aws-cdk-lib",
       "version": "2.55.1",
+      "type": "build"
+    },
+    {
+      "name": "cdk-assets",
       "type": "build"
     },
     {
@@ -57,6 +73,10 @@
       "type": "build"
     },
     {
+      "name": "jest-runner-groups",
+      "type": "build"
+    },
+    {
       "name": "jest",
       "version": "^27",
       "type": "build"
@@ -88,6 +108,14 @@
     },
     {
       "name": "projen",
+      "type": "build"
+    },
+    {
+      "name": "promptly",
+      "type": "build"
+    },
+    {
+      "name": "proxy-agent",
       "type": "build"
     },
     {
