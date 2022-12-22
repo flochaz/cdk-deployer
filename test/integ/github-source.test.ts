@@ -8,7 +8,7 @@
  */
 
 import { App } from 'aws-cdk-lib';
-import { CdkDeployer } from '../../src/cdk-deployer';
+import { CdkDeployer } from '../../src/construct/cdk-deployer';
 import { deployStack, destroyStack } from './utils';
 
 jest.setTimeout(2000000);

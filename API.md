@@ -4,7 +4,7 @@
 
 ### CdkDeployer <a name="CdkDeployer" id="cdk-deployer.CdkDeployer"></a>
 
-A custom CDK Stack that can be synthetized as a CloudFormation Stack to deploy a CDK application hosted on GitHub.
+A custom CDK Stack that can be synthetized as a self contained CloudFormation template to deploy a CDK application hosted on GitHub.
 
 This stack is self contained and can be one-click deployed to any AWS account.
 It can be used for workshop or blog AWS CDK examples easy deployment.

@@ -4,6 +4,9 @@
     "type": "git",
     "url": "https://github.com/chazalf/cdk-deployer.git"
   },
+  "bin": {
+    "cdk-deployer": "lib/cli.js"
+  },
   "scripts": {
     "build": "npx projen build",
     "bump": "npx projen bump",
@@ -38,6 +41,8 @@
   "devDependencies": {
     "@aws-cdk/cloudformation-diff": "^2.56.0",
     "@aws-cdk/cx-api": "^2.56.0",
+    "@types/archiver": "^5.3.1",
+    "@types/inquirer": "^9.0.3",
     "@types/jest": "^27",
     "@types/node": "^14",
     "@typescript-eslint/eslint-plugin": "^5",
@@ -71,6 +76,22 @@
     "aws-cdk-lib": "^2.55.1",
     "constructs": "^10.0.5"
   },
+  "dependencies": {
+    "archiver": "^5.3.1",
+    "aws-sdk": "^2.1280.0",
+    "chalk": "4",
+    "commander": "*",
+    "inquirer": "8",
+    "yaml": "^2.2.0"
+  },
+  "bundledDependencies": [
+    "archiver",
+    "aws-sdk",
+    "chalk",
+    "commander",
+    "inquirer",
+    "yaml"
+  ],
   "keywords": [
     "cdk"
   ],
