@@ -9,6 +9,15 @@
       "type": "build"
     },
     {
+      "name": "@types/archiver",
+      "type": "build"
+    },
+    {
+      "name": "@types/inquirer",
+      "version": "8",
+      "type": "build"
+    },
+    {
       "name": "@types/jest",
       "version": "^27",
       "type": "build"
@@ -131,6 +140,32 @@
     {
       "name": "typescript",
       "type": "build"
+    },
+    {
+      "name": "archiver",
+      "type": "bundled"
+    },
+    {
+      "name": "aws-sdk",
+      "type": "bundled"
+    },
+    {
+      "name": "chalk",
+      "version": "4",
+      "type": "bundled"
+    },
+    {
+      "name": "commander",
+      "type": "bundled"
+    },
+    {
+      "name": "inquirer",
+      "version": "8",
+      "type": "bundled"
+    },
+    {
+      "name": "yaml",
+      "type": "bundled"
     },
     {
       "name": "@types/babel__traverse",

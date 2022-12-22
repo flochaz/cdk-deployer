@@ -11,7 +11,7 @@ import { App } from 'aws-cdk-lib';
 
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import { BuildSpec } from 'aws-cdk-lib/aws-codebuild';
-import { CdkDeployer } from '../../src/cdk-deployer';
+import { CdkDeployer } from '../../src/construct/cdk-deployer';
 
 
 describe ('CdkDeployer test default', () => {

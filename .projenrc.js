@@ -6,8 +6,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   defaultReleaseBranch: 'main',
   name: 'cdk-deployer',
   repositoryUrl: 'https://github.com/chazalf/cdk-deployer.git',
-
-  // deps: [],                /* Runtime dependencies of this module. */
+  bundledDeps: ['commander', 'inquirer@8', 'archiver', 'chalk@4', 'aws-sdk', 'yaml'],
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   devDeps: [
     'cdk-nag',
@@ -18,6 +17,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
     '@aws-cdk/cloudformation-diff',
     'promptly',
     'proxy-agent',
+    '@types/archiver',
+    '@types/inquirer@8',
   ],
   // packageName: undefined,  /* The "name" in package.json. */
 
@@ -26,7 +27,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
       runner: 'groups',
     },
   },
+  bin: { 'cdk-deployer': 'lib/cli.js' },
 });
+
+project.gitignore.include('!/lib/');
 
 project.testTask.reset('jest --group=unit');
 
