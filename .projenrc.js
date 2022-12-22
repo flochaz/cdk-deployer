@@ -4,10 +4,10 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorAddress: 'chazalf@amazon.com',
   cdkVersion: '2.55.1',
   defaultReleaseBranch: 'main',
-  name: 'cdk-deployer',
+  name: 'cdk-standalone-deployer',
   releaseToNpm: true,
-  repositoryUrl: 'https://github.com/chazalf/cdk-deployer.git',
-  bundledDeps: ['commander', 'inquirer@8', 'archiver', 'chalk@4', 'aws-sdk', 'yaml'],
+  repositoryUrl: 'https://github.com/chazalf/cdk-standalone-deployer.git',
+  bundledDeps: ['commander', 'inquirer@8', 'archiver', 'chalk@4', 'aws-sdk', 'yaml@1'],
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   devDeps: [
     'cdk-nag',
@@ -19,7 +19,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'promptly',
     'proxy-agent',
     '@types/archiver',
-    '@types/inquirer@8',
+    '@types/inquirer@8'
   ],
   // packageName: undefined,  /* The "name" in package.json. */
 
@@ -28,7 +28,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
       runner: 'groups',
     },
   },
-  bin: { 'cdk-deployer': 'lib/cli.js' },
+  bin: { 'cdk-standalone-deployer': 'lib/cli.js' },
 });
 
 project.gitignore.include('!/lib/cli/');

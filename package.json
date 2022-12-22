@@ -1,11 +1,11 @@
 {
-  "name": "cdk-deployer",
+  "name": "cdk-standalone-deployer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chazalf/cdk-deployer.git"
+    "url": "https://github.com/chazalf/cdk-standalone-deployer.git"
   },
   "bin": {
-    "cdk-deployer": "lib/cli.js"
+    "cdk-standalone-deployer": "lib/cli.js"
   },
   "scripts": {
     "build": "npx projen build",
@@ -82,7 +82,7 @@
     "chalk": "4",
     "commander": "*",
     "inquirer": "8",
-    "yaml": "^2.2.0"
+    "yaml": "1"
   },
   "bundledDependencies": [
     "archiver",

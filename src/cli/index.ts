@@ -4,7 +4,7 @@ import * as chalk from 'chalk';
 import { Command } from 'commander';
 import { checkGenericAWSCredentials } from './checkCredentials';
 import { createZip } from './createZip';
-import { generateCDKDeployerCfnTemplate } from './generateCDKDeployerCfnTemplate';
+import { generateCDKStandaloneDeployerCfnTemplate } from './generateCDKDeployerCfnTemplate';
 import { getProjectFiles } from './getProjectFiles';
 import { uploadCDKAppZip } from './uploadCDKAppZip';
 
@@ -72,7 +72,7 @@ async function run() {
     }
 
     console.log(chalk.white('Generating the deployer stack ...'));
-    const link = await generateCDKDeployerCfnTemplate(options);
+    const link = await generateCDKStandaloneDeployerCfnTemplate(options);
     console.info(
       chalk.green.bold(
         `You can now add the following markdown to your README.md : https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=${link})`,

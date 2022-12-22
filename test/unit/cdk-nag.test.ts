@@ -2,9 +2,9 @@
 // SPDX-License-Identifier: MIT-0
 
 /**
-* Tests CdkDeployer
+* Tests CdkStandaloneDeployer
 *
-* @group unit/best-practice/cdk-deployer
+* @group unit/best-practice/cdk-standalone-deployer
 */
 
 
@@ -12,11 +12,11 @@ import { App, Aspects } from 'aws-cdk-lib';
 import { Annotations, Match } from 'aws-cdk-lib/assertions';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { AwsSolutionsChecks, NagSuppressions } from 'cdk-nag';
-import { CdkDeployer } from '../../src/construct/cdk-deployer';
+import { CdkStandaloneDeployer } from '../../src/construct/cdk-standalone-deployer';
 
 const mockApp = new App();
 
-const stack = new CdkDeployer(mockApp, {
+const stack = new CdkStandaloneDeployer(mockApp, {
   githubRepository: 'aws-samples/aws-analytics-reference-architecture',
   cdkAppLocation: 'refarch/aws-native',
   cdkParameters: {
@@ -35,37 +35,37 @@ Aspects.of(stack).add(new AwsSolutionsChecks());
 
 NagSuppressions.addResourceSuppressionsByPath(
   stack,
-  'CDKDeployer/StartBuildFunction/Resource',
+  'CDKStandaloneDeployer/StartBuildFunction/Resource',
   [{ id: 'AwsSolutions-L1', reason: 'Latest version of NodeJS runtime (18) dropped aws-sdk dependency, fallbacking to NodeJS 16' }],
 );
 
 NagSuppressions.addResourceSuppressionsByPath(
   stack,
-  'CDKDeployer/ReportBuildFunction/Resource',
+  'CDKStandaloneDeployer/ReportBuildFunction/Resource',
   [{ id: 'AwsSolutions-L1', reason: 'Latest version of NodeJS runtime (18) dropped aws-sdk dependency, fallbacking to NodeJS 16' }],
 );
 
 NagSuppressions.addResourceSuppressionsByPath(
   stack,
-  'CDKDeployer/CdkBuildPolicy/Resource',
+  'CDKStandaloneDeployer/CdkBuildPolicy/Resource',
   [{ id: 'AwsSolutions-IAM5', reason: 'Wildcard required because the CDKToolkit ID is not know and random' }],
 );
 
 NagSuppressions.addResourceSuppressionsByPath(
   stack,
-  'CDKDeployer/CodeBuildRole/DefaultPolicy/Resource',
+  'CDKStandaloneDeployer/CodeBuildRole/DefaultPolicy/Resource',
   [{ id: 'AwsSolutions-IAM5', reason: 'DefaultPolicy provided by CodeBuild Project L2 CDK construct' }],
 );
 
 NagSuppressions.addResourceSuppressionsByPath(
   stack,
-  'CDKDeployer/ReportBuildRole/Resource',
+  'CDKStandaloneDeployer/ReportBuildRole/Resource',
   [{ id: 'AwsSolutions-IAM4', reason: 'Provided by the Custom Resource framework of CDK' }],
 );
 
 NagSuppressions.addResourceSuppressionsByPath(
   stack,
-  'CDKDeployer/StartBuildRole/Resource',
+  'CDKStandaloneDeployer/StartBuildRole/Resource',
   [{ id: 'AwsSolutions-IAM4', reason: 'Provided by the Custom Resource framework of CDK' }],
 );
 

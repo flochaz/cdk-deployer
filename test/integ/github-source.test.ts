@@ -8,18 +8,18 @@
  */
 
 import { App } from 'aws-cdk-lib';
-import { CdkDeployer } from '../../src/construct/cdk-deployer';
+import { CdkStandaloneDeployer } from '../../src/construct/cdk-standalone-deployer';
 import { deployStack, destroyStack } from './utils';
 
 jest.setTimeout(2000000);
 
 const app: App = new App();
-const stackUnderTest = new CdkDeployer(app, {
+const stackUnderTest = new CdkStandaloneDeployer(app, {
   githubRepository: 'aws-samples/aws-cdk-examples',
   cdkAppLocation: 'python/lambda-layer',
 });
 
-describe('CdkDeployer from github source', () => {
+describe('CdkStandaloneDeployer from github source', () => {
   it('Deploys a CDK app from GitHub successfully', async () => {
 
     await deployStack(app, stackUnderTest);

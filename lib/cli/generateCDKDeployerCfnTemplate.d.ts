@@ -1,4 +1,4 @@
-export declare function generateCDKDeployerCfnTemplate(options: {
+export declare function generateCDKStandaloneDeployerCfnTemplate(options: {
     githubRepoName: string;
     s3BucketName?: string;
     s3KeyPrefix?: string;

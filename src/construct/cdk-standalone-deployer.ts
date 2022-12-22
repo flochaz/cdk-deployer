@@ -11,13 +11,13 @@ import { Alias } from 'aws-cdk-lib/aws-kms';
 import { Code, Function, Runtime } from 'aws-cdk-lib/aws-lambda';
 import { Bucket } from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
-import { startBuild, reportBuild } from './cdk-deployer-build';
+import { startBuild, reportBuild } from './cdk-standalone-deployer-build';
 import { Utils } from './utils';
 
 /**
- * The properties for the CdkDeployer construct.
+ * The properties for the CdkStandaloneDeployer construct.
  */
-export interface CdkDeployerProps extends cdk.StackProps {
+export interface CdkStandaloneDeployerProps extends cdk.StackProps {
   // TODO : add github token for private repo
 
   /**
@@ -91,7 +91,7 @@ export interface CdkDeployerProps extends cdk.StackProps {
  *
  *  * Usage example:
  * ```typescript
- * new CdkDeployer(AwsNativeRefArchApp, {
+ * new CdkStandaloneDeployer(AwsNativeRefArchApp, {
  *  githubRepository: 'aws-samples/aws-analytics-reference-architecture',
  *  cdkAppLocation: 'refarch/aws-native',
  *  cdkParameters: {
@@ -107,7 +107,7 @@ export interface CdkDeployerProps extends cdk.StackProps {
  * });
  * ```
  */
-export class CdkDeployer extends cdk.Stack {
+export class CdkStandaloneDeployer extends cdk.Stack {
   /**
    * The result of the deloyment
    */
@@ -117,10 +117,10 @@ export class CdkDeployer extends cdk.Stack {
    * Constructs a new instance of the TrackedConstruct
    * @param {Construct} scope the Scope of the CDK Construct
    * @param {string} id the ID of the CDK Construct
-   * @param {CdkDeployerProps} props the CdkDeployer [properties]{@link CdkDeployerProps}
+   * @param {CdkStandaloneDeployerProps} props the CdkStandaloneDeployer [properties]{@link CdkStandaloneDeployerProps}
    */
-  constructor(scope: Construct, props: CdkDeployerProps) {
-    super(scope, 'CDKDeployer', {
+  constructor(scope: Construct, props: CdkStandaloneDeployerProps) {
+    super(scope, 'CDKStandaloneDeployer', {
       // Change the Stack Synthetizer to remove the CFN parameters for the CDK version
       synthesizer: new DefaultStackSynthesizer({
         generateBootstrapVersionRule: false,

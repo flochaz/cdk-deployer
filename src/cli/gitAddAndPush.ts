@@ -34,7 +34,7 @@ export async function gitAddAndPush(repoPath: string, commitMessage: string, fil
   } catch (error) {
     console.error(error);
     throw new Error(
-      'Failed to push files to git repo. You can do it manually with `git add . && git commit -m "chore: Add CDKDeployer stack" && git push`',
+      'Failed to push files to git repo. You can do it manually with `git add . && git commit -m "chore: Add CDKStandaloneDeployer stack" && git push`',
     );
   }
 }

@@ -2,7 +2,7 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
-### CdkDeployer <a name="CdkDeployer" id="cdk-deployer.CdkDeployer"></a>
+### CdkStandaloneDeployer <a name="CdkStandaloneDeployer" id="cdk-standalone-deployer.CdkStandaloneDeployer"></a>
 
 A custom CDK Stack that can be synthetized as a self contained CloudFormation template to deploy a CDK application hosted on GitHub.
 
@@ -21,7 +21,7 @@ The StartBuild CFN custom resource is using the callback pattern to wait for the
 
   * Usage example:
 ```typescript
-new CdkDeployer(AwsNativeRefArchApp, {
+new CdkStandaloneDeployer(AwsNativeRefArchApp, {
   githubRepository: 'aws-samples/aws-analytics-reference-architecture',
   cdkAppLocation: 'refarch/aws-native',
   cdkParameters: {
@@ -37,22 +37,22 @@ new CdkDeployer(AwsNativeRefArchApp, {
 });
 ```
 
-#### Initializers <a name="Initializers" id="cdk-deployer.CdkDeployer.Initializer"></a>
+#### Initializers <a name="Initializers" id="cdk-standalone-deployer.CdkStandaloneDeployer.Initializer"></a>
 
 ```typescript
-import { CdkDeployer } from 'cdk-deployer'
+import { CdkStandaloneDeployer } from 'cdk-standalone-deployer'
 
-new CdkDeployer(scope: Construct, props: CdkDeployerProps)
+new CdkStandaloneDeployer(scope: Construct, props: CdkStandaloneDeployerProps)
 ```
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk-deployer.CdkDeployer.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | the Scope of the CDK Construct. |
-| <code><a href="#cdk-deployer.CdkDeployer.Initializer.parameter.props">props</a></code> | <code><a href="#cdk-deployer.CdkDeployerProps">CdkDeployerProps</a></code> | the CdkDeployer [properties]{@link CdkDeployerProps}. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | the Scope of the CDK Construct. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.Initializer.parameter.props">props</a></code> | <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps">CdkStandaloneDeployerProps</a></code> | the CdkStandaloneDeployer [properties]{@link CdkStandaloneDeployerProps}. |
 
 ---
 
-##### `scope`<sup>Required</sup> <a name="scope" id="cdk-deployer.CdkDeployer.Initializer.parameter.scope"></a>
+##### `scope`<sup>Required</sup> <a name="scope" id="cdk-standalone-deployer.CdkStandaloneDeployer.Initializer.parameter.scope"></a>
 
 - *Type:* constructs.Construct
 
@@ -60,11 +60,11 @@ the Scope of the CDK Construct.
 
 ---
 
-##### `props`<sup>Required</sup> <a name="props" id="cdk-deployer.CdkDeployer.Initializer.parameter.props"></a>
+##### `props`<sup>Required</sup> <a name="props" id="cdk-standalone-deployer.CdkStandaloneDeployer.Initializer.parameter.props"></a>
 
-- *Type:* <a href="#cdk-deployer.CdkDeployerProps">CdkDeployerProps</a>
+- *Type:* <a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps">CdkStandaloneDeployerProps</a>
 
-the CdkDeployer [properties]{@link CdkDeployerProps}.
+the CdkStandaloneDeployer [properties]{@link CdkStandaloneDeployerProps}.
 
 ---
 
@@ -72,24 +72,24 @@ the CdkDeployer [properties]{@link CdkDeployerProps}.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#cdk-deployer.CdkDeployer.toString">toString</a></code> | Returns a string representation of this construct. |
-| <code><a href="#cdk-deployer.CdkDeployer.addDependency">addDependency</a></code> | Add a dependency between this stack and another stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.addMetadata">addMetadata</a></code> | Adds an arbitary key-value pair, with information you want to record about the stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.addTransform">addTransform</a></code> | Add a Transform to this stack. A Transform is a macro that AWS CloudFormation uses to process your template. |
-| <code><a href="#cdk-deployer.CdkDeployer.exportStringListValue">exportStringListValue</a></code> | Create a CloudFormation Export for a string list value. |
-| <code><a href="#cdk-deployer.CdkDeployer.exportValue">exportValue</a></code> | Create a CloudFormation Export for a string value. |
-| <code><a href="#cdk-deployer.CdkDeployer.formatArn">formatArn</a></code> | Creates an ARN from components. |
-| <code><a href="#cdk-deployer.CdkDeployer.getLogicalId">getLogicalId</a></code> | Allocates a stack-unique CloudFormation-compatible logical identity for a specific resource. |
-| <code><a href="#cdk-deployer.CdkDeployer.regionalFact">regionalFact</a></code> | Look up a fact value for the given fact for the region of this stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.renameLogicalId">renameLogicalId</a></code> | Rename a generated logical identities. |
-| <code><a href="#cdk-deployer.CdkDeployer.reportMissingContextKey">reportMissingContextKey</a></code> | Indicate that a context key was expected. |
-| <code><a href="#cdk-deployer.CdkDeployer.resolve">resolve</a></code> | Resolve a tokenized value in the context of the current stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.splitArn">splitArn</a></code> | Splits the provided ARN into its components. |
-| <code><a href="#cdk-deployer.CdkDeployer.toJsonString">toJsonString</a></code> | Convert an object, potentially containing tokens, to a JSON string. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.addDependency">addDependency</a></code> | Add a dependency between this stack and another stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.addMetadata">addMetadata</a></code> | Adds an arbitary key-value pair, with information you want to record about the stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.addTransform">addTransform</a></code> | Add a Transform to this stack. A Transform is a macro that AWS CloudFormation uses to process your template. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.exportStringListValue">exportStringListValue</a></code> | Create a CloudFormation Export for a string list value. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.exportValue">exportValue</a></code> | Create a CloudFormation Export for a string value. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.formatArn">formatArn</a></code> | Creates an ARN from components. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.getLogicalId">getLogicalId</a></code> | Allocates a stack-unique CloudFormation-compatible logical identity for a specific resource. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.regionalFact">regionalFact</a></code> | Look up a fact value for the given fact for the region of this stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.renameLogicalId">renameLogicalId</a></code> | Rename a generated logical identities. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.reportMissingContextKey">reportMissingContextKey</a></code> | Indicate that a context key was expected. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.resolve">resolve</a></code> | Resolve a tokenized value in the context of the current stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.splitArn">splitArn</a></code> | Splits the provided ARN into its components. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.toJsonString">toJsonString</a></code> | Convert an object, potentially containing tokens, to a JSON string. |
 
 ---
 
-##### `toString` <a name="toString" id="cdk-deployer.CdkDeployer.toString"></a>
+##### `toString` <a name="toString" id="cdk-standalone-deployer.CdkStandaloneDeployer.toString"></a>
 
 ```typescript
 public toString(): string
@@ -97,7 +97,7 @@ public toString(): string
 
 Returns a string representation of this construct.
 
-##### `addDependency` <a name="addDependency" id="cdk-deployer.CdkDeployer.addDependency"></a>
+##### `addDependency` <a name="addDependency" id="cdk-standalone-deployer.CdkStandaloneDeployer.addDependency"></a>
 
 ```typescript
 public addDependency(target: Stack, reason?: string): void
@@ -108,19 +108,19 @@ Add a dependency between this stack and another stack.
 This can be used to define dependencies between any two stacks within an
 app, and also supports nested stacks.
 
-###### `target`<sup>Required</sup> <a name="target" id="cdk-deployer.CdkDeployer.addDependency.parameter.target"></a>
+###### `target`<sup>Required</sup> <a name="target" id="cdk-standalone-deployer.CdkStandaloneDeployer.addDependency.parameter.target"></a>
 
 - *Type:* aws-cdk-lib.Stack
 
 ---
 
-###### `reason`<sup>Optional</sup> <a name="reason" id="cdk-deployer.CdkDeployer.addDependency.parameter.reason"></a>
+###### `reason`<sup>Optional</sup> <a name="reason" id="cdk-standalone-deployer.CdkStandaloneDeployer.addDependency.parameter.reason"></a>
 
 - *Type:* string
 
 ---
 
-##### `addMetadata` <a name="addMetadata" id="cdk-deployer.CdkDeployer.addMetadata"></a>
+##### `addMetadata` <a name="addMetadata" id="cdk-standalone-deployer.CdkStandaloneDeployer.addMetadata"></a>
 
 ```typescript
 public addMetadata(key: string, value: any): void
@@ -132,19 +132,19 @@ These get translated to the Metadata section of the generated template.
 
 > [https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/metadata-section-structure.html)
 
-###### `key`<sup>Required</sup> <a name="key" id="cdk-deployer.CdkDeployer.addMetadata.parameter.key"></a>
+###### `key`<sup>Required</sup> <a name="key" id="cdk-standalone-deployer.CdkStandaloneDeployer.addMetadata.parameter.key"></a>
 
 - *Type:* string
 
 ---
 
-###### `value`<sup>Required</sup> <a name="value" id="cdk-deployer.CdkDeployer.addMetadata.parameter.value"></a>
+###### `value`<sup>Required</sup> <a name="value" id="cdk-standalone-deployer.CdkStandaloneDeployer.addMetadata.parameter.value"></a>
 
 - *Type:* any
 
 ---
 
-##### `addTransform` <a name="addTransform" id="cdk-deployer.CdkDeployer.addTransform"></a>
+##### `addTransform` <a name="addTransform" id="cdk-standalone-deployer.CdkStandaloneDeployer.addTransform"></a>
 
 ```typescript
 public addTransform(transform: string): void
@@ -165,7 +165,7 @@ stack.addTransform('AWS::Serverless-2016-10-31')
 ```
 
 
-###### `transform`<sup>Required</sup> <a name="transform" id="cdk-deployer.CdkDeployer.addTransform.parameter.transform"></a>
+###### `transform`<sup>Required</sup> <a name="transform" id="cdk-standalone-deployer.CdkStandaloneDeployer.addTransform.parameter.transform"></a>
 
 - *Type:* string
 
@@ -173,7 +173,7 @@ The transform to add.
 
 ---
 
-##### `exportStringListValue` <a name="exportStringListValue" id="cdk-deployer.CdkDeployer.exportStringListValue"></a>
+##### `exportStringListValue` <a name="exportStringListValue" id="cdk-standalone-deployer.CdkStandaloneDeployer.exportStringListValue"></a>
 
 ```typescript
 public exportStringListValue(exportedValue: any, options?: ExportValueOptions): string[]
@@ -199,19 +199,19 @@ the resource and the manual export.
 
 # See `exportValue` for an example of this process.
 
-###### `exportedValue`<sup>Required</sup> <a name="exportedValue" id="cdk-deployer.CdkDeployer.exportStringListValue.parameter.exportedValue"></a>
+###### `exportedValue`<sup>Required</sup> <a name="exportedValue" id="cdk-standalone-deployer.CdkStandaloneDeployer.exportStringListValue.parameter.exportedValue"></a>
 
 - *Type:* any
 
 ---
 
-###### `options`<sup>Optional</sup> <a name="options" id="cdk-deployer.CdkDeployer.exportStringListValue.parameter.options"></a>
+###### `options`<sup>Optional</sup> <a name="options" id="cdk-standalone-deployer.CdkStandaloneDeployer.exportStringListValue.parameter.options"></a>
 
 - *Type:* aws-cdk-lib.ExportValueOptions
 
 ---
 
-##### `exportValue` <a name="exportValue" id="cdk-deployer.CdkDeployer.exportValue"></a>
+##### `exportValue` <a name="exportValue" id="cdk-standalone-deployer.CdkStandaloneDeployer.exportValue"></a>
 
 ```typescript
 public exportValue(exportedValue: any, options?: ExportValueOptions): string
@@ -262,19 +262,19 @@ Instead, the process takes two deployments:
 - Don't forget to remove the `exportValue()` call as well.
 - Deploy again (this time only the `producerStack` will be changed -- the bucket will be deleted).
 
-###### `exportedValue`<sup>Required</sup> <a name="exportedValue" id="cdk-deployer.CdkDeployer.exportValue.parameter.exportedValue"></a>
+###### `exportedValue`<sup>Required</sup> <a name="exportedValue" id="cdk-standalone-deployer.CdkStandaloneDeployer.exportValue.parameter.exportedValue"></a>
 
 - *Type:* any
 
 ---
 
-###### `options`<sup>Optional</sup> <a name="options" id="cdk-deployer.CdkDeployer.exportValue.parameter.options"></a>
+###### `options`<sup>Optional</sup> <a name="options" id="cdk-standalone-deployer.CdkStandaloneDeployer.exportValue.parameter.options"></a>
 
 - *Type:* aws-cdk-lib.ExportValueOptions
 
 ---
 
-##### `formatArn` <a name="formatArn" id="cdk-deployer.CdkDeployer.formatArn"></a>
+##### `formatArn` <a name="formatArn" id="cdk-standalone-deployer.CdkStandaloneDeployer.formatArn"></a>
 
 ```typescript
 public formatArn(components: ArnComponents): string
@@ -296,13 +296,13 @@ The required ARN pieces that are omitted will be taken from the stack that
 the 'scope' is attached to. If all ARN pieces are supplied, the supplied scope
 can be 'undefined'.
 
-###### `components`<sup>Required</sup> <a name="components" id="cdk-deployer.CdkDeployer.formatArn.parameter.components"></a>
+###### `components`<sup>Required</sup> <a name="components" id="cdk-standalone-deployer.CdkStandaloneDeployer.formatArn.parameter.components"></a>
 
 - *Type:* aws-cdk-lib.ArnComponents
 
 ---
 
-##### `getLogicalId` <a name="getLogicalId" id="cdk-deployer.CdkDeployer.getLogicalId"></a>
+##### `getLogicalId` <a name="getLogicalId" id="cdk-standalone-deployer.CdkStandaloneDeployer.getLogicalId"></a>
 
 ```typescript
 public getLogicalId(element: CfnElement): string
@@ -318,7 +318,7 @@ This method uses the protected method `allocateLogicalId` to render the
 logical ID for an element. To modify the naming scheme, extend the `Stack`
 class and override this method.
 
-###### `element`<sup>Required</sup> <a name="element" id="cdk-deployer.CdkDeployer.getLogicalId.parameter.element"></a>
+###### `element`<sup>Required</sup> <a name="element" id="cdk-standalone-deployer.CdkStandaloneDeployer.getLogicalId.parameter.element"></a>
 
 - *Type:* aws-cdk-lib.CfnElement
 
@@ -326,7 +326,7 @@ The CloudFormation element for which a logical identity is needed.
 
 ---
 
-##### `regionalFact` <a name="regionalFact" id="cdk-deployer.CdkDeployer.regionalFact"></a>
+##### `regionalFact` <a name="regionalFact" id="cdk-standalone-deployer.CdkStandaloneDeployer.regionalFact"></a>
 
 ```typescript
 public regionalFact(factName: string, defaultValue?: string): string
@@ -350,19 +350,19 @@ not have to worry about regional facts.
 If `defaultValue` is not given, it is an error if the fact is unknown for
 the given region.
 
-###### `factName`<sup>Required</sup> <a name="factName" id="cdk-deployer.CdkDeployer.regionalFact.parameter.factName"></a>
+###### `factName`<sup>Required</sup> <a name="factName" id="cdk-standalone-deployer.CdkStandaloneDeployer.regionalFact.parameter.factName"></a>
 
 - *Type:* string
 
 ---
 
-###### `defaultValue`<sup>Optional</sup> <a name="defaultValue" id="cdk-deployer.CdkDeployer.regionalFact.parameter.defaultValue"></a>
+###### `defaultValue`<sup>Optional</sup> <a name="defaultValue" id="cdk-standalone-deployer.CdkStandaloneDeployer.regionalFact.parameter.defaultValue"></a>
 
 - *Type:* string
 
 ---
 
-##### `renameLogicalId` <a name="renameLogicalId" id="cdk-deployer.CdkDeployer.renameLogicalId"></a>
+##### `renameLogicalId` <a name="renameLogicalId" id="cdk-standalone-deployer.CdkStandaloneDeployer.renameLogicalId"></a>
 
 ```typescript
 public renameLogicalId(oldId: string, newId: string): void
@@ -373,19 +373,19 @@ Rename a generated logical identities.
 To modify the naming scheme strategy, extend the `Stack` class and
 override the `allocateLogicalId` method.
 
-###### `oldId`<sup>Required</sup> <a name="oldId" id="cdk-deployer.CdkDeployer.renameLogicalId.parameter.oldId"></a>
+###### `oldId`<sup>Required</sup> <a name="oldId" id="cdk-standalone-deployer.CdkStandaloneDeployer.renameLogicalId.parameter.oldId"></a>
 
 - *Type:* string
 
 ---
 
-###### `newId`<sup>Required</sup> <a name="newId" id="cdk-deployer.CdkDeployer.renameLogicalId.parameter.newId"></a>
+###### `newId`<sup>Required</sup> <a name="newId" id="cdk-standalone-deployer.CdkStandaloneDeployer.renameLogicalId.parameter.newId"></a>
 
 - *Type:* string
 
 ---
 
-##### `reportMissingContextKey` <a name="reportMissingContextKey" id="cdk-deployer.CdkDeployer.reportMissingContextKey"></a>
+##### `reportMissingContextKey` <a name="reportMissingContextKey" id="cdk-standalone-deployer.CdkStandaloneDeployer.reportMissingContextKey"></a>
 
 ```typescript
 public reportMissingContextKey(report: MissingContext): void
@@ -396,7 +396,7 @@ Indicate that a context key was expected.
 Contains instructions which will be emitted into the cloud assembly on how
 the key should be supplied.
 
-###### `report`<sup>Required</sup> <a name="report" id="cdk-deployer.CdkDeployer.reportMissingContextKey.parameter.report"></a>
+###### `report`<sup>Required</sup> <a name="report" id="cdk-standalone-deployer.CdkStandaloneDeployer.reportMissingContextKey.parameter.report"></a>
 
 - *Type:* aws-cdk-lib.cloud_assembly_schema.MissingContext
 
@@ -404,7 +404,7 @@ The set of parameters needed to obtain the context.
 
 ---
 
-##### `resolve` <a name="resolve" id="cdk-deployer.CdkDeployer.resolve"></a>
+##### `resolve` <a name="resolve" id="cdk-standalone-deployer.CdkStandaloneDeployer.resolve"></a>
 
 ```typescript
 public resolve(obj: any): any
@@ -412,13 +412,13 @@ public resolve(obj: any): any
 
 Resolve a tokenized value in the context of the current stack.
 
-###### `obj`<sup>Required</sup> <a name="obj" id="cdk-deployer.CdkDeployer.resolve.parameter.obj"></a>
+###### `obj`<sup>Required</sup> <a name="obj" id="cdk-standalone-deployer.CdkStandaloneDeployer.resolve.parameter.obj"></a>
 
 - *Type:* any
 
 ---
 
-##### `splitArn` <a name="splitArn" id="cdk-deployer.CdkDeployer.splitArn"></a>
+##### `splitArn` <a name="splitArn" id="cdk-standalone-deployer.CdkStandaloneDeployer.splitArn"></a>
 
 ```typescript
 public splitArn(arn: string, arnFormat: ArnFormat): ArnComponents
@@ -431,7 +431,7 @@ and a Token representing a dynamic CloudFormation expression
 (in which case the returned components will also be dynamic CloudFormation expressions,
 encoded as Tokens).
 
-###### `arn`<sup>Required</sup> <a name="arn" id="cdk-deployer.CdkDeployer.splitArn.parameter.arn"></a>
+###### `arn`<sup>Required</sup> <a name="arn" id="cdk-standalone-deployer.CdkStandaloneDeployer.splitArn.parameter.arn"></a>
 
 - *Type:* string
 
@@ -439,7 +439,7 @@ the ARN to split into its components.
 
 ---
 
-###### `arnFormat`<sup>Required</sup> <a name="arnFormat" id="cdk-deployer.CdkDeployer.splitArn.parameter.arnFormat"></a>
+###### `arnFormat`<sup>Required</sup> <a name="arnFormat" id="cdk-standalone-deployer.CdkStandaloneDeployer.splitArn.parameter.arnFormat"></a>
 
 - *Type:* aws-cdk-lib.ArnFormat
 
@@ -447,7 +447,7 @@ the expected format of 'arn' - depends on what format the service 'arn' represen
 
 ---
 
-##### `toJsonString` <a name="toJsonString" id="cdk-deployer.CdkDeployer.toJsonString"></a>
+##### `toJsonString` <a name="toJsonString" id="cdk-standalone-deployer.CdkStandaloneDeployer.toJsonString"></a>
 
 ```typescript
 public toJsonString(obj: any, space?: number): string
@@ -455,13 +455,13 @@ public toJsonString(obj: any, space?: number): string
 
 Convert an object, potentially containing tokens, to a JSON string.
 
-###### `obj`<sup>Required</sup> <a name="obj" id="cdk-deployer.CdkDeployer.toJsonString.parameter.obj"></a>
+###### `obj`<sup>Required</sup> <a name="obj" id="cdk-standalone-deployer.CdkStandaloneDeployer.toJsonString.parameter.obj"></a>
 
 - *Type:* any
 
 ---
 
-###### `space`<sup>Optional</sup> <a name="space" id="cdk-deployer.CdkDeployer.toJsonString.parameter.space"></a>
+###### `space`<sup>Optional</sup> <a name="space" id="cdk-standalone-deployer.CdkStandaloneDeployer.toJsonString.parameter.space"></a>
 
 - *Type:* number
 
@@ -471,23 +471,23 @@ Convert an object, potentially containing tokens, to a JSON string.
 
 | **Name** | **Description** |
 | --- | --- |
-| <code><a href="#cdk-deployer.CdkDeployer.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
-| <code><a href="#cdk-deployer.CdkDeployer.isStack">isStack</a></code> | Return whether the given object is a Stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.of">of</a></code> | Looks up the first stack scope in which `construct` is defined. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.isStack">isStack</a></code> | Return whether the given object is a Stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.of">of</a></code> | Looks up the first stack scope in which `construct` is defined. |
 
 ---
 
-##### ~~`isConstruct`~~ <a name="isConstruct" id="cdk-deployer.CdkDeployer.isConstruct"></a>
+##### ~~`isConstruct`~~ <a name="isConstruct" id="cdk-standalone-deployer.CdkStandaloneDeployer.isConstruct"></a>
 
 ```typescript
-import { CdkDeployer } from 'cdk-deployer'
+import { CdkStandaloneDeployer } from 'cdk-standalone-deployer'
 
-CdkDeployer.isConstruct(x: any)
+CdkStandaloneDeployer.isConstruct(x: any)
 ```
 
 Checks if `x` is a construct.
 
-###### `x`<sup>Required</sup> <a name="x" id="cdk-deployer.CdkDeployer.isConstruct.parameter.x"></a>
+###### `x`<sup>Required</sup> <a name="x" id="cdk-standalone-deployer.CdkStandaloneDeployer.isConstruct.parameter.x"></a>
 
 - *Type:* any
 
@@ -495,37 +495,37 @@ Any object.
 
 ---
 
-##### `isStack` <a name="isStack" id="cdk-deployer.CdkDeployer.isStack"></a>
+##### `isStack` <a name="isStack" id="cdk-standalone-deployer.CdkStandaloneDeployer.isStack"></a>
 
 ```typescript
-import { CdkDeployer } from 'cdk-deployer'
+import { CdkStandaloneDeployer } from 'cdk-standalone-deployer'
 
-CdkDeployer.isStack(x: any)
+CdkStandaloneDeployer.isStack(x: any)
 ```
 
 Return whether the given object is a Stack.
 
 We do attribute detection since we can't reliably use 'instanceof'.
 
-###### `x`<sup>Required</sup> <a name="x" id="cdk-deployer.CdkDeployer.isStack.parameter.x"></a>
+###### `x`<sup>Required</sup> <a name="x" id="cdk-standalone-deployer.CdkStandaloneDeployer.isStack.parameter.x"></a>
 
 - *Type:* any
 
 ---
 
-##### `of` <a name="of" id="cdk-deployer.CdkDeployer.of"></a>
+##### `of` <a name="of" id="cdk-standalone-deployer.CdkStandaloneDeployer.of"></a>
 
 ```typescript
-import { CdkDeployer } from 'cdk-deployer'
+import { CdkStandaloneDeployer } from 'cdk-standalone-deployer'
 
-CdkDeployer.of(construct: IConstruct)
+CdkStandaloneDeployer.of(construct: IConstruct)
 ```
 
 Looks up the first stack scope in which `construct` is defined.
 
 Fails if there is no stack up the tree.
 
-###### `construct`<sup>Required</sup> <a name="construct" id="cdk-deployer.CdkDeployer.of.parameter.construct"></a>
+###### `construct`<sup>Required</sup> <a name="construct" id="cdk-standalone-deployer.CdkStandaloneDeployer.of.parameter.construct"></a>
 
 - *Type:* constructs.IConstruct
 
@@ -537,32 +537,32 @@ The construct to start the search from.
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk-deployer.CdkDeployer.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.account">account</a></code> | <code>string</code> | The AWS account into which this stack will be deployed. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.artifactId">artifactId</a></code> | <code>string</code> | The ID of the cloud assembly artifact for this stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.availabilityZones">availabilityZones</a></code> | <code>string[]</code> | Returns the list of AZs that are available in the AWS environment (account/region) associated with this stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.bundlingRequired">bundlingRequired</a></code> | <code>boolean</code> | Indicates whether the stack requires bundling or not. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.dependencies">dependencies</a></code> | <code>aws-cdk-lib.Stack[]</code> | Return the stacks this stack depends on. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.environment">environment</a></code> | <code>string</code> | The environment coordinates in which this stack is deployed. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.nested">nested</a></code> | <code>boolean</code> | Indicates if this is a nested stack, in which case `parentStack` will include a reference to it's parent. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.notificationArns">notificationArns</a></code> | <code>string[]</code> | Returns the list of notification Amazon Resource Names (ARNs) for the current stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.partition">partition</a></code> | <code>string</code> | The partition in which this stack is defined. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.region">region</a></code> | <code>string</code> | The AWS region into which this stack will be deployed (e.g. `us-west-2`). |
-| <code><a href="#cdk-deployer.CdkDeployer.property.stackId">stackId</a></code> | <code>string</code> | The ID of the stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.stackName">stackName</a></code> | <code>string</code> | The concrete CloudFormation physical stack name. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method for this stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.tags">tags</a></code> | <code>aws-cdk-lib.TagManager</code> | Tags to be applied to the stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.templateFile">templateFile</a></code> | <code>string</code> | The name of the CloudFormation template file emitted to the output directory during synthesis. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.templateOptions">templateOptions</a></code> | <code>aws-cdk-lib.ITemplateOptions</code> | Options for CloudFormation template (like version, transform, description). |
-| <code><a href="#cdk-deployer.CdkDeployer.property.urlSuffix">urlSuffix</a></code> | <code>string</code> | The Amazon domain suffix for the region in which this stack is defined. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.nestedStackParent">nestedStackParent</a></code> | <code>aws-cdk-lib.Stack</code> | If this is a nested stack, returns it's parent stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.nestedStackResource">nestedStackResource</a></code> | <code>aws-cdk-lib.CfnResource</code> | If this is a nested stack, this represents its `AWS::CloudFormation::Stack` resource. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether termination protection is enabled for this stack. |
-| <code><a href="#cdk-deployer.CdkDeployer.property.deployResult">deployResult</a></code> | <code>string</code> | The result of the deloyment. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.account">account</a></code> | <code>string</code> | The AWS account into which this stack will be deployed. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.artifactId">artifactId</a></code> | <code>string</code> | The ID of the cloud assembly artifact for this stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.availabilityZones">availabilityZones</a></code> | <code>string[]</code> | Returns the list of AZs that are available in the AWS environment (account/region) associated with this stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.bundlingRequired">bundlingRequired</a></code> | <code>boolean</code> | Indicates whether the stack requires bundling or not. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.dependencies">dependencies</a></code> | <code>aws-cdk-lib.Stack[]</code> | Return the stacks this stack depends on. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.environment">environment</a></code> | <code>string</code> | The environment coordinates in which this stack is deployed. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.nested">nested</a></code> | <code>boolean</code> | Indicates if this is a nested stack, in which case `parentStack` will include a reference to it's parent. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.notificationArns">notificationArns</a></code> | <code>string[]</code> | Returns the list of notification Amazon Resource Names (ARNs) for the current stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.partition">partition</a></code> | <code>string</code> | The partition in which this stack is defined. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.region">region</a></code> | <code>string</code> | The AWS region into which this stack will be deployed (e.g. `us-west-2`). |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.stackId">stackId</a></code> | <code>string</code> | The ID of the stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.stackName">stackName</a></code> | <code>string</code> | The concrete CloudFormation physical stack name. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method for this stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.tags">tags</a></code> | <code>aws-cdk-lib.TagManager</code> | Tags to be applied to the stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.templateFile">templateFile</a></code> | <code>string</code> | The name of the CloudFormation template file emitted to the output directory during synthesis. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.templateOptions">templateOptions</a></code> | <code>aws-cdk-lib.ITemplateOptions</code> | Options for CloudFormation template (like version, transform, description). |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.urlSuffix">urlSuffix</a></code> | <code>string</code> | The Amazon domain suffix for the region in which this stack is defined. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.nestedStackParent">nestedStackParent</a></code> | <code>aws-cdk-lib.Stack</code> | If this is a nested stack, returns it's parent stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.nestedStackResource">nestedStackResource</a></code> | <code>aws-cdk-lib.CfnResource</code> | If this is a nested stack, this represents its `AWS::CloudFormation::Stack` resource. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether termination protection is enabled for this stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployer.property.deployResult">deployResult</a></code> | <code>string</code> | The result of the deloyment. |
 
 ---
 
-##### `node`<sup>Required</sup> <a name="node" id="cdk-deployer.CdkDeployer.property.node"></a>
+##### `node`<sup>Required</sup> <a name="node" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.node"></a>
 
 ```typescript
 public readonly node: Node;
@@ -574,7 +574,7 @@ The tree node.
 
 ---
 
-##### `account`<sup>Required</sup> <a name="account" id="cdk-deployer.CdkDeployer.property.account"></a>
+##### `account`<sup>Required</sup> <a name="account" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.account"></a>
 
 ```typescript
 public readonly account: string;
@@ -603,7 +603,7 @@ implement some other region-agnostic behavior.
 
 ---
 
-##### `artifactId`<sup>Required</sup> <a name="artifactId" id="cdk-deployer.CdkDeployer.property.artifactId"></a>
+##### `artifactId`<sup>Required</sup> <a name="artifactId" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.artifactId"></a>
 
 ```typescript
 public readonly artifactId: string;
@@ -615,7 +615,7 @@ The ID of the cloud assembly artifact for this stack.
 
 ---
 
-##### `availabilityZones`<sup>Required</sup> <a name="availabilityZones" id="cdk-deployer.CdkDeployer.property.availabilityZones"></a>
+##### `availabilityZones`<sup>Required</sup> <a name="availabilityZones" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.availabilityZones"></a>
 
 ```typescript
 public readonly availabilityZones: string[];
@@ -638,7 +638,7 @@ To specify a different strategy for selecting availability zones override this m
 
 ---
 
-##### `bundlingRequired`<sup>Required</sup> <a name="bundlingRequired" id="cdk-deployer.CdkDeployer.property.bundlingRequired"></a>
+##### `bundlingRequired`<sup>Required</sup> <a name="bundlingRequired" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.bundlingRequired"></a>
 
 ```typescript
 public readonly bundlingRequired: boolean;
@@ -650,7 +650,7 @@ Indicates whether the stack requires bundling or not.
 
 ---
 
-##### `dependencies`<sup>Required</sup> <a name="dependencies" id="cdk-deployer.CdkDeployer.property.dependencies"></a>
+##### `dependencies`<sup>Required</sup> <a name="dependencies" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.dependencies"></a>
 
 ```typescript
 public readonly dependencies: Stack[];
@@ -662,7 +662,7 @@ Return the stacks this stack depends on.
 
 ---
 
-##### `environment`<sup>Required</sup> <a name="environment" id="cdk-deployer.CdkDeployer.property.environment"></a>
+##### `environment`<sup>Required</sup> <a name="environment" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.environment"></a>
 
 ```typescript
 public readonly environment: string;
@@ -686,7 +686,7 @@ region/account-agnostic.
 
 ---
 
-##### `nested`<sup>Required</sup> <a name="nested" id="cdk-deployer.CdkDeployer.property.nested"></a>
+##### `nested`<sup>Required</sup> <a name="nested" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.nested"></a>
 
 ```typescript
 public readonly nested: boolean;
@@ -698,7 +698,7 @@ Indicates if this is a nested stack, in which case `parentStack` will include a 
 
 ---
 
-##### `notificationArns`<sup>Required</sup> <a name="notificationArns" id="cdk-deployer.CdkDeployer.property.notificationArns"></a>
+##### `notificationArns`<sup>Required</sup> <a name="notificationArns" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.notificationArns"></a>
 
 ```typescript
 public readonly notificationArns: string[];
@@ -710,7 +710,7 @@ Returns the list of notification Amazon Resource Names (ARNs) for the current st
 
 ---
 
-##### `partition`<sup>Required</sup> <a name="partition" id="cdk-deployer.CdkDeployer.property.partition"></a>
+##### `partition`<sup>Required</sup> <a name="partition" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.partition"></a>
 
 ```typescript
 public readonly partition: string;
@@ -722,7 +722,7 @@ The partition in which this stack is defined.
 
 ---
 
-##### `region`<sup>Required</sup> <a name="region" id="cdk-deployer.CdkDeployer.property.region"></a>
+##### `region`<sup>Required</sup> <a name="region" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.region"></a>
 
 ```typescript
 public readonly region: string;
@@ -751,7 +751,7 @@ implement some other region-agnostic behavior.
 
 ---
 
-##### `stackId`<sup>Required</sup> <a name="stackId" id="cdk-deployer.CdkDeployer.property.stackId"></a>
+##### `stackId`<sup>Required</sup> <a name="stackId" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.stackId"></a>
 
 ```typescript
 public readonly stackId: string;
@@ -771,7 +771,7 @@ The ID of the stack.
 ```
 
 
-##### `stackName`<sup>Required</sup> <a name="stackName" id="cdk-deployer.CdkDeployer.property.stackName"></a>
+##### `stackName`<sup>Required</sup> <a name="stackName" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.stackName"></a>
 
 ```typescript
 public readonly stackName: string;
@@ -792,7 +792,7 @@ you can use `Aws.STACK_NAME` directly.
 
 ---
 
-##### `synthesizer`<sup>Required</sup> <a name="synthesizer" id="cdk-deployer.CdkDeployer.property.synthesizer"></a>
+##### `synthesizer`<sup>Required</sup> <a name="synthesizer" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.synthesizer"></a>
 
 ```typescript
 public readonly synthesizer: IStackSynthesizer;
@@ -804,7 +804,7 @@ Synthesis method for this stack.
 
 ---
 
-##### `tags`<sup>Required</sup> <a name="tags" id="cdk-deployer.CdkDeployer.property.tags"></a>
+##### `tags`<sup>Required</sup> <a name="tags" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.tags"></a>
 
 ```typescript
 public readonly tags: TagManager;
@@ -816,7 +816,7 @@ Tags to be applied to the stack.
 
 ---
 
-##### `templateFile`<sup>Required</sup> <a name="templateFile" id="cdk-deployer.CdkDeployer.property.templateFile"></a>
+##### `templateFile`<sup>Required</sup> <a name="templateFile" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.templateFile"></a>
 
 ```typescript
 public readonly templateFile: string;
@@ -830,7 +830,7 @@ Example value: `MyStack.template.json`
 
 ---
 
-##### `templateOptions`<sup>Required</sup> <a name="templateOptions" id="cdk-deployer.CdkDeployer.property.templateOptions"></a>
+##### `templateOptions`<sup>Required</sup> <a name="templateOptions" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.templateOptions"></a>
 
 ```typescript
 public readonly templateOptions: ITemplateOptions;
@@ -842,7 +842,7 @@ Options for CloudFormation template (like version, transform, description).
 
 ---
 
-##### `urlSuffix`<sup>Required</sup> <a name="urlSuffix" id="cdk-deployer.CdkDeployer.property.urlSuffix"></a>
+##### `urlSuffix`<sup>Required</sup> <a name="urlSuffix" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.urlSuffix"></a>
 
 ```typescript
 public readonly urlSuffix: string;
@@ -854,7 +854,7 @@ The Amazon domain suffix for the region in which this stack is defined.
 
 ---
 
-##### `nestedStackParent`<sup>Optional</sup> <a name="nestedStackParent" id="cdk-deployer.CdkDeployer.property.nestedStackParent"></a>
+##### `nestedStackParent`<sup>Optional</sup> <a name="nestedStackParent" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.nestedStackParent"></a>
 
 ```typescript
 public readonly nestedStackParent: Stack;
@@ -866,7 +866,7 @@ If this is a nested stack, returns it's parent stack.
 
 ---
 
-##### `nestedStackResource`<sup>Optional</sup> <a name="nestedStackResource" id="cdk-deployer.CdkDeployer.property.nestedStackResource"></a>
+##### `nestedStackResource`<sup>Optional</sup> <a name="nestedStackResource" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.nestedStackResource"></a>
 
 ```typescript
 public readonly nestedStackResource: CfnResource;
@@ -880,7 +880,7 @@ If this is a nested stack, this represents its `AWS::CloudFormation::Stack` reso
 
 ---
 
-##### `terminationProtection`<sup>Optional</sup> <a name="terminationProtection" id="cdk-deployer.CdkDeployer.property.terminationProtection"></a>
+##### `terminationProtection`<sup>Optional</sup> <a name="terminationProtection" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.terminationProtection"></a>
 
 ```typescript
 public readonly terminationProtection: boolean;
@@ -892,7 +892,7 @@ Whether termination protection is enabled for this stack.
 
 ---
 
-##### `deployResult`<sup>Required</sup> <a name="deployResult" id="cdk-deployer.CdkDeployer.property.deployResult"></a>
+##### `deployResult`<sup>Required</sup> <a name="deployResult" id="cdk-standalone-deployer.CdkStandaloneDeployer.property.deployResult"></a>
 
 ```typescript
 public readonly deployResult: string;
@@ -907,45 +907,45 @@ The result of the deloyment.
 
 ## Structs <a name="Structs" id="Structs"></a>
 
-### CdkDeployerProps <a name="CdkDeployerProps" id="cdk-deployer.CdkDeployerProps"></a>
+### CdkStandaloneDeployerProps <a name="CdkStandaloneDeployerProps" id="cdk-standalone-deployer.CdkStandaloneDeployerProps"></a>
 
-The properties for the CdkDeployer construct.
+The properties for the CdkStandaloneDeployer construct.
 
-#### Initializer <a name="Initializer" id="cdk-deployer.CdkDeployerProps.Initializer"></a>
+#### Initializer <a name="Initializer" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.Initializer"></a>
 
 ```typescript
-import { CdkDeployerProps } from 'cdk-deployer'
+import { CdkStandaloneDeployerProps } from 'cdk-standalone-deployer'
 
-const cdkDeployerProps: CdkDeployerProps = { ... }
+const cdkStandaloneDeployerProps: CdkStandaloneDeployerProps = { ... }
 ```
 
 #### Properties <a name="Properties" id="Properties"></a>
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.analyticsReporting">analyticsReporting</a></code> | <code>boolean</code> | Include runtime versioning information in this Stack. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.crossRegionReferences">crossRegionReferences</a></code> | <code>boolean</code> | Enable this flag to allow native cross region stack references. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.description">description</a></code> | <code>string</code> | A description of the stack. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.cdkAppLocation">cdkAppLocation</a></code> | <code>string</code> | The location of the CDK application in the Github repository. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.cdkAppSourceCodeBucketName">cdkAppSourceCodeBucketName</a></code> | <code>string</code> | The name of the S3 bucket where the CDK application source code zip is stored. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.cdkAppSourceCodeBucketPrefix">cdkAppSourceCodeBucketPrefix</a></code> | <code>string</code> | The prefix of the S3 bucket where the CDK application source code zip is stored. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.cdkAppSourceCodeZipName">cdkAppSourceCodeZipName</a></code> | <code>string</code> | The name of the zip file containing the CDK application source code. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.cdkParameters">cdkParameters</a></code> | <code>{[ key: string ]: aws-cdk-lib.CfnParameterProps}</code> | The CFN parameters to pass to the CDK application. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.cdkStack">cdkStack</a></code> | <code>string</code> | The CDK stack name to deploy. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.deployBuildSpec">deployBuildSpec</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildSpec</code> | Deploy CodeBuild buildspec file name at the root of the cdk app folder. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.destroyBuildSpec">destroyBuildSpec</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildSpec</code> | Destroy Codebuild buildspec file name at the root of the cdk app folder. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.gitBranch">gitBranch</a></code> | <code>string</code> | The branch to use on the Github repository. |
-| <code><a href="#cdk-deployer.CdkDeployerProps.property.githubRepository">githubRepository</a></code> | <code>string</code> | The github repository containing the CDK application. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.analyticsReporting">analyticsReporting</a></code> | <code>boolean</code> | Include runtime versioning information in this Stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.crossRegionReferences">crossRegionReferences</a></code> | <code>boolean</code> | Enable this flag to allow native cross region stack references. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.description">description</a></code> | <code>string</code> | A description of the stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.env">env</a></code> | <code>aws-cdk-lib.Environment</code> | The AWS environment (account/region) where this stack will be deployed. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.permissionsBoundary">permissionsBoundary</a></code> | <code>aws-cdk-lib.PermissionsBoundary</code> | Options for applying a permissions boundary to all IAM Roles and Users created within this Stage. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.stackName">stackName</a></code> | <code>string</code> | Name to deploy the stack with. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.synthesizer">synthesizer</a></code> | <code>aws-cdk-lib.IStackSynthesizer</code> | Synthesis method to use while deploying this stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.tags">tags</a></code> | <code>{[ key: string ]: string}</code> | Stack tags that will be applied to all the taggable resources and the stack itself. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.terminationProtection">terminationProtection</a></code> | <code>boolean</code> | Whether to enable termination protection for this stack. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkAppLocation">cdkAppLocation</a></code> | <code>string</code> | The location of the CDK application in the Github repository. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkAppSourceCodeBucketName">cdkAppSourceCodeBucketName</a></code> | <code>string</code> | The name of the S3 bucket where the CDK application source code zip is stored. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkAppSourceCodeBucketPrefix">cdkAppSourceCodeBucketPrefix</a></code> | <code>string</code> | The prefix of the S3 bucket where the CDK application source code zip is stored. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkAppSourceCodeZipName">cdkAppSourceCodeZipName</a></code> | <code>string</code> | The name of the zip file containing the CDK application source code. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkParameters">cdkParameters</a></code> | <code>{[ key: string ]: aws-cdk-lib.CfnParameterProps}</code> | The CFN parameters to pass to the CDK application. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkStack">cdkStack</a></code> | <code>string</code> | The CDK stack name to deploy. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.deployBuildSpec">deployBuildSpec</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildSpec</code> | Deploy CodeBuild buildspec file name at the root of the cdk app folder. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.destroyBuildSpec">destroyBuildSpec</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildSpec</code> | Destroy Codebuild buildspec file name at the root of the cdk app folder. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.gitBranch">gitBranch</a></code> | <code>string</code> | The branch to use on the Github repository. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.githubRepository">githubRepository</a></code> | <code>string</code> | The github repository containing the CDK application. |
 
 ---
 
-##### `analyticsReporting`<sup>Optional</sup> <a name="analyticsReporting" id="cdk-deployer.CdkDeployerProps.property.analyticsReporting"></a>
+##### `analyticsReporting`<sup>Optional</sup> <a name="analyticsReporting" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.analyticsReporting"></a>
 
 ```typescript
 public readonly analyticsReporting: boolean;
@@ -958,7 +958,7 @@ Include runtime versioning information in this Stack.
 
 ---
 
-##### `crossRegionReferences`<sup>Optional</sup> <a name="crossRegionReferences" id="cdk-deployer.CdkDeployerProps.property.crossRegionReferences"></a>
+##### `crossRegionReferences`<sup>Optional</sup> <a name="crossRegionReferences" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.crossRegionReferences"></a>
 
 ```typescript
 public readonly crossRegionReferences: boolean;
@@ -976,7 +976,7 @@ This feature is currently experimental
 
 ---
 
-##### `description`<sup>Optional</sup> <a name="description" id="cdk-deployer.CdkDeployerProps.property.description"></a>
+##### `description`<sup>Optional</sup> <a name="description" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.description"></a>
 
 ```typescript
 public readonly description: string;
@@ -989,7 +989,7 @@ A description of the stack.
 
 ---
 
-##### `env`<sup>Optional</sup> <a name="env" id="cdk-deployer.CdkDeployerProps.property.env"></a>
+##### `env`<sup>Optional</sup> <a name="env" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.env"></a>
 
 ```typescript
 public readonly env: Environment;
@@ -1063,7 +1063,7 @@ new MyStack(app, 'Stack1');
 ```
 
 
-##### `permissionsBoundary`<sup>Optional</sup> <a name="permissionsBoundary" id="cdk-deployer.CdkDeployerProps.property.permissionsBoundary"></a>
+##### `permissionsBoundary`<sup>Optional</sup> <a name="permissionsBoundary" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.permissionsBoundary"></a>
 
 ```typescript
 public readonly permissionsBoundary: PermissionsBoundary;
@@ -1076,7 +1076,7 @@ Options for applying a permissions boundary to all IAM Roles and Users created w
 
 ---
 
-##### `stackName`<sup>Optional</sup> <a name="stackName" id="cdk-deployer.CdkDeployerProps.property.stackName"></a>
+##### `stackName`<sup>Optional</sup> <a name="stackName" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.stackName"></a>
 
 ```typescript
 public readonly stackName: string;
@@ -1089,7 +1089,7 @@ Name to deploy the stack with.
 
 ---
 
-##### `synthesizer`<sup>Optional</sup> <a name="synthesizer" id="cdk-deployer.CdkDeployerProps.property.synthesizer"></a>
+##### `synthesizer`<sup>Optional</sup> <a name="synthesizer" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.synthesizer"></a>
 
 ```typescript
 public readonly synthesizer: IStackSynthesizer;
@@ -1102,7 +1102,7 @@ Synthesis method to use while deploying this stack.
 
 ---
 
-##### `tags`<sup>Optional</sup> <a name="tags" id="cdk-deployer.CdkDeployerProps.property.tags"></a>
+##### `tags`<sup>Optional</sup> <a name="tags" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.tags"></a>
 
 ```typescript
 public readonly tags: {[ key: string ]: string};
@@ -1115,7 +1115,7 @@ Stack tags that will be applied to all the taggable resources and the stack itse
 
 ---
 
-##### `terminationProtection`<sup>Optional</sup> <a name="terminationProtection" id="cdk-deployer.CdkDeployerProps.property.terminationProtection"></a>
+##### `terminationProtection`<sup>Optional</sup> <a name="terminationProtection" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.terminationProtection"></a>
 
 ```typescript
 public readonly terminationProtection: boolean;
@@ -1128,7 +1128,7 @@ Whether to enable termination protection for this stack.
 
 ---
 
-##### `cdkAppLocation`<sup>Optional</sup> <a name="cdkAppLocation" id="cdk-deployer.CdkDeployerProps.property.cdkAppLocation"></a>
+##### `cdkAppLocation`<sup>Optional</sup> <a name="cdkAppLocation" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkAppLocation"></a>
 
 ```typescript
 public readonly cdkAppLocation: string;
@@ -1143,7 +1143,7 @@ It is used to `cd` into the folder before deploying the CDK application
 
 ---
 
-##### `cdkAppSourceCodeBucketName`<sup>Optional</sup> <a name="cdkAppSourceCodeBucketName" id="cdk-deployer.CdkDeployerProps.property.cdkAppSourceCodeBucketName"></a>
+##### `cdkAppSourceCodeBucketName`<sup>Optional</sup> <a name="cdkAppSourceCodeBucketName" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkAppSourceCodeBucketName"></a>
 
 ```typescript
 public readonly cdkAppSourceCodeBucketName: string;
@@ -1155,7 +1155,7 @@ The name of the S3 bucket where the CDK application source code zip is stored.
 
 ---
 
-##### `cdkAppSourceCodeBucketPrefix`<sup>Optional</sup> <a name="cdkAppSourceCodeBucketPrefix" id="cdk-deployer.CdkDeployerProps.property.cdkAppSourceCodeBucketPrefix"></a>
+##### `cdkAppSourceCodeBucketPrefix`<sup>Optional</sup> <a name="cdkAppSourceCodeBucketPrefix" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkAppSourceCodeBucketPrefix"></a>
 
 ```typescript
 public readonly cdkAppSourceCodeBucketPrefix: string;
@@ -1167,7 +1167,7 @@ The prefix of the S3 bucket where the CDK application source code zip is stored.
 
 ---
 
-##### `cdkAppSourceCodeZipName`<sup>Optional</sup> <a name="cdkAppSourceCodeZipName" id="cdk-deployer.CdkDeployerProps.property.cdkAppSourceCodeZipName"></a>
+##### `cdkAppSourceCodeZipName`<sup>Optional</sup> <a name="cdkAppSourceCodeZipName" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkAppSourceCodeZipName"></a>
 
 ```typescript
 public readonly cdkAppSourceCodeZipName: string;
@@ -1179,7 +1179,7 @@ The name of the zip file containing the CDK application source code.
 
 ---
 
-##### `cdkParameters`<sup>Optional</sup> <a name="cdkParameters" id="cdk-deployer.CdkDeployerProps.property.cdkParameters"></a>
+##### `cdkParameters`<sup>Optional</sup> <a name="cdkParameters" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkParameters"></a>
 
 ```typescript
 public readonly cdkParameters: {[ key: string ]: CfnParameterProps};
@@ -1192,7 +1192,7 @@ The CFN parameters to pass to the CDK application.
 
 ---
 
-##### `cdkStack`<sup>Optional</sup> <a name="cdkStack" id="cdk-deployer.CdkDeployerProps.property.cdkStack"></a>
+##### `cdkStack`<sup>Optional</sup> <a name="cdkStack" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkStack"></a>
 
 ```typescript
 public readonly cdkStack: string;
@@ -1205,7 +1205,7 @@ The CDK stack name to deploy.
 
 ---
 
-##### `deployBuildSpec`<sup>Optional</sup> <a name="deployBuildSpec" id="cdk-deployer.CdkDeployerProps.property.deployBuildSpec"></a>
+##### `deployBuildSpec`<sup>Optional</sup> <a name="deployBuildSpec" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.deployBuildSpec"></a>
 
 ```typescript
 public readonly deployBuildSpec: BuildSpec;
@@ -1217,7 +1217,7 @@ Deploy CodeBuild buildspec file name at the root of the cdk app folder.
 
 ---
 
-##### `destroyBuildSpec`<sup>Optional</sup> <a name="destroyBuildSpec" id="cdk-deployer.CdkDeployerProps.property.destroyBuildSpec"></a>
+##### `destroyBuildSpec`<sup>Optional</sup> <a name="destroyBuildSpec" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.destroyBuildSpec"></a>
 
 ```typescript
 public readonly destroyBuildSpec: BuildSpec;
@@ -1229,7 +1229,7 @@ Destroy Codebuild buildspec file name at the root of the cdk app folder.
 
 ---
 
-##### `gitBranch`<sup>Optional</sup> <a name="gitBranch" id="cdk-deployer.CdkDeployerProps.property.gitBranch"></a>
+##### `gitBranch`<sup>Optional</sup> <a name="gitBranch" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.gitBranch"></a>
 
 ```typescript
 public readonly gitBranch: string;
@@ -1242,7 +1242,7 @@ The branch to use on the Github repository.
 
 ---
 
-##### `githubRepository`<sup>Optional</sup> <a name="githubRepository" id="cdk-deployer.CdkDeployerProps.property.githubRepository"></a>
+##### `githubRepository`<sup>Optional</sup> <a name="githubRepository" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.githubRepository"></a>
 
 ```typescript
 public readonly githubRepository: string;

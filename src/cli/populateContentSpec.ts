@@ -15,7 +15,7 @@ export async function populateContentSpec(options: any) {
   let contentspec = YAML.parse(contentspecString);
 
   const cdkDeployerTemplateRef = {
-    templateLocation: 'static/CDKDeployer.template.json',
+    templateLocation: 'static/CDKStandaloneDeployer.template.json',
     label: 'CDK app deployer stack',
     parameters: [
       {
@@ -33,7 +33,7 @@ export async function populateContentSpec(options: any) {
     contentspec.infrastructure &&
     contentspec.infrastructure.cloudformationTemplates &&
     contentspec.infrastructure.cloudformationTemplates.find(
-      (t: any) => t.templateLocation === 'static/CDKDeployer.template.json',
+      (t: any) => t.templateLocation === 'static/CDKStandaloneDeployer.template.json',
     )
   ) {
     console.log('Template reference already found. skipping spec update.');

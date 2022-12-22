@@ -4,20 +4,20 @@
 /**
  * Tests CDK deployer
  *
- * @group unit/cdk-deployer
+ * @group unit/cdk-standalone-deployer
  */
 
 import { App } from 'aws-cdk-lib';
 
 import { Match, Template } from 'aws-cdk-lib/assertions';
 import { BuildSpec } from 'aws-cdk-lib/aws-codebuild';
-import { CdkDeployer } from '../../src/construct/cdk-deployer';
+import { CdkStandaloneDeployer } from '../../src/construct/cdk-standalone-deployer';
 
 
-describe ('CdkDeployer test default', () => {
+describe ('CdkStandaloneDeployer test default', () => {
 
   const app = new App();
-  const CdkDeployerStack = new CdkDeployer(app, {
+  const CdkStandaloneDeployerStack = new CdkStandaloneDeployer(app, {
     githubRepository: 'aws-samples/aws-analytics-reference-architecture',
     cdkAppLocation: 'refarch/aws-native',
     cdkParameters: {
@@ -35,9 +35,9 @@ describe ('CdkDeployer test default', () => {
     },
   });
 
-  const template = Template.fromStack(CdkDeployerStack);
+  const template = Template.fromStack(CdkStandaloneDeployerStack);
 
-  test('CdkDeployer creates the proper Cfn parameters', () => {
+  test('CdkStandaloneDeployer creates the proper Cfn parameters', () => {
 
     template.hasParameter('Foo', {
       Default: 'no-value',
@@ -50,7 +50,7 @@ describe ('CdkDeployer test default', () => {
     });
   });
 
-  test('CdkDeployer creates the proper IAM Policy for the codebuild project', () => {
+  test('CdkStandaloneDeployer creates the proper IAM Policy for the codebuild project', () => {
     template.hasResourceProperties('AWS::IAM::Policy',
       Match.objectLike({
         PolicyDocument: Match.objectLike({
@@ -152,7 +152,7 @@ describe ('CdkDeployer test default', () => {
     );
   });
 
-  test('CdkDeployer creates the proper codebuild project', () => {
+  test('CdkStandaloneDeployer creates the proper codebuild project', () => {
     template.hasResourceProperties('AWS::CodeBuild::Project',
       Match.objectLike({
         Artifacts: {
@@ -208,7 +208,7 @@ describe ('CdkDeployer test default', () => {
     );
   });
 
-  test('CdkDeployer creates the proper IAM Managed Policy for CodeBuild', () => {
+  test('CdkStandaloneDeployer creates the proper IAM Managed Policy for CodeBuild', () => {
     template.hasResourceProperties('AWS::IAM::ManagedPolicy',
       Match.objectLike({
         PolicyDocument: {
@@ -399,7 +399,7 @@ describe ('CdkDeployer test default', () => {
     );
   });
 
-  test('CdkDeployer creates the proper IAM role for the StartBuild role', () => {
+  test('CdkStandaloneDeployer creates the proper IAM role for the StartBuild role', () => {
     template.hasResourceProperties('AWS::IAM::Role',
       Match.objectLike({
         AssumeRolePolicyDocument: {
@@ -444,7 +444,7 @@ describe ('CdkDeployer test default', () => {
     );
   });
 
-  test('CdkDeployer creates the proper IAM role for the ReportBuild role', () => {
+  test('CdkStandaloneDeployer creates the proper IAM role for the ReportBuild role', () => {
     template.hasResourceProperties('AWS::IAM::Role',
       Match.objectLike({
         AssumeRolePolicyDocument: {
@@ -492,7 +492,7 @@ describe ('CdkDeployer test default', () => {
     );
   });
 
-  test('CdkDeployer creates the proper StartBuild function using default build spec', () => {
+  test('CdkStandaloneDeployer creates the proper StartBuild function using default build spec', () => {
     template.hasResourceProperties('AWS::Lambda::Function',
       Match.objectLike({
         Code: {
@@ -506,7 +506,7 @@ describe ('CdkDeployer test default', () => {
     );
   });
 
-  test('CdkDeployer creates the proper ReportBuild function', () => {
+  test('CdkStandaloneDeployer creates the proper ReportBuild function', () => {
     template.hasResourceProperties('AWS::Lambda::Function',
       Match.objectLike({
         Code: {
@@ -520,7 +520,7 @@ describe ('CdkDeployer test default', () => {
     );
   });
 
-  test('CdkDeployer creates the proper Custom Resource', () => {
+  test('CdkStandaloneDeployer creates the proper Custom Resource', () => {
     template.hasResourceProperties('AWS::CloudFormation::CustomResource',
       Match.objectLike({
         ProjectName: Match.anyValue(),
@@ -532,10 +532,10 @@ describe ('CdkDeployer test default', () => {
 });
 
 
-describe ('CdkDeployer test custom buildspec from object', () => {
+describe ('CdkStandaloneDeployer test custom buildspec from object', () => {
 
   const app = new App();
-  const CdkDeployerStack = new CdkDeployer(app, {
+  const CdkStandaloneDeployerStack = new CdkStandaloneDeployer(app, {
     githubRepository: 'aws-samples/aws-analytics-reference-architecture',
     cdkAppLocation: 'refarch/aws-native',
     deployBuildSpec: BuildSpec.fromObject({
@@ -571,9 +571,9 @@ describe ('CdkDeployer test custom buildspec from object', () => {
     },
   });
 
-  const template = Template.fromStack(CdkDeployerStack);
+  const template = Template.fromStack(CdkStandaloneDeployerStack);
 
-  test('CdkDeployer creates the proper StartBuild function using custom build spec', () => {
+  test('CdkStandaloneDeployer creates the proper StartBuild function using custom build spec', () => {
     template.hasResourceProperties('AWS::Lambda::Function',
       Match.objectLike({
         Code: {
@@ -588,10 +588,10 @@ describe ('CdkDeployer test custom buildspec from object', () => {
   });
 });
 
-describe ('CdkDeployer test custom buildspec from file', () => {
+describe ('CdkStandaloneDeployer test custom buildspec from file', () => {
 
   const app = new App();
-  const CdkDeployerStack = new CdkDeployer(app, {
+  const CdkStandaloneDeployerStack = new CdkStandaloneDeployer(app, {
     githubRepository: 'aws-samples/aws-analytics-reference-architecture',
     cdkAppLocation: 'refarch/aws-native',
     deployBuildSpec: BuildSpec.fromSourceFilename('custom-buildspec.yaml'),
@@ -607,9 +607,9 @@ describe ('CdkDeployer test custom buildspec from file', () => {
     },
   });
 
-  const template = Template.fromStack(CdkDeployerStack);
+  const template = Template.fromStack(CdkStandaloneDeployerStack);
 
-  test('CdkDeployer creates the proper StartBuild function using custom build spec', () => {
+  test('CdkStandaloneDeployer creates the proper StartBuild function using custom build spec', () => {
     template.hasResourceProperties('AWS::Lambda::Function',
       Match.objectLike({
         Code: {

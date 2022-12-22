@@ -1,1 +1,1 @@
-export { CdkDeployer, CdkDeployerProps } from './construct/cdk-deployer';
+export { CdkStandaloneDeployer, CdkStandaloneDeployerProps } from './construct/cdk-standalone-deployer';

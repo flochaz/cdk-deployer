@@ -2,9 +2,9 @@ import * as cdk from 'aws-cdk-lib';
 import { S3 } from 'aws-sdk';
 import * as chalk from 'chalk';
 import * as inquirer from 'inquirer';
-import { CdkDeployer } from '../construct/cdk-deployer';
+import { CdkStandaloneDeployer } from '../construct/cdk-standalone-deployer';
 
-export async function generateCDKDeployerCfnTemplate(options: {
+export async function generateCDKStandaloneDeployerCfnTemplate(options: {
   githubRepoName: string;
   s3BucketName?: string;
   s3KeyPrefix?: string;
@@ -21,7 +21,7 @@ export async function generateCDKDeployerCfnTemplate(options: {
       `Generating deployer for https://github.com/${options.githubRepoName}/tree/${options.githubRepoBranch}/${options.cdkProjectPath} CDK app ...`
     )
   );
-  const deployerStack = new CdkDeployer(deployer, {
+  const deployerStack = new CdkStandaloneDeployer(deployer, {
     githubRepository: options.githubRepoName,
     gitBranch: options.githubRepoBranch,
     cdkAppLocation: options.cdkProjectPath,
@@ -39,7 +39,7 @@ export async function generateCDKDeployerCfnTemplate(options: {
   let params: S3.Types.PutObjectRequest;
   if (!options.s3BucketName) {
     // generate random string of 7 letters
-    const bucketName = `cdk-deployer-${options.githubRepoName.split('/').join('-')}-${
+    const bucketName = `cdk-standalone-deployer-${options.githubRepoName.split('/').join('-')}-${
       options.githubRepoBranch ?? 'main'
     }-${Math.random().toString(36).substring(2, 7)}`;
     const s3CreateConfirmation = await inquirer.prompt([
@@ -67,7 +67,7 @@ export async function generateCDKDeployerCfnTemplate(options: {
         await s3Client.createBucket(createBucketParams).promise();
         params = {
           Bucket: bucketName,
-          Key: options.s3KeyPrefix ?? '' + 'cdk-deployer-cfn-template.json',
+          Key: options.s3KeyPrefix ?? '' + 'cdk-standalone-deployer-cfn-template.json',
           Body: template,
         };
       } catch (error) {
@@ -88,7 +88,7 @@ export async function generateCDKDeployerCfnTemplate(options: {
   } else {
     params = {
       Bucket: options.s3BucketName ?? 'ws-assets-us-east-1',
-      Key: options.s3KeyPrefix ?? '' + 'cdk-deployer-cfn-template.json',
+      Key: options.s3KeyPrefix ?? '' + 'cdk-standalone-deployer-cfn-template.json',
       Body: template,
     };
   }

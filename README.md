@@ -18,13 +18,13 @@ Which, if you click, will deploy the example contains in this repo `sample-cdk-a
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
 import { MyCdkAppStack } from '../lib/my_cdk_app-stack';
-import { CdkDeployer } from 'cdk-deployer';
+import { CdkStandaloneDeployer } from 'cdk-standalone-deployer';
 
 const app = new cdk.App();
 const stackName = 'MyCdkAppStack';
 new MyCdkAppStack(app, stackName, {});
 
-new CdkDeployer(app, {
+new CdkStandaloneDeployer(app, {
   deployBuildSpec: BuildSpec.fromSourceFilename('buildspec-deploy.yml'),
   destroyBuildSpec: BuildSpec.fromSourceFilename('buildspec-destroy.yml'),
   githubRepository: 'aws-samples/aws-cdk-examples',
@@ -33,7 +33,7 @@ new CdkDeployer(app, {
 );
 ```
 
-For more details about the CDKDeployer API check [API.md](./API.md)
+For more details about the CDKStandaloneDeployer API check [API.md](./API.md)
 
 ## The CLI
 
@@ -45,21 +45,21 @@ The CLI will take your CDK app repository name and public S3 bucket to publish t
 
 Taking any of the [aws-samples/aws-cdk-examples](https://github.com/aws-samples/aws-cdk-examples), to create a click to deploy link you just have to run the following command:
 ```bash
-npx cdk-deployer --github-repo-name aws-samples/aws-cdk-examples --cdk-project-path python/lambda-layer --public-read --github-repo-branch master
+npx cdk-standalone-deployer --github-repo-name aws-samples/aws-cdk-examples --cdk-project-path python/lambda-layer --public-read --github-repo-branch master
 
 Check access permissions ...
 Access granted !
 Generating the deployer stack ...
 CDK Deployer CloudFormation template generated. Uploading it to S3 ...
-Uploading CDK Deployer CloudFormation template to S3 bucket cdk-deployer-aws-samples-aws-cdk-examples-main-us-east-1/cdk-deployer-cfn-template.json ...
- you can now add the following markdown to your README.md : https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-deployer-aws-samples-aws-cdk-examples-main-us-east-1.s3.amazonaws.com/cdk-deployer-cfn-template.json)
+Uploading CDK Deployer CloudFormation template to S3 bucket cdk-standalone-deployer-aws-samples-aws-cdk-examples-main-us-east-1/cdk-standalone-deployer-cfn-template.json ...
+ you can now add the following markdown to your README.md : https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-standalone-deployer-aws-samples-aws-cdk-examples-main-us-east-1.s3.amazonaws.com/cdk-standalone-deployer-cfn-template.json)
 You are all done !
 ```
 
 ### Usage
 
 ```
-npx cdk-deployer --help
+npx cdk-standalone-deployer --help
 
 Usage: cli [options]
 
@@ -88,3 +88,4 @@ Options:
 - [ ] Add integ test for S3 source
 - [ ] Add integ test for custom buildspec
 - [ ] add CLI option for auto publish of s3 source
+- [ ] add CLI option for parameters
