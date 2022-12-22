@@ -11,7 +11,7 @@ import { App } from 'aws-cdk-lib';
 import { CdkDeployer } from '../../src/cdk-deployer';
 import { deployStack, destroyStack } from './utils';
 
-jest.setTimeout(200000);
+jest.setTimeout(2000000);
 
 const app: App = new App();
 const stackUnderTest = new CdkDeployer(app, {
@@ -23,7 +23,7 @@ describe('CdkDeployer from github source', () => {
   it('Deploys a CDK app from GitHub successfully', async () => {
 
     await deployStack(app, stackUnderTest);
-  }, 100000);
+  }, 1000000);
 });
 
 afterAll(async () => {

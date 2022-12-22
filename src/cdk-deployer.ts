@@ -75,9 +75,9 @@ export interface CdkDeployerProps extends cdk.StackProps {
 }
 
 /**
- * A custom CDK Stack that can be synthetized as a CloudFormation Stack to deploy a CDK application hosted on GitHub.
+ * A custom CDK Stack that can be synthetized as a self contained CloudFormation template to deploy a CDK application hosted on GitHub.
  * This stack is self contained and can be one-click deployed to any AWS account.
- * It can be used for AWS workshop or AWS blog examples deployment when CDK is not supported/desired.
+ * It can be used for workshop or blog AWS CDK examples easy deployment.
  * The stack supports passing the CDK application stack name to deploy (in case there are multiple stacks in the CDK app) and CDK parameters.
  *
  * It contains the necessary resources to synchronously deploy a CDK application from a GitHub repository:
@@ -91,7 +91,7 @@ export interface CdkDeployerProps extends cdk.StackProps {
  *
  *  * Usage example:
  * ```typescript
- * new CdkDeployer(AwsNativeRefArchApp, 'AwsNativeRefArchDeployer', {
+ * new CdkDeployer(AwsNativeRefArchApp, {
  *  githubRepository: 'aws-samples/aws-analytics-reference-architecture',
  *  cdkAppLocation: 'refarch/aws-native',
  *  cdkParameters: {
