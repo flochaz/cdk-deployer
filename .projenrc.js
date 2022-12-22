@@ -19,7 +19,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
     'promptly',
     'proxy-agent',
     '@types/archiver',
-    '@types/inquirer@8'
+    '@types/inquirer@8',
   ],
   // packageName: undefined,  /* The "name" in package.json. */
 
@@ -28,7 +28,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
       runner: 'groups',
     },
   },
-  bin: { 'cdk-standalone-deployer': 'lib/cli.js' },
+  bin: { 'cdk-standalone-deployer': 'lib/cli/index.js' },
 });
 
 project.gitignore.include('!/lib/cli/');

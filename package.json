@@ -5,7 +5,7 @@
     "url": "https://github.com/chazalf/cdk-standalone-deployer.git"
   },
   "bin": {
-    "cdk-standalone-deployer": "lib/cli.js"
+    "cdk-standalone-deployer": "lib/cli/index.js"
   },
   "scripts": {
     "build": "npx projen build",
