@@ -1,0 +1,22 @@
+{
+  "packageFiles": [
+    {
+      "filename": "/Users/chazalf/amazon/ARA/cdk-deployer/package.json",
+      "type": "json"
+    }
+  ],
+  "bumpFiles": [
+    {
+      "filename": "/Users/chazalf/amazon/ARA/cdk-deployer/package.json",
+      "type": "json"
+    }
+  ],
+  "commitAll": false,
+  "infile": "/Users/chazalf/amazon/ARA/cdk-deployer/dist/changelog.md",
+  "header": "",
+  "skip": {
+    "commit": true,
+    "tag": true,
+    "bump": false
+  }
+}

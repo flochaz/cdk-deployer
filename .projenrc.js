@@ -31,7 +31,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   bin: { 'cdk-deployer': 'lib/cli.js' },
 });
 
-project.gitignore.include('!/lib/');
+project.gitignore.include('!/lib/cli/');
+project.gitignore.exclude('/lib/construct/');
 
 project.testTask.reset('jest --group=unit');
 
