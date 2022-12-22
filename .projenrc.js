@@ -5,6 +5,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   cdkVersion: '2.55.1',
   defaultReleaseBranch: 'main',
   name: 'cdk-deployer',
+  releaseToNpm: true,
   repositoryUrl: 'https://github.com/chazalf/cdk-deployer.git',
   bundledDeps: ['commander', 'inquirer@8', 'archiver', 'chalk@4', 'aws-sdk', 'yaml'],
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
