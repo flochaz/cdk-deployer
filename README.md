@@ -7,7 +7,7 @@ It also come with a command line enabling to create a simple deploy link for you
 
 [![click-to-deploy](https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-depl-aws-samples-aws-cdk-examples-master-pz9.s3.amazonaws.com/cdk-standalone-deployer-cfn-template.json)
 
-If you follow this link, it will deploy the example contains in this repo `sample-cdk-app` folder (which consist of a simple SQS queue) into your AWS account.
+If you follow this link, it will deploy the example contains in the [aws-samples/aws-cdk-examples](https://github.com/aws-samples/aws-cdk-examples/tree/master/python/lambda-layer) repo `python/lambda-layer` folder (which consist of a simple Lambda layer CDK app) into your AWS account.
 
 ## Usage
 
