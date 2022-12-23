@@ -1353,10 +1353,10 @@ available-typed-arrays@^1.0.5:
   resolved "https://registry.yarnpkg.com/available-typed-arrays/-/available-typed-arrays-1.0.5.tgz#92f95616501069d07d10edb2fc37d3e1c65123b7"
   integrity sha512-DMD0KiN46eipeziST1LPP/STfDU0sufISXmjSgvVsoU2tqxctQeASejWcfNtxYKqETM1UxQ8sp2OrSBWpHY6sw==
 
-aws-cdk-lib@2.55.1:
-  version "2.55.1"
-  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.55.1.tgz#4044118ff7a38952abf7f10035bcec5dd1a6f8e9"
-  integrity sha512-v0MhL6RqazQ2HKj9TXJvXKQcQNIDYeRzcOJ2xB2Usz56xodArc2goLu2P51X5J84xOO4w2AgNaWMCBzd7MbyOQ==
+aws-cdk-lib@^2.56.0:
+  version "2.56.0"
+  resolved "https://registry.yarnpkg.com/aws-cdk-lib/-/aws-cdk-lib-2.56.0.tgz#cfd2182769c5d5b2fcbfc00dd5d1cb743395e9da"
+  integrity sha512-WFcqPzqiVsRCDGWq+rW2RRKsqg6ijCsDGwPWZmRyTkWurHEFk6BUbU4peRaUw5xeSP/qH9WcL17Tt7CF5Z1UVg==
   dependencies:
     "@aws-cdk/asset-awscli-v1" "^2.2.30"
     "@aws-cdk/asset-kubectl-v20" "^2.1.1"
@@ -1952,10 +1952,10 @@ console-control-strings@^1.1.0:
   resolved "https://registry.yarnpkg.com/console-control-strings/-/console-control-strings-1.1.0.tgz#3d7cf4464db6446ea644bf4b39507f9851008e8e"
   integrity sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==
 
-constructs@10.0.5:
-  version "10.0.5"
-  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.0.5.tgz#48c0402f1b98bbf5664efff74a8015e6e8a9f41e"
-  integrity sha512-IwOwekzrASFC3qt4ozCtV09rteAIAesuCGsW0p+uBfqHd2XcvA5CXqJjgf4eUqm6g8e/noXlVCMDWwC8GaLtrg==
+constructs@^10.1.197:
+  version "10.1.197"
+  resolved "https://registry.yarnpkg.com/constructs/-/constructs-10.1.197.tgz#12156f95f94556bd2e5e6509d7ce2a87b9647103"
+  integrity sha512-YAuSMYDXPQvNqmCrnVBGHXGL1+8WICDDJLH91BUIWfL6PpMEm+LXBXchgGETyREf96nIIGuXC/0lkUURsLSrHA==
 
 conventional-changelog-angular@^5.0.12:
   version "5.0.13"
