@@ -5,9 +5,9 @@ This construct will create a Cloud Formation template starting an AWS Code Build
 
 It also come with a command line enabling to create a simple deploy link for your CDK app such as: 
 
-[![click-to-deploy](https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-depl-aws-samples-aws-cdk-examples-master-pz9.s3.amazonaws.com/cdk-standalone-deployer-cfn-template.json)
+[![click-to-deploy](https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-depl-aws-samples-aws-cdk-examples-master-9xf.s3.amazonaws.com/cdk-standalone-deployer-cfn-template.json)
 
-If you follow this link, it will deploy the example contains in the [aws-samples/aws-cdk-examples](https://github.com/aws-samples/aws-cdk-examples/tree/master/python/lambda-layer) repo `python/lambda-layer` folder (which consist of a simple Lambda layer CDK app) into your AWS account.
+If you follow this link, it will deploy the example contains in the [aws-samples/aws-cdk-examples](https://github.com/aws-samples/aws-cdk-examples/tree/master/python/lambda-layer) repo `typescript/lambda-layer` folder (which consist of a simple Lambda layer CDK app) into your AWS account.
 
 ## Usage
 
@@ -45,23 +45,20 @@ The CLI will take your CDK app repository name and public S3 bucket to publish t
 
 Taking any of the [aws-samples/aws-cdk-examples](https://github.com/aws-samples/aws-cdk-examples), to create a click to deploy link you just have to run the following command:
 ```bash
-npx cdk-standalone-deployer --github-repo-name aws-samples/aws-cdk-examples --cdk-project-path python/lambda-layer --public-read --github-repo-branch master
+npx cdk-standalone-deployer -github-repo-name aws-samples/aws-cdk-examples --cdk-project-path typescript/lambda-layer --github-repo-branch master --public-read --install-command "npm install" --build-command "npm run build"
 
 Check access permissions ...
 Access granted !
 Generating the deployer stack ...
-Generating deployer for https://github.com/aws-samples/aws-cdk-examples/tree/master/python/lambda-layer CDK app ...
+Generating deployer for https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/lambda-layer CDK app ...
 CDK Deployer CloudFormation template generated. Uploading it to S3 ...
-? No S3 bucket specified, are you ok to create one with name 
-cdk-depl-aws-samples-aws-cdk-examples-master-pz9 ? 
- WARNING: This bucket will be public, allowing anyone to deploy your app on its own account. Yes
-{ s3CreateConfirmation: true }
-Creating S3 bucket cdk-depl-aws-samples-aws-cdk-examples-master-pz9 ...
-Uploading CDK Deployer CloudFormation template to S3 bucket cdk-depl-aws-samples-aws-cdk-examples-master-pz9/cdk-standalone-deployer-cfn-template.json ...
-You can now add the following markdown to your README.md : https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-depl-aws-samples-aws-cdk-examples-master-pz9.s3.amazonaws.com/cdk-standalone-deployer-cfn-template.json)
+Uploading CDK Deployer CloudFormation template to S3 bucket cdk-depl-aws-samples-aws-cdk-examples-master-9xf/cdk-standalone-deployer-cfn-template.json ...
+You can now add the following markdown to your README.md : [![click-to-deploy](https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-depl-aws-samples-aws-cdk-examples-master-9xf.s3.amazonaws.com/cdk-standalone-deployer-cfn-template.json)
 ```
 
 ### Usage
+
+#### options
 
 ```
 npx cdk-standalone-deployer --help
@@ -73,19 +70,36 @@ A simple tool to make your CDK app deployable through a click to deploy button.
  Prerequisite : Export AWS credentials !
 
 Options:
-  --github-repo-name <string>    Name of the repo example: "aws-samples/aws-cdk-examples"
-  --s3-bucket-name <string>      S3 bucket to use to upload the CDK Deployer stack and potentially the zip
-                                 file
-  --s3-key-prefix <string>       S3 key prefix to use to upload the CDK Deployer stack and potentially the
-                                 zip file
-  --s3-bucket-region <string>    S3 bucket region to use to upload the CDK Deployer stack and potentially
-                                 the zip file (default: "us-east-1")
-  --public-read                  Make the S3 bucket public read (default: false)
-  --github-repo-branch <string>  Branch to use (default: "main")
-  --cdk-project-path <string>    Path to the cdk app (default: "./")
-  --stack-name <string>          Name of the stack to deploy
-  -h, --help                     display help for command
+  --github-repo-name <string>        Name of the repo example: "aws-samples/aws-cdk-examples"
+  --s3-bucket-name <string>          S3 bucket to use to upload the CDK Deployer stack and potentially the
+                                     zip file
+  --s3-key-prefix <string>           S3 key prefix to use to upload the CDK Deployer stack and potentially
+                                     the zip file
+  --s3-bucket-region <string>        S3 bucket region to use to upload the CDK Deployer stack and
+                                     potentially the zip file (default: "us-east-1")
+  --public-read                      Make the S3 bucket public read (default: false)
+  --github-repo-branch <string>      Branch to use (default: "main")
+  --cdk-project-path <string>        Path to the cdk app (default: "./")
+  --stack-name <string>              Name of the stack to deploy
+  --deploy-buildspec-name <string>   Name of the buildspec available in the cdk app to deploy the stack
+  --destroy-buildspec-name <string>  Name of the buildspec available in the cdk app to destroy the stack
+  --install-command <string>         Command to run to install dependencies
+  --build-command <string>           Command to run to build the cdk app
+  --bootstrap-command <string>       Command to run to build the cdk app (default: "npx cdk bootstrap")
+  --deploy-command <string>          Command to run to deploy the cdk app (default: "npx cdk deploy --all
+                                     --require-approval never")
+  --destroy-command <string>         Command to run to destroy the cdk app (default: "npx cdk destroy --all
+                                     --force")
+  -h, --help                         display help for command
 ```
+
+#### BuildSpec focus
+
+As mentionned before the CDKStandaloneDeployer construct rely on [AWS CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html). It provides default install/build/bootstrap/deploy/destroy command but you can as well specify your own.
+
+To do so, you have 2 options: 
+* Either you have a deploy and destroy buildspec yaml file in your CDK app repository that you can specify using `--deploy-buildspec-name` and `--destroy-buildspec-name`. Both are required then.
+* Or you an specify the install/build/bootstrap/deploy/destroy command using `--install-command`, `--build-command`, `--bootstrap-command`, `--deploy-command` and `--destroy-command`. Only `--install-command` is required then.
 
 
 ## TODO
@@ -94,6 +108,7 @@ Options:
 - [ ] Add integ test for custom buildspec
 - [ ] add CLI option for auto publish of s3 source
 - [ ] add CLI option for parameters
+- [ ] add option (CLI and construct) for custom qualifier
 
 ## Credits
 

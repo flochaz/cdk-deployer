@@ -3,29 +3,25 @@ import { S3 } from 'aws-sdk';
 import * as chalk from 'chalk';
 import * as inquirer from 'inquirer';
 import { CdkStandaloneDeployer } from '../construct/cdk-standalone-deployer';
+import { CLIOptions } from './';
+import { createBuildspecs } from './createBuildspecs';
 
-export async function generateCDKStandaloneDeployerCfnTemplate(options: {
-  githubRepoName: string;
-  s3BucketName?: string;
-  s3KeyPrefix?: string;
-  publicRead: boolean;
-  githubRepoBranch: string;
-  cdkProjectPath: string;
-  stackName?: string | undefined;
-  s3BucketRegion?: string;
-}) {
+export async function generateCDKStandaloneDeployerCfnTemplate(options: CLIOptions) {
   const deployer = new cdk.App();
 
   console.log(
     chalk.white(
       `Generating deployer for https://github.com/${options.githubRepoName}/tree/${options.githubRepoBranch}/${options.cdkProjectPath} CDK app ...`
-    )
+    ),
   );
+  const buildspecs = createBuildspecs(options);
   const deployerStack = new CdkStandaloneDeployer(deployer, {
     githubRepository: options.githubRepoName,
     gitBranch: options.githubRepoBranch,
     cdkAppLocation: options.cdkProjectPath,
     stackName: options.stackName,
+    deployBuildSpec: buildspecs.deployBuildspec,
+    destroyBuildSpec: buildspecs.destroyBuildspec,
     // cdkParameters: options.cdkParameters,
   });
 

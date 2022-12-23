@@ -10,6 +10,24 @@ import { uploadCDKAppZip } from './uploadCDKAppZip';
 
 export const ARCHIVE_NAME = 'cdk_app.zip';
 
+export type CLIOptions = {
+  githubRepoName: string;
+  s3BucketName?: string | undefined;
+  s3KeyPrefix?: string | undefined;
+  s3BucketRegion: string;
+  publicRead: boolean;
+  githubRepoBranch: string;
+  cdkProjectPath: string;
+  stackName?: string | undefined;
+  deployBuildspecName?: string | undefined;
+  destroyBuildspecName?: string | undefined;
+  installCommand?: string | undefined;
+  buildCommand?: string | undefined;
+  deployCommand?: string | undefined;
+  destroyCommand?: string | undefined;
+  bootstrapCommand?: string | undefined;
+};
+
 async function run() {
   const program = new Command()
     .description(
@@ -18,11 +36,11 @@ async function run() {
     .option('--github-repo-name <string>', 'Name of the repo example: "aws-samples/aws-cdk-examples"')
     .option(
       '--s3-bucket-name <string>',
-      'S3 bucket to use to upload the CDK Deployer stack and potentially the zip file',
+      'S3 bucket to use to upload the CDK Deployer stack and potentially the zip file. If not provided, one will be created for you after approval.',
     )
     .option(
       '--s3-key-prefix <string>',
-      'S3 key prefix to use to upload the CDK Deployer stack and potentially the zip file',
+      'S3 key prefix to use to upload the CDK Deployer stack and potentially the zip file', '',
     )
     .option(
       '--s3-bucket-region <string>',
@@ -33,19 +51,17 @@ async function run() {
     .option('--github-repo-branch <string>', 'Branch to use', 'main')
     .option('--cdk-project-path <string>', 'Path to the cdk app', './')
     .option('--stack-name <string>', 'Name of the stack to deploy')
+    .option('--deploy-buildspec-name <string>', 'Name of the buildspec available in the cdk app to deploy the stack. (Required if --destroy-buildspec-name is provided)')
+    .option('--destroy-buildspec-name <string>', 'Name of the buildspec available in the cdk app to destroy the stack. (Required if --deploy-buildspec-name is provided)')
+    .option('--install-command <string>', 'Command to run to install dependencies')
+    .option('--build-command <string>', 'Command to run to build the cdk app')
+    .option('--bootstrap-command <string>', 'Command to run to build the cdk app', 'npx cdk bootstrap')
+    .option('--deploy-command <string>', 'Command to run to deploy the cdk app', 'npx cdk deploy --all --require-approval never')
+    .option('--destroy-command <string>', 'Command to run to destroy the cdk app', 'npx cdk destroy --all --force')
     .parse();
   // .option('--cdk-parameters [{<string>:<string>}]', 'CDK parameters to pass to the CDK app. Needs to be provided as an array of tuple, the key being the parmater name and value the parameter value');
 
-  const options: {
-    githubRepoName: string;
-    s3BucketName?: string | undefined;
-    s3KeyPrefix?: string | undefined;
-    s3BucketRegion: string;
-    publicRead: boolean;
-    githubRepoBranch: string;
-    cdkProjectPath: string;
-    stackName?: string | undefined;
-  } = program.opts();
+  const options: CLIOptions = program.opts();
 
   try {
     await checkGenericAWSCredentials();

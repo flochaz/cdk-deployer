@@ -22,13 +22,13 @@ phases:
         pip install -r requirements.txt
       - \"export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)\"
       - 'echo \"AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID\"'
-      - cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION
+      - npx cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION
   build:
     on-failure: ABORT
     commands:
       - \"export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)\"
       - 'echo \"AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID\"'
-      - cdk destroy --force --all --require-approval never
+      - npx cdk destroy --force --all --require-approval never
 `;
 
 const defaultDeployBuildSpec = `

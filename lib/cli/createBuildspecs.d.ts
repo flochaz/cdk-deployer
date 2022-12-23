@@ -1,1 +1,9 @@
-export declare function createBuildspecs(cdkProjectPath: string, buildCommand: string, installCommand: string, deployCommand: string, destroyCommand: string): Promise<void>;
+import { BuildSpec } from 'aws-cdk-lib/aws-codebuild';
+import { CLIOptions } from './';
+export declare function createBuildspecs(options: CLIOptions): {
+    deployBuildspec: BuildSpec;
+    destroyBuildspec: BuildSpec;
+} | {
+    deployBuildspec: undefined;
+    destroyBuildspec: undefined;
+};
