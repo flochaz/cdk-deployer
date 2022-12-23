@@ -2,7 +2,7 @@
   "name": "cdk-standalone-deployer",
   "repository": {
     "type": "git",
-    "url": "https://github.com/chazalf/cdk-standalone-deployer.git"
+    "url": "https://github.com/flochaz/cdk-standalone-deployer.git"
   },
   "bin": {
     "cdk-standalone-deployer": "lib/cli/index.js"

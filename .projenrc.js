@@ -6,7 +6,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   defaultReleaseBranch: 'main',
   name: 'cdk-standalone-deployer',
   releaseToNpm: true,
-  repositoryUrl: 'https://github.com/chazalf/cdk-standalone-deployer.git',
+  repositoryUrl: 'https://github.com/flochaz/cdk-standalone-deployer.git',
   bundledDeps: [
     'commander',
     'inquirer@8',
