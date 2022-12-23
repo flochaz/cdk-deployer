@@ -75,7 +75,7 @@ async function run() {
     const link = await generateCDKStandaloneDeployerCfnTemplate(options);
     console.info(
       chalk.green.bold(
-        `You can now add the following markdown to your README.md : https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=${link})`,
+        `You can now add the following markdown to your README.md : [![click-to-deploy](https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=${link})`,
       ),
     );
   } catch (error) {

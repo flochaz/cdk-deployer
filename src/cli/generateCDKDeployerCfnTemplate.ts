@@ -39,9 +39,9 @@ export async function generateCDKStandaloneDeployerCfnTemplate(options: {
   let params: S3.Types.PutObjectRequest;
   if (!options.s3BucketName) {
     // generate random string of 7 letters
-    const bucketName = `cdk-standalone-deployer-${options.githubRepoName.split('/').join('-')}-${
+    const bucketName = `cdk-depl-${options.githubRepoName.split('/').join('-').substring(0, 40)}-${
       options.githubRepoBranch ?? 'main'
-    }-${Math.random().toString(36).substring(2, 7)}`;
+    }-${Math.random().toString(36).substring(2, 5)}`.substring(0, 63);
     const s3CreateConfirmation = await inquirer.prompt([
       {
         type: 'confirm',

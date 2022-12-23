@@ -3,11 +3,11 @@
 This construct enable to easily deploy an AWS CDK app without a local environment.
 This construct will create a Cloud Formation template starting an AWS Code Build project which will run a `cdk bootstrap` and `cdk deploy` from the given source (being either a zip in an S3 bucket or a github repository).
 
-This enable to create a simple deploy link for your CDK app such as: 
+It also come with a command line enabling to create a simple deploy link for your CDK app such as: 
 
-[![click-to-deploy](https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=click2deploy-controller&templateURL=https://click2deploy-bucket.s3.amazonaws.com/file-asset-prefix/latest/cdk-click2deploy-dev.template.json)
+[![click-to-deploy](https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-depl-aws-samples-aws-cdk-examples-master-pz9.s3.amazonaws.com/cdk-standalone-deployer-cfn-template.json)
 
-Which, if you click, will deploy the example contains in this repo `sample-cdk-app` folder (which consist of a simple SQS queue) into your AWS account.
+If you follow this link, it will deploy the example contains in this repo `sample-cdk-app` folder (which consist of a simple SQS queue) into your AWS account.
 
 ## Usage
 
@@ -50,10 +50,15 @@ npx cdk-standalone-deployer --github-repo-name aws-samples/aws-cdk-examples --cd
 Check access permissions ...
 Access granted !
 Generating the deployer stack ...
+Generating deployer for https://github.com/aws-samples/aws-cdk-examples/tree/master/python/lambda-layer CDK app ...
 CDK Deployer CloudFormation template generated. Uploading it to S3 ...
-Uploading CDK Deployer CloudFormation template to S3 bucket cdk-standalone-deployer-aws-samples-aws-cdk-examples-main-us-east-1/cdk-standalone-deployer-cfn-template.json ...
- you can now add the following markdown to your README.md : https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-standalone-deployer-aws-samples-aws-cdk-examples-main-us-east-1.s3.amazonaws.com/cdk-standalone-deployer-cfn-template.json)
-You are all done !
+? No S3 bucket specified, are you ok to create one with name 
+cdk-depl-aws-samples-aws-cdk-examples-master-pz9 ? 
+ WARNING: This bucket will be public, allowing anyone to deploy your app on its own account. Yes
+{ s3CreateConfirmation: true }
+Creating S3 bucket cdk-depl-aws-samples-aws-cdk-examples-master-pz9 ...
+Uploading CDK Deployer CloudFormation template to S3 bucket cdk-depl-aws-samples-aws-cdk-examples-master-pz9/cdk-standalone-deployer-cfn-template.json ...
+You can now add the following markdown to your README.md : https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-depl-aws-samples-aws-cdk-examples-master-pz9.s3.amazonaws.com/cdk-standalone-deployer-cfn-template.json)
 ```
 
 ### Usage
@@ -89,3 +94,7 @@ Options:
 - [ ] Add integ test for custom buildspec
 - [ ] add CLI option for auto publish of s3 source
 - [ ] add CLI option for parameters
+
+## Credits
+
+This package is largely inspired by @pahud work (https://github.com/pahud/lambda-url-demo)
