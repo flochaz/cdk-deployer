@@ -16,4 +16,6 @@ export declare type CLIOptions = {
     deployCommand?: string | undefined;
     destroyCommand?: string | undefined;
     bootstrapCommand?: string | undefined;
+    cdkQualifier?: string | undefined;
+    cdkParameters?: [string] | undefined;
 };

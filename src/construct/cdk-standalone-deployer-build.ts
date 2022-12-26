@@ -12,23 +12,12 @@ env:
     CFN_REQUEST_ID: CFN_REQUEST_ID_NOT_SET
     CFN_LOGICAL_RESOURCE_ID: CFN_LOGICAL_RESOURCE_ID_NOT_SET
 phases:
-  pre_build:
-    on-failure: ABORT
-    commands:
-      - echo "Default destroy buildspec"
-      - cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION
-      - npm install -g aws-cdk && sudo apt-get install python3 && python -m
-        ensurepip --upgrade && python -m pip install --upgrade pip && python -m
-        pip install -r requirements.txt
-      - \"export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)\"
-      - 'echo \"AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID\"'
-      - npx cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION
   build:
     on-failure: ABORT
     commands:
       - \"export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)\"
       - 'echo \"AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID\"'
-      - npx cdk destroy --force --all --require-approval never
+      - npx cdk destroy --force --all --require-approval never -c @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER
 `;
 
 const defaultDeployBuildSpec = `
@@ -47,18 +36,18 @@ phases:
     commands:
       - echo "Default deploy buildspec"
       - cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION
-      - npm install -g aws-cdk && sudo apt-get install python3 && python -m
+      - sudo apt-get install python3 && python -m
         ensurepip --upgrade && python -m pip install --upgrade pip && python -m
         pip install -r requirements.txt
       - \"export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)\"
       - 'echo \"AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID\"'
-      - cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION
+      - npx cdk bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION --qualifier $CDK_QUALIFIER --toolkit-stack-name cdkDeployerToolkit
   build:
     on-failure: ABORT
     commands:
       - \"export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)\"
       - 'echo \"AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID\"'
-      - cdk deploy $STACKNAME $PARAMETERS --require-approval=never
+      - npx cdk deploy $STACKNAME $PARAMETERS --require-approval=never -c @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER
 `;
 
 // workaround to get a Lambda function with inline code and packaged into the ARA library

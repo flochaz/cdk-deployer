@@ -72,6 +72,13 @@ export interface CdkStandaloneDeployerProps extends cdk.StackProps {
    * Destroy Codebuild buildspec file name at the root of the cdk app folder
    */
   readonly destroyBuildSpec?: BuildSpec;
+
+  /**
+   * The custom qualifier to use for the CDK bootstrap and CDK application.
+   * @see https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html#bootstrapping-customizing for more details
+   * @default hnb659fds default qualifier from `DefaultStackSynthesizer.DEFAULT_QUALIFIER` is used
+  */
+  readonly cdkQualifier?: string;
 }
 
 /**
@@ -144,8 +151,8 @@ export class CdkStandaloneDeployer extends cdk.Stack {
     });
 
     // We need the CDK execution role so the CodeBuild role can assume it for CDK deployment
-    const cdkDeployRole = Utils.getCdkDeployRole(this, 'CdkDeployRole');
-    const cdkPublishRole = Utils.getCdkFilePublishRole(this, 'CdkPublishRole');
+    const cdkDeployRole = Utils.getCdkDeployRole(this, 'CdkDeployRole', props.cdkQualifier);
+    const cdkPublishRole = Utils.getCdkFilePublishRole(this, 'CdkPublishRole', props.cdkQualifier);
 
     buildRole.addManagedPolicy(
       new ManagedPolicy(this, 'CdkBuildPolicy', {
@@ -197,7 +204,7 @@ export class CdkStandaloneDeployer extends cdk.Stack {
           }),
           new PolicyStatement({
             resources: [`arn:aws:ssm:${Aws.REGION}:${Aws.ACCOUNT_ID}:parameter/cdk-bootstrap/*/*`],
-            actions: ['ssm:PutParameter', 'ssm:GetParameters'],
+            actions: ['ssm:PutParameter', 'ssm:GetParameters', 'ssm:GetParameter'],
           }),
           new PolicyStatement({
             resources: [`arn:aws:ecr:${Aws.REGION}:${Aws.ACCOUNT_ID}:repository/cdk*`],
@@ -279,6 +286,9 @@ export class CdkStandaloneDeployer extends cdk.Stack {
           },
           CDK_APP_LOCATION: {
             value: props.cdkAppLocation ? props.cdkAppLocation : '',
+          },
+          CDK_QUALIFIER: {
+            value: props.cdkQualifier ?? DefaultStackSynthesizer.DEFAULT_QUALIFIER,
           },
         },
       },

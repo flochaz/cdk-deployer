@@ -951,6 +951,7 @@ const cdkStandaloneDeployerProps: CdkStandaloneDeployerProps = { ... }
 | <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkAppSourceCodeBucketPrefix">cdkAppSourceCodeBucketPrefix</a></code> | <code>string</code> | The prefix of the S3 bucket where the CDK application source code zip is stored. |
 | <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkAppSourceCodeZipName">cdkAppSourceCodeZipName</a></code> | <code>string</code> | The name of the zip file containing the CDK application source code. |
 | <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkParameters">cdkParameters</a></code> | <code>{[ key: string ]: aws-cdk-lib.CfnParameterProps}</code> | The CFN parameters to pass to the CDK application. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkQualifier">cdkQualifier</a></code> | <code>string</code> | The custom qualifier to use for the CDK bootstrap and CDK application. |
 | <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkStack">cdkStack</a></code> | <code>string</code> | The CDK stack name to deploy. |
 | <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.deployBuildSpec">deployBuildSpec</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildSpec</code> | Deploy CodeBuild buildspec file name at the root of the cdk app folder. |
 | <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.destroyBuildSpec">destroyBuildSpec</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildSpec</code> | Destroy Codebuild buildspec file name at the root of the cdk app folder. |
@@ -1203,6 +1204,21 @@ public readonly cdkParameters: {[ key: string ]: CfnParameterProps};
 - *Default:* No parameter is used
 
 The CFN parameters to pass to the CDK application.
+
+---
+
+##### `cdkQualifier`<sup>Optional</sup> <a name="cdkQualifier" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkQualifier"></a>
+
+```typescript
+public readonly cdkQualifier: string;
+```
+
+- *Type:* string
+- *Default:* hnb659fds default qualifier from `DefaultStackSynthesizer.DEFAULT_QUALIFIER` is used
+
+The custom qualifier to use for the CDK bootstrap and CDK application.
+
+> [https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html#bootstrapping-customizing for more details](https://docs.aws.amazon.com/cdk/v2/guide/bootstrapping.html#bootstrapping-customizing for more details)
 
 ---
 

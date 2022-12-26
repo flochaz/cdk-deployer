@@ -190,6 +190,11 @@ describe ('CdkStandaloneDeployer test default', () => {
               Type: 'PLAINTEXT',
               Value: 'refarch/aws-native',
             },
+            {
+              Name: 'CDK_QUALIFIER',
+              Type: 'PLAINTEXT',
+              Value: 'hnb659fds',
+            },
           ],
           Image: 'aws/codebuild/standard:5.0',
           ImagePullCredentialsType: 'CODEBUILD',
@@ -297,6 +302,7 @@ describe ('CdkStandaloneDeployer test default', () => {
               Action: [
                 'ssm:PutParameter',
                 'ssm:GetParameters',
+                'ssm:GetParameter',
               ],
               Effect: 'Allow',
               Resource: {

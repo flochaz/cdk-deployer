@@ -58,7 +58,7 @@ You can now add the following markdown to your README.md : [![click-to-deploy](h
 
 ### Usage
 
-#### options
+#### All options
 
 ```
 npx cdk-standalone-deployer --help
@@ -72,7 +72,7 @@ A simple tool to make your CDK app deployable through a click to deploy button.
 Options:
   --github-repo-name <string>        Name of the repo example: "aws-samples/aws-cdk-examples"
   --s3-bucket-name <string>          S3 bucket to use to upload the CDK Deployer stack and potentially the
-                                     zip file
+                                     zip file. If not provided, one will be created for you after approval.
   --s3-key-prefix <string>           S3 key prefix to use to upload the CDK Deployer stack and potentially
                                      the zip file
   --s3-bucket-region <string>        S3 bucket region to use to upload the CDK Deployer stack and
@@ -81,15 +81,23 @@ Options:
   --github-repo-branch <string>      Branch to use (default: "main")
   --cdk-project-path <string>        Path to the cdk app (default: "./")
   --stack-name <string>              Name of the stack to deploy
-  --deploy-buildspec-name <string>   Name of the buildspec available in the cdk app to deploy the stack
-  --destroy-buildspec-name <string>  Name of the buildspec available in the cdk app to destroy the stack
+  --deploy-buildspec-name <string>   Name of the buildspec available in the cdk app to deploy the stack.
+                                     (Required if --destroy-buildspec-name is provided)
+  --destroy-buildspec-name <string>  Name of the buildspec available in the cdk app to destroy the stack.
+                                     (Required if --deploy-buildspec-name is provided)
   --install-command <string>         Command to run to install dependencies
   --build-command <string>           Command to run to build the cdk app
-  --bootstrap-command <string>       Command to run to build the cdk app (default: "npx cdk bootstrap")
-  --deploy-command <string>          Command to run to deploy the cdk app (default: "npx cdk deploy --all
-                                     --require-approval never")
+  --bootstrap-command <string>       Command to run to build the cdk app (default: "npx cdk bootstrap
+                                     --qualifier $CDK_QUALIFIER --toolkit-stack-name
+                                     CDKToolkit-$CDK_QUALIFIER")
+  --deploy-command <string>          Command to run to deploy the cdk app (default: "npx cdk deploy
+                                     $PARAMETERS --all --require-approval never -c
+                                     @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER")
   --destroy-command <string>         Command to run to destroy the cdk app (default: "npx cdk destroy --all
-                                     --force")
+                                     --force -c @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER")
+  --cdk-qualifier <string>           CDK qualifier to use (default: "deployer")
+  --cdk-parameters [pair...]         add an entry (or several separated by a space) key=value that will be
+                                     passed to the cdk app through context (--context)
   -h, --help                         display help for command
 ```
 
@@ -98,17 +106,19 @@ Options:
 As mentionned before the CDKStandaloneDeployer construct rely on [AWS CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html). It provides default install/build/bootstrap/deploy/destroy command but you can as well specify your own.
 
 To do so, you have 2 options: 
-* Either you have a deploy and destroy buildspec yaml file in your CDK app repository that you can specify using `--deploy-buildspec-name` and `--destroy-buildspec-name`. Both are required then.
+* if you have a deploy and destroy buildspec yaml file already existing in your CDK app repository, you can use them by specify `--deploy-buildspec-name` and `--destroy-buildspec-name` options.
 * Or you an specify the install/build/bootstrap/deploy/destroy command using `--install-command`, `--build-command`, `--bootstrap-command`, `--deploy-command` and `--destroy-command`. Only `--install-command` is required then.
 
+
+#### CDK parameters
+
+You can also pass parameters to your CDK app through context using the `--cdk-parameters` option. It takes a list of key=value pair separated by a space. Those parameters will be then customizable by the user when deploying the stack through the AWS CloudFormation Console.
 
 ## TODO
 
 - [ ] Add integ test for S3 source
 - [ ] Add integ test for custom buildspec
 - [ ] add CLI option for auto publish of s3 source
-- [ ] add CLI option for parameters
-- [ ] add option (CLI and construct) for custom qualifier
 
 ## Credits
 

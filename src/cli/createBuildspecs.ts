@@ -38,7 +38,7 @@ export function createBuildspecs(options: CLIOptions) {
         pre_build: {
           'on-failure': 'ABORT',
           'commands': [
-            `cd $CODEBUILD_SRC_DIR/${options.cdkProjectPath}`,
+            'cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION',
             'export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)',
             options.bootstrapCommand,
           ],
@@ -46,7 +46,7 @@ export function createBuildspecs(options: CLIOptions) {
         build: {
           'on-failure': 'ABORT',
           'commands': [
-            `cd $CODEBUILD_SRC_DIR/${options.cdkProjectPath}`,
+            'cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION',
             'export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)',
             options.buildCommand,
             options.deployCommand,
@@ -76,7 +76,7 @@ export function createBuildspecs(options: CLIOptions) {
         build: {
           'on-failure': 'ABORT',
           'commands': [
-            `cd $CODEBUILD_SRC_DIR/${options.cdkProjectPath}`,
+            'cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION',
             'export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)',
             options.buildCommand,
             options.destroyCommand,

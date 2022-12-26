@@ -22,7 +22,8 @@ export async function generateCDKStandaloneDeployerCfnTemplate(options: CLIOptio
     stackName: options.stackName,
     deployBuildSpec: buildspecs.deployBuildspec,
     destroyBuildSpec: buildspecs.destroyBuildspec,
-    // cdkParameters: options.cdkParameters,
+    cdkQualifier: options.cdkQualifier,
+    cdkParameters: options.cdkParameters ? parseCDKParameters(options.cdkParameters) : undefined,
   });
 
   const synth = deployer.synth();
@@ -99,3 +100,21 @@ export async function generateCDKStandaloneDeployerCfnTemplate(options: CLIOptio
   // return the link
   return `https://${params.Bucket}.s3.amazonaws.com/${params.Key}`;
 }
+function parseCDKParameters(cdkParameters: [string]): { [name: string]: cdk.CfnParameterProps } | undefined {
+  const result: { [name: string]: cdk.CfnParameterProps } = {};
+  for (const cdkParameter of cdkParameters) {
+    if (!cdkParameter.includes('=')) {
+      throw new Error(`Invalid CDK parameter ${cdkParameter}. It should be in the form of name=value`);
+    }
+    const [name, value] = cdkParameter.split('=');
+    if (!name || !value) {
+      throw new Error(`Invalid CDK parameter ${cdkParameter}. It should be in the form of name=value`);
+    }
+    result[name] = {
+      type: 'String',
+      default: value,
+    };
+  }
+  return result;
+}
+

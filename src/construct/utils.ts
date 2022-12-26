@@ -15,12 +15,12 @@ export class Utils {
    * @param {Construct} scope the scope to import the role into
    * @param {string} id the ID of the role in the stack
    */
-  public static getCdkExecRole(scope: Construct, id: string) {
+  public static getCdkExecRole(scope: Construct, id: string, customQualifier?: string) {
     const cdkExecutionRoleArn = Fn.sub(
       DefaultStackSynthesizer.DEFAULT_CLOUDFORMATION_ROLE_ARN,
       {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        Qualifier: DefaultStackSynthesizer.DEFAULT_QUALIFIER,
+        Qualifier: customQualifier ?? DefaultStackSynthesizer.DEFAULT_QUALIFIER,
       },
     );
     // Makes the CDK execution role LF admin so it can create databases
@@ -32,12 +32,12 @@ export class Utils {
    * @param {Construct} scope the scope to import the role into
    * @param {string} id the ID of the role in the stack
    */
-  public static getCdkDeployRole(scope: Construct, id: string) {
+  public static getCdkDeployRole(scope: Construct, id: string, customQualifier?: string) {
     const cdkDeployRoleArn = Fn.sub(
       DefaultStackSynthesizer.DEFAULT_DEPLOY_ROLE_ARN,
       {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        Qualifier: DefaultStackSynthesizer.DEFAULT_QUALIFIER,
+        Qualifier: customQualifier ?? DefaultStackSynthesizer.DEFAULT_QUALIFIER,
       },
     );
     // Makes the CDK execution role LF admin so it can create databases
@@ -49,12 +49,12 @@ export class Utils {
    * @param {Construct} scope the scope to import the role into
    * @param {string} id the ID of the role in the stack
    */
-  public static getCdkFilePublishRole(scope: Construct, id: string) {
+  public static getCdkFilePublishRole(scope: Construct, id: string, customQualifier?: string) {
     const cdkDeployRoleArn = Fn.sub(
       DefaultStackSynthesizer.DEFAULT_FILE_ASSET_PUBLISHING_ROLE_ARN,
       {
         // eslint-disable-next-line @typescript-eslint/naming-convention
-        Qualifier: DefaultStackSynthesizer.DEFAULT_QUALIFIER,
+        Qualifier: customQualifier ?? DefaultStackSynthesizer.DEFAULT_QUALIFIER,
       },
     );
       // Makes the CDK execution role LF admin so it can create databases
