@@ -31,7 +31,7 @@ export async function generateCDKStandaloneDeployerCfnTemplate(options: CLIOptio
   const template = JSON.stringify(synth.getStackArtifact(deployerStack.artifactId).template);
 
   console.log(chalk.white('CDK Deployer CloudFormation template generated. Uploading it to S3 ...'));
-  const s3Client = new S3({ region: options.s3BucketRegion ?? 'us-east-1' });
+  const s3Client = new S3({ region: options.s3BucketRegion ?? process.env.AWS_REGION });
 
   let params: S3.Types.PutObjectRequest;
   if (!options.s3BucketName) {
