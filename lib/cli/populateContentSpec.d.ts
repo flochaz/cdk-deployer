@@ -1,1 +1,1 @@
-export declare function populateContentSpec(options: any): Promise<void>;
+export declare function populateContentSpec(workshopRepoPath: string): Promise<void>;

@@ -193,7 +193,9 @@ describe ('CdkStandaloneDeployer test default', () => {
             {
               Name: 'CDK_QUALIFIER',
               Type: 'PLAINTEXT',
-              Value: 'hnb659fds',
+              Value: {
+                Ref: "CDKQUALIFIER"
+              }
             },
           ],
           Image: 'aws/codebuild/standard:5.0',

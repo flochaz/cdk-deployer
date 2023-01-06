@@ -5,7 +5,7 @@
     "url": "https://github.com/flochaz/cdk-standalone-deployer.git"
   },
   "bin": {
-    "cdk-standalone-deployer": "lib/cli/index.js"
+    "cdk-standalone-deployer": "lib/cli/cli.js"
   },
   "scripts": {
     "build": "npx projen build",

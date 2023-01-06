@@ -1,21 +1,22 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as YAML from 'yaml';
+import { CDK_DEPLOYER_TEMPLATE_PATH } from './cli-setup-workshop';
 import { getProjectFiles } from './getProjectFiles';
 
-export async function populateContentSpec(options: any) {
-  const files = getProjectFiles(options.workshopRepoPath);
+export async function populateContentSpec(workshopRepoPath: string) {
+  const files = getProjectFiles(workshopRepoPath);
   const isContentSpecExisting = files.find((f) => f === 'contentspec.yaml');
   if (!isContentSpecExisting) {
     throw new Error("contentspec.yaml doesn't exist. Are you sure of your Workshop repo path ?");
   }
 
-  let contentspecString = fs.readFileSync(path.join(options.workshopRepoPath, 'contentspec.yaml'), 'utf8');
+  let contentspecString = fs.readFileSync(path.join(workshopRepoPath, 'contentspec.yaml'), 'utf8');
   // parse  yaml string to typescript object
   let contentspec = YAML.parse(contentspecString);
 
   const cdkDeployerTemplateRef = {
-    templateLocation: 'static/CDKStandaloneDeployer.template.json',
+    templateLocation: CDK_DEPLOYER_TEMPLATE_PATH,
     label: 'CDK app deployer stack',
     parameters: [
       {
@@ -33,7 +34,7 @@ export async function populateContentSpec(options: any) {
     contentspec.infrastructure &&
     contentspec.infrastructure.cloudformationTemplates &&
     contentspec.infrastructure.cloudformationTemplates.find(
-      (t: any) => t.templateLocation === 'static/CDKStandaloneDeployer.template.json',
+      (t: any) => t.templateLocation === CDK_DEPLOYER_TEMPLATE_PATH,
     )
   ) {
     console.log('Template reference already found. skipping spec update.');
@@ -77,6 +78,6 @@ export async function populateContentSpec(options: any) {
         cloudformationTemplates: [...contentspec.infrastructure.cloudformationTemplates, cdkDeployerTemplateRef],
       };
     }
-    await fs.writeFileSync(path.join(options.workshopRepoPath, 'contentspec.yaml'), YAML.stringify(contentspec));
+    await fs.writeFileSync(path.join(workshopRepoPath, 'contentspec.yaml'), YAML.stringify(contentspec));
   }
 }

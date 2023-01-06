@@ -136,6 +136,10 @@ export class CdkStandaloneDeployer extends cdk.Stack {
 
     // Add parameters to the stack so it can be transfered to the CDK application
     var parameters: string = '';
+    const cdkQualifier = new cdk.CfnParameter(this, 'CDK_QUALIFIER', {
+      type: 'String',
+      default: props.cdkQualifier ?? DefaultStackSynthesizer.DEFAULT_QUALIFIER,
+    });
     for (let name in props.cdkParameters) {
       let param = props.cdkParameters[name];
       let cfnParam = new cdk.CfnParameter(this, name, param);
@@ -151,8 +155,8 @@ export class CdkStandaloneDeployer extends cdk.Stack {
     });
 
     // We need the CDK execution role so the CodeBuild role can assume it for CDK deployment
-    const cdkDeployRole = Utils.getCdkDeployRole(this, 'CdkDeployRole', props.cdkQualifier);
-    const cdkPublishRole = Utils.getCdkFilePublishRole(this, 'CdkPublishRole', props.cdkQualifier);
+    const cdkDeployRole = Utils.getCdkDeployRole(this, 'CdkDeployRole', cdkQualifier.valueAsString);
+    const cdkPublishRole = Utils.getCdkFilePublishRole(this, 'CdkPublishRole', cdkQualifier.valueAsString);
 
     buildRole.addManagedPolicy(
       new ManagedPolicy(this, 'CdkBuildPolicy', {
@@ -288,7 +292,7 @@ export class CdkStandaloneDeployer extends cdk.Stack {
             value: props.cdkAppLocation ? props.cdkAppLocation : '',
           },
           CDK_QUALIFIER: {
-            value: props.cdkQualifier ?? DefaultStackSynthesizer.DEFAULT_QUALIFIER,
+            value: cdkQualifier.valueAsString,
           },
         },
       },

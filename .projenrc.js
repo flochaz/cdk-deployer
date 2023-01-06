@@ -44,7 +44,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
       runner: 'groups',
     },
   },
-  bin: { 'cdk-standalone-deployer': 'lib/cli/index.js' },
+  bin: { 'cdk-standalone-deployer': 'lib/cli/cli.js' },
 });
 
 project.gitignore.include('!/lib/cli/');

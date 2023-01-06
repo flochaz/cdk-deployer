@@ -1,6 +1,5 @@
 import { BuildSpec } from 'aws-cdk-lib/aws-codebuild';
-import { CLIOptions } from './';
-export declare function createBuildspecs(options: CLIOptions): {
+export declare function createBuildspecs(options: any): {
     deployBuildspec: BuildSpec;
     destroyBuildspec: BuildSpec;
 } | {
