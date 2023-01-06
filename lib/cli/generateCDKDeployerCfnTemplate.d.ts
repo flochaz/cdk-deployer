@@ -1,2 +1,1 @@
-import { CLIOptions } from './';
-export declare function generateCDKStandaloneDeployerCfnTemplate(options: CLIOptions): Promise<string>;
+export declare function generateCDKStandaloneDeployerCfnTemplate(options: any): Promise<string>;

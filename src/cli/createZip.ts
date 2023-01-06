@@ -1,9 +1,15 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as archiver from 'archiver';
+import chalk = require('chalk');
 
 export async function createZip(archiveName: string, cdkProjectPath: string, files: string[]) {
-  return new Promise((resolve, reject) => {
+  console.log(
+    chalk.white(
+      `Creating zip file ${archiveName} for project located at ${cdkProjectPath}`
+    ),
+  );
+  await new Promise((resolve, reject) => {
     const output = fs.createWriteStream(archiveName);
 
     const archive = archiver.create('zip', {});
@@ -22,4 +28,10 @@ export async function createZip(archiveName: string, cdkProjectPath: string, fil
     }
     void archive.finalize();
   });
+  console.log(
+    chalk.green(
+      `zip file ${archiveName} for project located at ${cdkProjectPath} created`
+    ),
+  );
+  return;
 }

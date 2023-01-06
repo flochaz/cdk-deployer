@@ -1,7 +1,6 @@
 import { BuildSpec } from 'aws-cdk-lib/aws-codebuild';
-import { CLIOptions } from './';
 
-export function createBuildspecs(options: CLIOptions) {
+export function createBuildspecs(options: any) {
   if (options.deployBuildspecName || options.destroyBuildspecName) {
     const potentialMissingOptions = [options.deployBuildspecName, options.deployBuildspecName].find(
       (v) => v === undefined,
