@@ -125,26 +125,64 @@ This tool is leveraging the [CDKStandaloneDeployer construct](https://constructs
 
 ### Getting started example
 
-Assuming you are the owner of the [aws-samples/aws-cdk-examples](https://github.com/aws-samples/aws-cdk-examples) and you want to create a click to deploy link, you just have to run the following command:
-```bash
-npx cdk-standalone-deployer -github-repo-name aws-samples/aws-cdk-examples --cdk-project-path typescript/lambda-layer --github-repo-branch master --public-read --install-command "npm install" --build-command "npm run build"
+Assuming you have a workshop repo locally cloned:
+```
+tfc-analytics-ara-demo on  mainline [!] on ☁️  (us-east-1) took 25s 
+❯ ls
+README.md        myCdkApp          assets           content          contentspec.yaml static
+```
+
+Assuming this repo contains a cdk app (`myCdkApp` here) committed in this repo.
+```
+tfc-analytics-ara-demo on  mainline [!] on ☁️  (us-east-1) 
+❯ ls myCdkApp 
+README.md            app.py               cdk.out              requirements.txt     tests
+als_ara              cdk.json             requirements-dev.txt source.bat
+```
+
+Provding your Workshop ID and your path of your cdk app to the `cdk-standalone-deployer` npx executable, will setup your CDKApp to be deployed as part of your workshop event for you.
+
+```
+tfc-analytics-ara-demo on  mainline [!] on ☁️  (us-east-1) 
+❯npx cdk-standalone-deployer setup-workshop --workshop-id 12345678-aabb-a12a-1234-1234567890 --cdk-project-path ./myCdkApp
 
 Check access permissions ...
 Access granted !
+Creating zip file cdk_app.zip for project located at ./myCdkApp
+zip file cdk_app.zip for project located at ./myCdkApp created
+Uploading cdk_app.zip ws-assets-us-east-1/12345678-aabb-a12a-1234-1234567890/cdk_app.zip to S3 ...
+Successfully uploaded cdk_app.zip to S3 bucket ws-assets-us-east-1
 Generating the deployer stack ...
-Generating deployer for https://github.com/aws-samples/aws-cdk-examples/tree/master/typescript/lambda-layer CDK app ...
-CDK Deployer CloudFormation template generated. Uploading it to S3 ...
-Uploading CDK Deployer CloudFormation template to S3 bucket cdk-depl-aws-samples-aws-cdk-examples-master-9xf/cdk-standalone-deployer-cfn-template.json ...
-You can now add the following markdown to your README.md : [![click-to-deploy](https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-depl-aws-samples-aws-cdk-examples-master-9xf.s3.amazonaws.com/cdk-standalone-deployer-cfn-template.json)
+Deployer stack generated !
+Writing the deployer stack to disk ...
+Deployer stack written at static/CDKDeployer.template.json !
+Populating Content Spec ...
+Template reference already found. skipping spec update.
+contentspec.yaml now reference the static/CDKDeployer.template.json template !
+Pushing change to git ...
+? Are you ok to push the following listed files ? (if you answer 
+no, you will have to do it manually for your changes to be taken 
+into account by workshop studio using git add, commit and push 
+command.) 
+ Files to be pushed : 
+
+ [
+  "contentspec.yaml",
+  "static/CDKDeployer.template.json"
+] 
+ Yes
+The following files have been added, modified, moved, or removed:
+********************************************************************
+
+M       static/CDKDeployer.template.json
+
+
+********************************************************************
+remote: Validating objects: 100%        
+To codecommit://tfc-analytics-ara-demo
+   37ef83e..d83d0d4  mainline -> mainline
+You are all done ! You can now test your workshop in the studio by pin
 ```
-
-The CLI will
-1. Check your AWS credentials
-1. Generate the CDK Deployer CloudFormation template
-1. Upload it to the S3 bucket `cdk-depl-aws-samples-aws-cdk-examples-master-9xf`
-1. Print the markdown to add to your README.md
-
-Your customer can then just click on the link and deploy your CDK app in their AWS account.
 
 
 ### Usage
@@ -160,7 +198,7 @@ Your customer can then just click on the link and deploy your CDK app in their A
 #### All options
 
 ```
-npx cdk-standalone-deployer generate-link --help
+npx cdk-standalone-deployer setup-workshop --help
 
 Usage: cli [options]
 
