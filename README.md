@@ -1,5 +1,14 @@
 # CDK App deployer - Link
 
+## TL;DR
+
+```bash
+npx cdk-standalone-deployer --github-repo-name <YOUR GITHUB ALIAS>/<YOUR REPO NAME>  --github-repo-branch <GITHUB BRANCH> --cdk-project-path <CDK PROJECT PATH> --public-read --install-command "npm install" --build-command "npm run build"
+```
+ => [![click-to-deploy](https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-depl-aws-samples-aws-cdk-examples-master-9xf.s3.amazonaws.com/cdk-standalone-deployer-cfn-template.json)
+
+## What is it ?
+
 This Command Line Interface (CLI) enables to easily create click to deploy link of an AWS CDK app code hosted on Github such as:  [![click-to-deploy](https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=https://cdk-depl-aws-samples-aws-cdk-examples-master-9xf.s3.amazonaws.com/cdk-standalone-deployer-cfn-template.json)
 
 If you follow this link, it will deploy the example contains in the [aws-samples/aws-cdk-examples](https://github.com/aws-samples/aws-cdk-examples/tree/master/python/lambda-layer) repo `typescript/lambda-layer` folder (which consist of a simple Lambda layer CDK app) into your AWS account.
@@ -8,11 +17,11 @@ The CLI will take your CDK app repository name and public S3 bucket to publish t
 
 This tool is leveraging the [CDKStandaloneDeployer construct](https://constructs.dev/packages/cdk-standalone-deployer/v/0.0.9/api/CdkStandaloneDeployer) which will create a Cloud Formation template starting an AWS Code Build project which will run a `cdk bootstrap` and `cdk deploy` from the given source (being either a zip in an S3 bucket or a github repository). For details about the available properties, please refer to the [CDKStandaloneDeployer construct API documentation](API.md).
 
-### Getting started example
+## Getting started example
 
 Assuming you are the owner of the [aws-samples/aws-cdk-examples](https://github.com/aws-samples/aws-cdk-examples) and you want to create a click to deploy link, you just have to run the following command:
 ```bash
-npx cdk-standalone-deployer -github-repo-name aws-samples/aws-cdk-examples --cdk-project-path typescript/lambda-layer --github-repo-branch master --public-read --install-command "npm install" --build-command "npm run build"
+npx cdk-standalone-deployer --github-repo-name aws-samples/aws-cdk-examples --cdk-project-path typescript/lambda-layer --github-repo-branch master --public-read --install-command "npm install" --build-command "npm run build"
 
 Check access permissions ...
 Access granted !
@@ -32,9 +41,9 @@ The CLI will
 Your customer can then just click on the link and deploy your CDK app in their AWS account.
 
 
-### Usage
+## Usage
 
-#### Prerequisite
+### Prerequisite
 
 You need to have AWS credentials exported in your environment. You can do so by running `aws configure` or by exporting the following environment variables:
 
@@ -70,7 +79,7 @@ The following policy will do the trick:
 ```
 
 
-#### All options
+### All options
 
 ```
 npx cdk-standalone-deployer generate-link --help
@@ -101,7 +110,7 @@ Options:
   --cdk-parameters [pair...]         add an entry (or several separated by a space) key=value that will be passed to the cdk app through context (--context)
 ```
 
-#### BuildSpec focus
+### BuildSpec focus
 
 As mentionned before the CDKStandaloneDeployer construct rely on [AWS CodeBuild](https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html). It provides default install/build/bootstrap/deploy/destroy command but you can as well specify your own.
 
@@ -110,20 +119,27 @@ To do so, you have 2 options:
 * Or you an specify the install/build/bootstrap/deploy/destroy command using `--install-command`, `--build-command`, `--bootstrap-command`, `--deploy-command` and `--destroy-command`. Only `--install-command` is required then.
 
 
-#### CDK parameters
+### CDK parameters
 
 You can also pass parameters to your CDK app through context using the `--cdk-parameters` option. It takes a list of key=value pair separated by a space. Those parameters will be then customizable by the user when deploying the stack through the AWS CloudFormation Console.
 
 
 # CDK App deployer - Workshop Studio
 
+## TL;DR
+
+```bash
+npx cdk-standalone-deployer setup-workshop --workshop-id 12345678-aabb-a12a-1234-1234567890 --cdk-project-path ./myCdkApp
+```
+=> CDK App automatically deployed in your Workshop Studio attendees AWS account
+
+## What is it ?
+
 This Command Line Interface (CLI) eases  the deployment of CDK app for Wokshop studio accounts provisionning.
 
-The CLI will take your CDK app repository name and public S3 bucket to publish the Deployer stack to. It will then synthesize and publish the template with the right configuration without any modification of your code.
+This tool is leveraging the [CDKStandaloneDeployer construct](https://constructs.dev/packages/cdk-standalone-deployer/v/0.0.9/api/CdkStandaloneDeployer) which will create a Cloud Formation template starting an AWS Code Build project which will run a `cdk bootstrap` and `cdk deploy` from the given source (automatically zipped from the cdk app path provided). For details about the available properties, please refer to the [CDKStandaloneDeployer construct API documentation](API.md).
 
-This tool is leveraging the [CDKStandaloneDeployer construct](https://constructs.dev/packages/cdk-standalone-deployer/v/0.0.9/api/CdkStandaloneDeployer) which will create a Cloud Formation template starting an AWS Code Build project which will run a `cdk bootstrap` and `cdk deploy` from the given source (being either a zip in an S3 bucket or a github repository). For details about the available properties, please refer to the [CDKStandaloneDeployer construct API documentation](API.md).
-
-### Getting started example
+## Getting started example
 
 Assuming you have a workshop repo locally cloned:
 ```
@@ -185,9 +201,9 @@ You are all done ! You can now test your workshop in the studio by pin
 ```
 
 
-### Usage
+## Usage
 
-#### Prerequisite
+### Prerequisite
 
 1. To have a Workshop repo created and clone from https://studio.us-east-1.prod.workshops.aws/workshops
 1. Your workshop credentials exported in your shell environment (using the "Credentials" top left button on workshop studio UI)
@@ -195,7 +211,7 @@ You are all done ! You can now test your workshop in the studio by pin
 1. node installed
 
 
-#### All options
+### All options
 
 ```
 npx cdk-standalone-deployer setup-workshop --help
