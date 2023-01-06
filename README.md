@@ -254,4 +254,4 @@ Options:
 
 ## Credits
 
-This package is largely inspired by @pahud work (https://github.com/pahud/lambda-url-demo)
+This package is inspired by @pahud work (https://github.com/pahud/lambda-url-demo) and @gromav work (https://github.com/aws-samples/aws-analytics-reference-architecture)
