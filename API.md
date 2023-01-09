@@ -197,7 +197,7 @@ temporarily ensure that the CloudFormation Export still exists while you
 remove the reference from the consuming stack. After that, you can remove
 the resource and the manual export.
 
-# See `exportValue` for an example of this process.
+See `exportValue` for an example of this process.
 
 ###### `exportedValue`<sup>Required</sup> <a name="exportedValue" id="cdk-standalone-deployer.CdkStandaloneDeployer.exportStringListValue.parameter.exportedValue"></a>
 
