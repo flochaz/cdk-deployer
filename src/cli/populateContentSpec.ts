@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as YAML from 'yaml';
-import { CDK_DEPLOYER_TEMPLATE_PATH } from './cli-setup-workshop';
+import { CDK_DEPLOYER_TEMPLATE_PATH } from './cdk-standalone-deployer-setup-workshop';
 import { getProjectFiles } from './getProjectFiles';
 
 export async function populateContentSpec(workshopRepoPath: string) {
