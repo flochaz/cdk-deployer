@@ -4,7 +4,7 @@ import * as YAML from 'yaml';
 import { CDK_DEPLOYER_TEMPLATE_PATH } from './cdk-standalone-deployer-setup-workshop';
 import { getProjectFiles } from './getProjectFiles';
 
-export async function populateContentSpec(workshopRepoPath: string) {
+export async function populateContentSpec(workshopRepoPath: string, mainRegion: string = 'us-east-1') {
   const files = getProjectFiles(workshopRepoPath);
   const isContentSpecExisting = files.find((f) => f === 'contentspec.yaml');
   if (!isContentSpecExisting) {
@@ -39,45 +39,38 @@ export async function populateContentSpec(workshopRepoPath: string) {
   ) {
     console.log('Template reference already found. skipping spec update.');
   } else {
+    if(!contentspec.awsAccountConfig) {
+      contentspec.awsAccountConfig = {
+        accountSources: ['WorkshopStudio'],
+        participantRole: {managedPolicies: ['arn:aws:iam::aws:policy/AdministratorAccess']},
+        regionConfiguration: {
+          minAccessibleRegions : 1,
+          maxAccessibleRegions : 3,
+          accessibleRegions: {
+            required: [
+              mainRegion
+            ],
+            recommended: [
+              mainRegion
+            ]
+          },
+          deployableRegions: {
+            required: [
+              mainRegion
+            ]
+          }
+        }
+      }
+    }
     if (!contentspec.infrastructure) {
-      contentspec = {
-        version: '2.0',
-        defaultLocaleCode: 'en-US',
-        localeCodes: ['en-US'],
-        additionalLinks: [
-          {
-            title: 'AWS Documentation Homepage',
-            link: 'https://docs.aws.amazon.com/',
-          },
-        ],
-        awsAccountConfig: {
-          accountSources: ['WorkshopStudio', 'CustomerProvided'],
-          participantRole: {
-            managedPolicies: ['arn:aws:iam::aws:policy/AdministratorAccess'],
-          },
-          ec2KeyPair: false,
-          regionConfiguration: {
-            minAccessibleRegions: 1,
-            maxAccessibleRegions: 3,
-            accessibleRegions: {
-              required: ['us-east-1'],
-              recommended: ['us-east-1'],
-            },
-            deployableRegions: {
-              required: ['us-east-1'],
-              recommended: ['us-east-1'],
-            },
-          },
-        },
-        infrastructure: {
-          cloudformationTemplates: [cdkDeployerTemplateRef],
-        },
-      };
+      contentspec.infrastructure = { cloudformationTemplates: [cdkDeployerTemplateRef] };
     } else {
       contentspec.infrastructure = {
         cloudformationTemplates: [...contentspec.infrastructure.cloudformationTemplates, cdkDeployerTemplateRef],
       };
     }
+
+    contentspec.version = '2.0';
     await fs.writeFileSync(path.join(workshopRepoPath, 'contentspec.yaml'), YAML.stringify(contentspec));
   }
 }
