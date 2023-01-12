@@ -128,6 +128,7 @@ export class CdkStandaloneDeployer extends cdk.Stack {
    */
   constructor(scope: Construct, props: CdkStandaloneDeployerProps) {
     super(scope, 'CDKStandaloneDeployer', {
+      description: 'CDK Standalone Deployer (uksb-1tnuj8j40)',
       // Change the Stack Synthetizer to remove the CFN parameters for the CDK version
       synthesizer: new DefaultStackSynthesizer({
         generateBootstrapVersionRule: false,
