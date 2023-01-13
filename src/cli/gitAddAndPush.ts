@@ -12,7 +12,7 @@ export async function gitAddAndPush(repoPath: string, commitMessage: string, fil
           `Are you ok to push the following listed files ? (if you answer no, you will have to do it manually for your changes to be taken into account by workshop studio using git add, commit and push command.) \n Files to be pushed : \n\n ${JSON.stringify(files, null, 2)} \n`,
       },
     ]);
-    if (gitAddConfirmation) {
+    if (!gitAddConfirmation) {
       execSync(`git add ${files.join(' ')}`, {
         cwd: repoPath,
         encoding: 'utf8',
@@ -30,6 +30,8 @@ export async function gitAddAndPush(repoPath: string, commitMessage: string, fil
         cwd: repoPath,
         encoding: 'utf8',
       });
+    } else {
+      console.log('Skipping git push');
     }
   } catch (error) {
     console.error(error);

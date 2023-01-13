@@ -1,0 +1,678 @@
+{
+  "Description": "CDK Standalone Deployer (uksb-1tnuj8j40)",
+  "Parameters": {
+    "CDKQUALIFIER": {
+      "Type": "String",
+      "Default": "deployer"
+    },
+    "test": {
+      "Type": "String",
+      "Default": "toto"
+    },
+    "tot": {
+      "Type": "String",
+      "Default": "eww"
+    }
+  },
+  "Resources": {
+    "CodeBuildRole728CBADE": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "codebuild.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Ref": "CdkBuildPolicyBE0B4E59"
+          }
+        ]
+      }
+    },
+    "CodeBuildRoleDefaultPolicy829527DE": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "logs:CreateLogGroup",
+                "logs:CreateLogStream",
+                "logs:PutLogEvents"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":log-group:/aws/codebuild/",
+                      {
+                        "Ref": "CodeBuildProject4B91CF3F"
+                      }
+                    ]
+                  ]
+                },
+                {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":logs:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":log-group:/aws/codebuild/",
+                      {
+                        "Ref": "CodeBuildProject4B91CF3F"
+                      },
+                      ":*"
+                    ]
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "codebuild:CreateReportGroup",
+                "codebuild:CreateReport",
+                "codebuild:UpdateReport",
+                "codebuild:BatchPutTestCases",
+                "codebuild:BatchPutCodeCoverages"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":codebuild:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":report-group/",
+                    {
+                      "Ref": "CodeBuildProject4B91CF3F"
+                    },
+                    "-*"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "CodeBuildRoleDefaultPolicy829527DE",
+        "Roles": [
+          {
+            "Ref": "CodeBuildRole728CBADE"
+          }
+        ]
+      }
+    },
+    "CdkBuildPolicyBE0B4E59": {
+      "Type": "AWS::IAM::ManagedPolicy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "kms:CreateKey",
+                "kms:DisableKey",
+                "kms:EnableKeyRotation",
+                "kms:TagResource",
+                "kms:DescribeKey",
+                "kms:ScheduleKeyDeletion",
+                "kms:CreateAlias",
+                "kms:DeleteAlias",
+                "kms:CreateGrant",
+                "kms:RetireGrant"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "s3:CreateBucket",
+                "s3:PutBucketAcl",
+                "s3:PutEncryptionConfiguration",
+                "s3:PutBucketPublicAccessBlock",
+                "s3:PutBucketVersioning",
+                "s3:DeleteBucket",
+                "s3:PutBucketPolicy"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "cloudformation:DescribeStacks",
+                "cloudformation:DeleteStack",
+                "cloudformation:DeleteChangeSet",
+                "cloudformation:CreateChangeSet",
+                "cloudformation:DescribeChangeSet",
+                "cloudformation:ExecuteChangeSet",
+                "cloudformation:DescribeStackEvents",
+                "cloudformation:GetTemplate"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:cloudformation:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":stack/CDKToolkit*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::Sub": [
+                    "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-${Qualifier}-deploy-role-${AWS::AccountId}-${AWS::Region}",
+                    {
+                      "Qualifier": {
+                        "Ref": "CDKQUALIFIER"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "Fn::Sub": [
+                    "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-${Qualifier}-file-publishing-role-${AWS::AccountId}-${AWS::Region}",
+                    {
+                      "Qualifier": {
+                        "Ref": "CDKQUALIFIER"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "Action": [
+                "ssm:PutParameter",
+                "ssm:GetParameters",
+                "ssm:GetParameter"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:ssm:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":parameter/cdk-bootstrap/*/*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "ecr:SetRepositoryPolicy",
+                "ecr:GetLifecyclePolicy",
+                "ecr:PutImageTagMutability",
+                "ecr:DescribeRepositories",
+                "ecr:ListTagsForResource",
+                "ecr:PutImageScanningConfiguration",
+                "ecr:CreateRepository",
+                "ecr:PutLifecyclePolicy",
+                "ecr:DeleteRepository",
+                "ecr:TagResource"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:ecr:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":repository/cdk*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "iam:GetRole",
+                "iam:CreateRole",
+                "iam:TagRole",
+                "iam:DeleteRole",
+                "iam:AttachRolePolicy",
+                "iam:DetachRolePolicy",
+                "iam:GetRolePolicy",
+                "iam:PutRolePolicy",
+                "iam:DeleteRolePolicy"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:iam::",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":role/cdk*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": "logs:PutLogEvents",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:aws:logs:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":log-group:/aws/codebuild/*"
+                  ]
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Description": "",
+        "Path": "/"
+      }
+    },
+    "CodeBuildProject4B91CF3F": {
+      "Type": "AWS::CodeBuild::Project",
+      "Properties": {
+        "Artifacts": {
+          "Type": "NO_ARTIFACTS"
+        },
+        "Environment": {
+          "ComputeType": "BUILD_GENERAL1_SMALL",
+          "EnvironmentVariables": [
+            {
+              "Name": "PARAMETERS",
+              "Type": "PLAINTEXT",
+              "Value": {
+                "Fn::Join": [
+                  "",
+                  [
+                    " -c test=",
+                    {
+                      "Ref": "test"
+                    },
+                    " -c tot=",
+                    {
+                      "Ref": "tot"
+                    }
+                  ]
+                ]
+              }
+            },
+            {
+              "Name": "STACKNAME",
+              "Type": "PLAINTEXT",
+              "Value": ""
+            },
+            {
+              "Name": "CDK_APP_LOCATION",
+              "Type": "PLAINTEXT",
+              "Value": "typescript/lambda-layer"
+            },
+            {
+              "Name": "CDK_QUALIFIER",
+              "Type": "PLAINTEXT",
+              "Value": {
+                "Ref": "CDKQUALIFIER"
+              }
+            }
+          ],
+          "Image": "aws/codebuild/standard:5.0",
+          "ImagePullCredentialsType": "CODEBUILD",
+          "PrivilegedMode": false,
+          "Type": "LINUX_CONTAINER"
+        },
+        "ServiceRole": {
+          "Fn::GetAtt": [
+            "CodeBuildRole728CBADE",
+            "Arn"
+          ]
+        },
+        "Source": {
+          "Location": "https://github.com/aws-samples/aws-cdk-examples.git",
+          "ReportBuildStatus": true,
+          "Type": "GITHUB"
+        },
+        "Cache": {
+          "Type": "NO_CACHE"
+        },
+        "EncryptionKey": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":kms:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":alias/aws/s3"
+            ]
+          ]
+        },
+        "SourceVersion": "master"
+      }
+    },
+    "StartBuildRole2F45A2DC": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": "codebuild:StartBuild",
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "CodeBuildProject4B91CF3F",
+                      "Arn"
+                    ]
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "StartBuild"
+          }
+        ]
+      }
+    },
+    "StartBuildFunction21B23CDA": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "ZipFile": "\nconst respond = async function(event, context, responseStatus, responseData, physicalResourceId, noEcho) {\n  return new Promise((resolve, reject) => {\n    var responseBody = JSON.stringify({\n      Status: responseStatus,\n      Reason: \"See the details in CloudWatch Log Stream: \" + context.logGroupName + \" \" + context.logStreamName,\n      PhysicalResourceId: physicalResourceId || context.logStreamName,\n      StackId: event.StackId,\n      RequestId: event.RequestId,\n      LogicalResourceId: event.LogicalResourceId,\n      NoEcho: noEcho || false,\n      Data: responseData\n    });\n    \n    console.log(\"Response body:\", responseBody);\n    \n    var https = require(\"https\");\n    var url = require(\"url\");\n    \n    var parsedUrl = url.parse(event.ResponseURL);\n    var options = {\n      hostname: parsedUrl.hostname,\n      port: 443,\n      path: parsedUrl.path,\n      method: \"PUT\",\n      headers: {\n        \"content-type\": \"\",\n        \"content-length\": responseBody.length\n      }\n    };\n    \n    var request = https.request(options, function(response) {\n      console.log(\"Status code: \" + response.statusCode);\n      console.log(\"Status message: \" + response.statusMessage);\n      resolve();\n    });\n    \n    request.on(\"error\", function(error) {\n      console.log(\"respond(..) failed executing https.request(..): \" + error);\n      resolve();\n    });\n    \n    request.write(responseBody);\n    request.end();\n  });\n};\n\nconst AWS = require('aws-sdk');\n\nexports.handler = async function (event, context) {\n  console.log(JSON.stringify(event, null, 4));\n  try {\n    const projectName = event.ResourceProperties.ProjectName;\n    const codebuild = new AWS.CodeBuild();\n    \n    console.log(`Starting new build of project ${projectName}`);\n    \n    const { build } = await codebuild.startBuild({\n      projectName,\n      // Pass CFN related parameters through the build for extraction by the\n      // completion handler.\n      buildspecOverride: event.RequestType === 'Delete' ? `{\n  \"version\": 0.2,\n  \"env\": {\n    \"variables\": {\n      \"CFN_RESPONSE_URL\": \"CFN_RESPONSE_URL_NOT_SET\",\n      \"CFN_STACK_ID\": \"CFN_STACK_ID_NOT_SET\",\n      \"CFN_REQUEST_ID\": \"CFN_REQUEST_ID_NOT_SET\",\n      \"CFN_LOGICAL_RESOURCE_ID\": \"CFN_LOGICAL_RESOURCE_ID_NOT_SET\"\n    }\n  },\n  \"phases\": {\n    \"install\": {\n      \"on-failure\": \"ABORT\",\n      \"runtime-versions\": {\n        \"nodejs\": 14\n      },\n      \"commands\": [\n        \"cd $CODEBUILD_SRC_DIR/typescript/lambda-layer\",\n        \"npm install\"\n      ]\n    },\n    \"build\": {\n      \"on-failure\": \"ABORT\",\n      \"commands\": [\n        \"cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION\",\n        \"export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)\",\n        \"npm run build\",\n        \"npx cdk destroy --all --force -c @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER\"\n      ]\n    }\n  }\n}` : `{\n  \"version\": 0.2,\n  \"env\": {\n    \"variables\": {\n      \"CFN_RESPONSE_URL\": \"CFN_RESPONSE_URL_NOT_SET\",\n      \"CFN_STACK_ID\": \"CFN_STACK_ID_NOT_SET\",\n      \"CFN_REQUEST_ID\": \"CFN_REQUEST_ID_NOT_SET\",\n      \"CFN_LOGICAL_RESOURCE_ID\": \"CFN_LOGICAL_RESOURCE_ID_NOT_SET\"\n    }\n  },\n  \"phases\": {\n    \"install\": {\n      \"on-failure\": \"ABORT\",\n      \"runtime-versions\": {\n        \"nodejs\": 14\n      },\n      \"commands\": [\n        \"cd $CODEBUILD_SRC_DIR/typescript/lambda-layer\",\n        \"npm install\"\n      ]\n    },\n    \"pre_build\": {\n      \"on-failure\": \"ABORT\",\n      \"commands\": [\n        \"cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION\",\n        \"export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)\",\n        \"npx cdk bootstrap --qualifier $CDK_QUALIFIER --toolkit-stack-name CDKToolkit-$CDK_QUALIFIER\"\n      ]\n    },\n    \"build\": {\n      \"on-failure\": \"ABORT\",\n      \"commands\": [\n        \"cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION\",\n        \"export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)\",\n        \"npm run build\",\n        \"npx cdk deploy $PARAMETERS --all --require-approval never -c @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER\"\n      ]\n    }\n  }\n}`,\n      environmentVariablesOverride: [\n        {\n          name: 'CFN_RESPONSE_URL',\n          value: event.ResponseURL\n        },\n        {\n          name: 'CFN_STACK_ID',\n          value: event.StackId\n        },\n        {\n          name: 'CFN_REQUEST_ID',\n          value: event.RequestId\n        },\n        {\n          name: 'CFN_LOGICAL_RESOURCE_ID',\n          value: event.LogicalResourceId\n        },\n        {\n          name: 'BUILD_ROLE_ARN',\n          value: event.ResourceProperties.BuildRoleArn\n        }\n      ]\n    }).promise();\n    console.log(`Build id ${build.id} started - resource completion handled by EventBridge`);\n  } catch(error) {\n    console.error(error);\n    await respond(event, context, 'FAILED', { Error: error });\n  }\n};\n"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "StartBuildRole2F45A2DC",
+            "Arn"
+          ]
+        },
+        "Handler": "index.handler",
+        "Runtime": "nodejs16.x",
+        "Timeout": 60
+      },
+      "DependsOn": [
+        "StartBuildRole2F45A2DC"
+      ]
+    },
+    "ReportBuildRoleDEFF2DDE": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ],
+        "Policies": [
+          {
+            "PolicyDocument": {
+              "Statement": [
+                {
+                  "Action": [
+                    "codebuild:BatchGetBuilds",
+                    "codebuild:ListBuildsForProject"
+                  ],
+                  "Effect": "Allow",
+                  "Resource": {
+                    "Fn::GetAtt": [
+                      "CodeBuildProject4B91CF3F",
+                      "Arn"
+                    ]
+                  }
+                }
+              ],
+              "Version": "2012-10-17"
+            },
+            "PolicyName": "ReportBuild"
+          }
+        ]
+      }
+    },
+    "ReportBuildFunction724A99F2": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "ZipFile": "\n// Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.\n// SPDX-License-Identifier: MIT-0\n\nconst respond = async function(event, context, responseStatus, responseData, physicalResourceId, noEcho) {\n  return new Promise((resolve, reject) => {\n    var responseBody = JSON.stringify({\n      Status: responseStatus,\n      Reason: \"See the details in CloudWatch Log Stream: \" + context.logGroupName + \" \" + context.logStreamName,\n      PhysicalResourceId: physicalResourceId || context.logStreamName,\n      StackId: event.StackId,\n      RequestId: event.RequestId,\n      LogicalResourceId: event.LogicalResourceId,\n      NoEcho: noEcho || false,\n      Data: responseData\n    });\n    \n    console.log(\"Response body:    \", responseBody);\n    \n    var https = require(\"https\");\n    var url = require(\"url\");\n    \n    var parsedUrl = url.parse(event.ResponseURL);\n    var options = {\n      hostname: parsedUrl.hostname,\n      port: 443,\n      path: parsedUrl.path,\n      method: \"PUT\",\n      headers: {\n        \"content-type\": \"\",\n        \"content-length\": responseBody.length\n      }\n    };\n    \n    var request = https.request(options, function(response) {\n      console.log(\"Status code: \" + response.statusCode);\n      console.log(\"Status message: \" + response.statusMessage);\n      resolve();\n    });\n    \n    request.on(\"error\", function(error) {\n      console.log(\"respond(..) failed executing https.request(..): \" + error);\n      resolve();\n    });\n    \n    request.write(responseBody);\n    request.end();\n  });\n};\n\nconst AWS = require('aws-sdk');\n\nexports.handler = async function (event, context) {\n  console.log(JSON.stringify(event, null, 4));\n  \n  const projectName = event['detail']['project-name'];\n  \n  const codebuild = new AWS.CodeBuild();\n  \n  const buildId = event['detail']['build-id'];\n  const { builds } = await codebuild.batchGetBuilds({\n    ids: [ buildId ]\n  }).promise();\n  \n  console.log(JSON.stringify(builds, null, 4));\n  \n  const build = builds[0];\n  // Fetch the CFN resource and response parameters from the build environment.\n  const environment = {};\n  build.environment.environmentVariables.forEach(e => environment[e.name] = e.value);\n  \n  const response = {\n    ResponseURL: environment.CFN_RESPONSE_URL,\n    StackId: environment.CFN_STACK_ID,\n    LogicalResourceId: environment.CFN_LOGICAL_RESOURCE_ID,\n    RequestId: environment.CFN_REQUEST_ID\n  };\n  \n  if (event['detail']['build-status'] === 'SUCCEEDED') {\n    await respond(response, context, 'SUCCESS', { BuildStatus: 'SUCCESS'}, 'build');\n  } else {\n    await respond(response, context, 'FAILED', { Error: 'Build failed' });\n  }\n};\n"
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "ReportBuildRoleDEFF2DDE",
+            "Arn"
+          ]
+        },
+        "Handler": "index.handler",
+        "Runtime": "nodejs16.x",
+        "Timeout": 60
+      },
+      "DependsOn": [
+        "ReportBuildRoleDEFF2DDE"
+      ]
+    },
+    "BuildCompleteEvent738B4D20": {
+      "Type": "AWS::Events::Rule",
+      "Properties": {
+        "EventPattern": {
+          "source": [
+            "aws.codebuild"
+          ],
+          "detail-type": [
+            "CodeBuild Build State Change"
+          ],
+          "detail": {
+            "build-status": [
+              "SUCCEEDED",
+              "FAILED",
+              "STOPPED"
+            ],
+            "project-name": [
+              {
+                "Ref": "CodeBuildProject4B91CF3F"
+              }
+            ]
+          }
+        },
+        "State": "ENABLED",
+        "Targets": [
+          {
+            "Arn": {
+              "Fn::GetAtt": [
+                "ReportBuildFunction724A99F2",
+                "Arn"
+              ]
+            },
+            "Id": "Target0"
+          }
+        ]
+      }
+    },
+    "BuildCompleteEventAllowEventRuleCDKStandaloneDeployerReportBuildFunction4AF09962DF539F0C": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "ReportBuildFunction724A99F2",
+            "Arn"
+          ]
+        },
+        "Principal": "events.amazonaws.com",
+        "SourceArn": {
+          "Fn::GetAtt": [
+            "BuildCompleteEvent738B4D20",
+            "Arn"
+          ]
+        }
+      }
+    },
+    "CodeBuildTriggerCustomResource": {
+      "Type": "AWS::CloudFormation::CustomResource",
+      "Properties": {
+        "ServiceToken": {
+          "Fn::GetAtt": [
+            "StartBuildFunction21B23CDA",
+            "Arn"
+          ]
+        },
+        "ProjectName": {
+          "Ref": "CodeBuildProject4B91CF3F"
+        },
+        "BuildRoleArn": {
+          "Fn::GetAtt": [
+            "CodeBuildRole728CBADE",
+            "Arn"
+          ]
+        },
+        "Parameters": {
+          "Fn::Join": [
+            "",
+            [
+              " -c test=",
+              {
+                "Ref": "test"
+              },
+              " -c tot=",
+              {
+                "Ref": "tot"
+              }
+            ]
+          ]
+        },
+        "StackName": ""
+      },
+      "DependsOn": [
+        "BuildCompleteEventAllowEventRuleCDKStandaloneDeployerReportBuildFunction4AF09962DF539F0C",
+        "BuildCompleteEvent738B4D20",
+        "CodeBuildRoleDefaultPolicy829527DE",
+        "CodeBuildRole728CBADE"
+      ],
+      "UpdateReplacePolicy": "Delete",
+      "DeletionPolicy": "Delete"
+    }
+  }
+}

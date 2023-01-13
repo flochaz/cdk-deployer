@@ -4,7 +4,7 @@
 /**
 * Tests CdkStandaloneDeployer
 *
-* @group unit/best-practice/cdk-standalone-deployer
+* @group unit/construct/cdk-standalone-deployer
 */
 
 

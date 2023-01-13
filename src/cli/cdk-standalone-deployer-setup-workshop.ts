@@ -1,18 +1,16 @@
 #!/usr/bin/env node
 
-import * as chalk from 'chalk';
 import * as fs from 'fs';
+import * as chalk from 'chalk';
 import { Command } from 'commander';
 import { checkGenericAWSCredentials } from './checkCredentials';
+import { ARCHIVE_NAME, CDK_DEPLOYER_TEMPLATE_PATH } from './constants';
 import { createZip } from './createZip';
 import { generateCDKStandaloneDeployerCfnTemplate } from './generateCDKDeployerCfnTemplate';
 import { getProjectFiles } from './getProjectFiles';
 import { gitAddAndPush } from './gitAddAndPush';
 import { populateContentSpec } from './populateContentSpec';
 import { uploadCDKAppZip } from './uploadCDKAppZip';
-
-export const ARCHIVE_NAME = 'cdk_app.zip';
-export const CDK_DEPLOYER_TEMPLATE_PATH = 'static/CDKDeployer.template.json';
 
 export type CLIOptions = {
   workshopId: string;
@@ -34,7 +32,7 @@ export type CLIOptions = {
 async function run() {
   const program = new Command()
     .description(
-      'A simple tool to make your CDK app deployable through Through Workshop studio. \n \n Prerequisite : Export AWS credentials !'
+      'A simple tool to make your CDK app deployable through Through Workshop studio. \n \n Prerequisite : Export AWS credentials !',
     )
     .option('--workshop-id <string>', 'ID of the workshop')
     .option('--cdk-project-path <string>', 'Path to the cdk app. It needs to be commited into a git repository')
@@ -55,47 +53,47 @@ async function run() {
   // console.log(JSON.stringify(options));
   // console.log('Remaining arguments: ', program.args);
   try {
-    if(!options.workshopId || !options.cdkProjectPath) {
-      throw new Error('Missing required option --workshop-id');
+    if (!options.workshopId || !options.cdkProjectPath) {
+      throw new Error('Missing required option --workshop-id or --cdk-project-path');
     }
     await checkGenericAWSCredentials();
 
     const files = getProjectFiles(options.cdkProjectPath);
 
-      const isCDKAppRoot = files.find((f) => f === 'cdk.json');
+    const isCDKAppRoot = files.find((f) => f === 'cdk.json');
 
-      if (!isCDKAppRoot) {
-        throw new Error(
-          `No cdk.json file found running \`git ls-files\` in project located at ${process.cwd()}: \n\n did you add your cdk code to git ? are you sure you are on the root of the cdk project ?`
-        );
-      }
+    if (!isCDKAppRoot) {
+      throw new Error(
+        `No cdk.json file found running \`git ls-files\` in project located at ${process.cwd()}: \n\n did you add your cdk code to git ? are you sure you are on the root of the cdk project ?`,
+      );
+    }
 
-      await createZip(ARCHIVE_NAME, options.cdkProjectPath, files).catch((e) => {
-        throw e;
-      });
+    await createZip(ARCHIVE_NAME, options.cdkProjectPath, files).catch((e) => {
+      throw e;
+    });
 
-      await uploadCDKAppZip(ARCHIVE_NAME, 'ws-assets-us-east-1', `${options.workshopId}/${ARCHIVE_NAME}`, options.verbose);
-        console.log(chalk.white('Generating the deployer stack ...'));
-        const template = await generateCDKStandaloneDeployerCfnTemplate({...options, cdkAppSourceCodeZipName: ARCHIVE_NAME});
-        console.log(chalk.green('Deployer stack generated !'));
-        console.log(chalk.white('Writing the deployer stack to disk ...'));
+    await uploadCDKAppZip(ARCHIVE_NAME, 'ws-assets-us-east-1', `${options.workshopId}/${ARCHIVE_NAME}`, options.verbose);
+    console.log(chalk.white('Generating the deployer stack ...'));
+    const template = await generateCDKStandaloneDeployerCfnTemplate({ ...options, cdkAppSourceCodeZipName: ARCHIVE_NAME });
+    console.log(chalk.green('Deployer stack generated !'));
+    console.log(chalk.white('Writing the deployer stack to disk ...'));
 
-        fs.writeFileSync(CDK_DEPLOYER_TEMPLATE_PATH, template);
-        console.log(chalk.green('Deployer stack written at static/CDKDeployer.template.json !'));
-  
-        console.log(chalk.white('Populating Content Spec ...'));
-        await populateContentSpec('./');
-        console.log(chalk.green('contentspec.yaml now reference the static/CDKDeployer.template.json template !'));
+    fs.writeFileSync(CDK_DEPLOYER_TEMPLATE_PATH, template);
+    console.log(chalk.green('Deployer stack written at static/CDKDeployer.template.json !'));
 
-  
-      const filesToPush = [];
-      filesToPush.push('contentspec.yaml');
-      filesToPush.push(CDK_DEPLOYER_TEMPLATE_PATH);
+    console.log(chalk.white('Populating Content Spec ...'));
+    await populateContentSpec('./');
+    console.log(chalk.green('contentspec.yaml now reference the static/CDKDeployer.template.json template !'));
 
-      console.log(chalk.white('Pushing change to git ...'));
-      await gitAddAndPush(options.workshopRepoPath, 'chore: Add Deployer Stack static artifact', filesToPush);
-      console.log(chalk.green.bold('You are all done ! You can now test your workshop in the studio by pinning the build and clicking "create test event"!'));
-  
+
+    const filesToPush = [];
+    filesToPush.push('contentspec.yaml');
+    filesToPush.push(CDK_DEPLOYER_TEMPLATE_PATH);
+
+    console.log(chalk.white('Pushing change to git ...'));
+    await gitAddAndPush(options.workshopRepoPath, 'chore: Add Deployer Stack static artifact', filesToPush);
+    console.log(chalk.green.bold('You are all done ! You can now test your workshop in the studio by pinning the build and clicking "create test event"!'));
+
   } catch (error) {
     console.error(chalk.red.bold((error as Error).message));
     process.exit(1);

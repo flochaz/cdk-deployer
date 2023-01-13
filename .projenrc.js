@@ -26,6 +26,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   deps: ['aws-cdk-lib', 'constructs'],
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
   devDeps: [
+    'ts-node',
     'cdk-nag',
     'jest-runner-groups',
     'aws-cdk',

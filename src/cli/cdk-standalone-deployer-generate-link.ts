@@ -29,6 +29,7 @@ export type CLIOptions = {
   bootstrapCommand?: string | undefined;
   cdkQualifier?: string | undefined;
   cdkParameters?: [string] | undefined;
+  verbose?: boolean;
 };
 
 export async function run() {
@@ -63,19 +64,18 @@ export async function run() {
     .option('--destroy-command <string>', 'Command to run to destroy the cdk app', 'npx cdk destroy --all --force -c @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER')
     .option('--cdk-qualifier <string>', 'CDK qualifier to use', 'deployer')
     .option('--cdk-parameters [pair...]', 'add an entry (or several separated by a space) key=value that will be passed to the cdk app through context (--context)')
+    .option('--verbose', 'Verbose output', false)
     .parse();
 
   const options: CLIOptions = program.opts();
-  console.log(JSON.stringify(options));
-  console.log('Remaining arguments: ', program.args);
 
   try {
     await checkGenericAWSCredentials();
 
     if (!options.githubRepoName && options.s3BucketName && options.s3KeyPrefix) {
-      console.log('No github repo name provided for the CDK app to deploy. Will then try to upload it as a zip file');
+      console.info('No github repo name provided for the CDK app to deploy. Will then try to upload it as a zip file');
 
-      console.log(chalk.white('Creating zip file for CDK app ...'));
+      console.info(chalk.white('Creating zip file for CDK app ...'));
 
       const files = getProjectFiles(options.cdkProjectPath);
 
@@ -93,9 +93,12 @@ export async function run() {
       await uploadCDKAppZip(ARCHIVE_NAME, options.s3BucketName, `${options.s3KeyPrefix}/${ARCHIVE_NAME}`, false);
     }
 
-    console.log(chalk.white('Generating the deployer stack ...'));
+    console.info(chalk.white('Generating the deployer stack ...'));
     const template = await generateCDKStandaloneDeployerCfnTemplate(options);
-    const link = await uploadCDKDeployerCfnTemplate(template, options)
+    if (options.verbose) {
+      console.log(JSON.stringify(JSON.parse(template), null, 2));
+    }
+    const link = await uploadCDKDeployerCfnTemplate(template, options);
     console.info(
       chalk.green.bold(
         `You can now add the following markdown to your README.md : [![click-to-deploy](https://img.shields.io/badge/Click%20to-CDK%20Deploy-blue)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=cdkDeployer&templateURL=${link})`,
