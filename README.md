@@ -2,6 +2,14 @@
 
 ## TL;DR
 
+### As a workshop studio writer I run
+
+```bash
+npx cdk-standalone-deployer setup-workshop --workshop-id 12345678-aabb-a12a-1234-1234567890 --cdk-project-path ./myCdkApp
+```
+
+### As a blog post writer I run
+
 ```bash
 npx cdk-standalone-deployer --github-repo-name <YOUR GITHUB ALIAS>/<YOUR REPO NAME>  --github-repo-branch <GITHUB BRANCH> --cdk-project-path <CDK PROJECT PATH> --public-read --install-command "npm install" --build-command "npm run build"
 ```
@@ -135,7 +143,9 @@ npx cdk-standalone-deployer setup-workshop --workshop-id 12345678-aabb-a12a-1234
 
 ## What is it ?
 
-This Command Line Interface (CLI) eases  the deployment of CDK app for Wokshop studio accounts provisionning.
+**This Command Line Interface (CLI) eases  the deployment of CDK app for Wokshop studio accounts provisionning.
+
+This is tipically used by Workshop editor that want to pre provision resources in teams accounts for events and want to use CDK to create this initial infrastructure.**
 
 This tool is leveraging the [CDKStandaloneDeployer construct](https://constructs.dev/packages/cdk-standalone-deployer/v/0.0.9/api/CdkStandaloneDeployer) which will create a Cloud Formation template starting an AWS Code Build project which will run a `cdk bootstrap` and `cdk deploy` from the given source (automatically zipped from the cdk app path provided). For details about the available properties, please refer to the [CDKStandaloneDeployer construct API documentation](API.md).
 
