@@ -157,7 +157,8 @@ export class CdkStandaloneDeployer extends cdk.Stack {
 
     // We need the CDK execution role so the CodeBuild role can assume it for CDK deployment
     const cdkDeployRole = Utils.getCdkDeployRole(this, 'CdkDeployRole', cdkQualifier.valueAsString);
-    const cdkPublishRole = Utils.getCdkFilePublishRole(this, 'CdkPublishRole', cdkQualifier.valueAsString);
+    const cdkFilePublishRole = Utils.getCdkFilePublishRole(this, 'CdkFilePublishRole', cdkQualifier.valueAsString);
+    const cdkImagePublishRole = Utils.getCdkImagePublishRole(this, 'CdkImagePublishRole', cdkQualifier.valueAsString);
 
     buildRole.addManagedPolicy(
       new ManagedPolicy(this, 'CdkBuildPolicy', {
@@ -204,7 +205,7 @@ export class CdkStandaloneDeployer extends cdk.Stack {
             ],
           }),
           new PolicyStatement({
-            resources: [cdkDeployRole.roleArn, cdkPublishRole.roleArn],
+            resources: [cdkDeployRole.roleArn, cdkFilePublishRole.roleArn, cdkImagePublishRole.roleArn],
             actions: ['sts:AssumeRole'],
           }),
           new PolicyStatement({

@@ -298,6 +298,14 @@ describe ('CdkStandaloneDeployer test default', () => {
                     },
                   ],
                 },
+                {
+                  'Fn::Sub': [
+                    'arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-${Qualifier}-image-publishing-role-${AWS::AccountId}-${AWS::Region}',
+                    {
+                      Qualifier: Match.anyValue(),
+                    },
+                  ],
+                },
               ],
             },
             {

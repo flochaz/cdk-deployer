@@ -60,4 +60,21 @@ export class Utils {
       // Makes the CDK execution role LF admin so it can create databases
     return Role.fromRoleArn(Stack.of(scope), `${id}Role`, cdkDeployRoleArn);
   }
+
+  /**
+   * Import the default IAM role used for CDK image publishing
+   * @param {Construct} scope the scope to import the role into
+   * @param {string} id the ID of the role in the stack
+   */
+  public static getCdkImagePublishRole(scope: Construct, id: string, customQualifier?: string) {
+    const cdkRoleArn = Fn.sub(
+      DefaultStackSynthesizer.DEFAULT_IMAGE_ASSET_PUBLISHING_ROLE_ARN,
+      {
+        // eslint-disable-next-line @typescript-eslint/naming-convention
+        Qualifier: customQualifier ?? DefaultStackSynthesizer.DEFAULT_QUALIFIER,
+      },
+    );
+    // Makes the CDK execution role LF admin so it can create databases
+    return Role.fromRoleArn(Stack.of(scope), `${id}Role`, cdkRoleArn);
+  }
 }
