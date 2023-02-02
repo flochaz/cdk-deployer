@@ -17,6 +17,7 @@ export type CLIOptions = {
   cdkProjectPath: string;
   verbose: boolean;
   stackName?: string | undefined;
+  enableDocker?: boolean | undefined;
   deployBuildspecName?: string | undefined;
   destroyBuildspecName?: string | undefined;
   installCommand?: string | undefined;
@@ -37,6 +38,7 @@ async function run() {
     .option('--workshop-id <string>', 'ID of the workshop')
     .option('--cdk-project-path <string>', 'Path to the cdk app. It needs to be commited into a git repository')
     .option('--stack-name <string>', 'Name of the stack to deploy')
+    .option('--enable-docker', 'Enable building Docker images when deploying the CDK stacks')
     .option('--deploy-buildspec-name <string>', 'Name of the buildspec available in the cdk app to deploy the stack. (Required if --destroy-buildspec-name is provided)')
     .option('--destroy-buildspec-name <string>', 'Name of the buildspec available in the cdk app to destroy the stack. (Required if --deploy-buildspec-name is provided)')
     .option('--install-command <string>', 'Command to run to install dependencies')

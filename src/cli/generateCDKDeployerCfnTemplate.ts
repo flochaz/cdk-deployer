@@ -16,6 +16,7 @@ export async function generateCDKStandaloneDeployerCfnTemplate(options: any) {
     cdkQualifier: options.cdkQualifier,
     cdkAppSourceCodeZipName: options.cdkAppSourceCodeZipName,
     cdkParameters: options.cdkParameters ? parseCDKParameters(options.cdkParameters) : undefined,
+    enableDocker: options.enableDocker,
   });
 
   const synth = deployer.synth();
