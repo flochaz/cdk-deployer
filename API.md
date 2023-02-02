@@ -955,6 +955,7 @@ const cdkStandaloneDeployerProps: CdkStandaloneDeployerProps = { ... }
 | <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.cdkStack">cdkStack</a></code> | <code>string</code> | The CDK stack name to deploy. |
 | <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.deployBuildSpec">deployBuildSpec</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildSpec</code> | Deploy CodeBuild buildspec file name at the root of the cdk app folder. |
 | <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.destroyBuildSpec">destroyBuildSpec</a></code> | <code>aws-cdk-lib.aws_codebuild.BuildSpec</code> | Destroy Codebuild buildspec file name at the root of the cdk app folder. |
+| <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.enableDocker">enableDocker</a></code> | <code>boolean</code> | Allows building Docker images for the CDK stacks. |
 | <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.gitBranch">gitBranch</a></code> | <code>string</code> | The branch to use on the Github repository. |
 | <code><a href="#cdk-standalone-deployer.CdkStandaloneDeployerProps.property.githubRepository">githubRepository</a></code> | <code>string</code> | The github repository containing the CDK application. |
 
@@ -1256,6 +1257,21 @@ public readonly destroyBuildSpec: BuildSpec;
 - *Type:* aws-cdk-lib.aws_codebuild.BuildSpec
 
 Destroy Codebuild buildspec file name at the root of the cdk app folder.
+
+---
+
+##### `enableDocker`<sup>Optional</sup> <a name="enableDocker" id="cdk-standalone-deployer.CdkStandaloneDeployerProps.property.enableDocker"></a>
+
+```typescript
+public readonly enableDocker: boolean;
+```
+
+- *Type:* boolean
+- *Default:* false
+
+Allows building Docker images for the CDK stacks.
+
+Must be set to true if the CDK app builds containers.
 
 ---
 

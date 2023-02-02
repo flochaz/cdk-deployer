@@ -639,3 +639,28 @@ describe ('CdkStandaloneDeployer test custom buildspec from file', () => {
     );
   });
 });
+
+describe('CdkStandaloneDeployer test with Docker support', () => {
+
+  const app = new App();
+  const CdkStandaloneDeployerStack = new CdkStandaloneDeployer(app, {
+    githubRepository: 'aws-samples/aws-analytics-reference-architecture',
+    cdkAppLocation: 'refarch/aws-native',
+    env: {
+      region: 'eu-west-1',
+    },
+    enableDocker: true,
+  });
+
+  const template = Template.fromStack(CdkStandaloneDeployerStack);
+
+  test('CdkStandaloneDeployer correctly sets privileged option in CodeBuild', () => {
+    template.hasResourceProperties('AWS::CodeBuild::Project',
+      Match.objectLike({
+        Environment: {
+          PrivilegedMode: true,
+        },
+      }),
+    );
+  });
+});

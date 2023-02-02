@@ -27,6 +27,12 @@ export interface CdkStandaloneDeployerProps extends cdk.StackProps {
   readonly cdkStack?: string;
 
   /**
+   * Allows building Docker images for the CDK stacks. Must be set to true if the CDK app builds containers.
+   * @default - false
+   */
+  readonly enableDocker?: boolean;
+
+  /**
    * The CFN parameters to pass to the CDK application
    * @default - No parameter is used
    */
@@ -283,6 +289,7 @@ export class CdkStandaloneDeployer extends cdk.Stack {
       environment: {
         buildImage: LinuxBuildImage.STANDARD_5_0,
         computeType: ComputeType.SMALL,
+        privileged: props.enableDocker,
         environmentVariables: {
           PARAMETERS: {
             value: parameters,

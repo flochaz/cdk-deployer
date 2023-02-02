@@ -20,6 +20,7 @@ export type CLIOptions = {
   githubRepoBranch: string;
   cdkProjectPath: string;
   stackName?: string | undefined;
+  enableDocker?: boolean | undefined;
   deployBuildspecName?: string | undefined;
   destroyBuildspecName?: string | undefined;
   installCommand?: string | undefined;
@@ -55,6 +56,7 @@ export async function run() {
     .option('--github-repo-branch <string>', 'Branch to use', 'main')
     .option('--cdk-project-path <string>', 'Path to the cdk app', './')
     .option('--stack-name <string>', 'Name of the stack to deploy')
+    .option('--enable-docker', 'Enable building Docker images when deploying the CDK stacks')
     .option('--deploy-buildspec-name <string>', 'Name of the buildspec available in the cdk app to deploy the stack. (Required if --destroy-buildspec-name is provided)')
     .option('--destroy-buildspec-name <string>', 'Name of the buildspec available in the cdk app to destroy the stack. (Required if --deploy-buildspec-name is provided)')
     .option('--install-command <string>', 'Command to run to install dependencies')

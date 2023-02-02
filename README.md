@@ -107,6 +107,7 @@ Options:
   --github-repo-branch <string>      Branch to use (default: "main")
   --cdk-project-path <string>        Path to the cdk app (default: "./")
   --stack-name <string>              Name of the stack to deploy
+  --enable-docker                    Enable building Docker images when deploying the CDK stacks
   --deploy-buildspec-name <string>   Name of the buildspec available in the cdk app to deploy the stack. (Required if --destroy-buildspec-name is provided)
   --destroy-buildspec-name <string>  Name of the buildspec available in the cdk app to destroy the stack. (Required if --deploy-buildspec-name is provided)
   --install-command <string>         Command to run to install dependencies
@@ -236,6 +237,7 @@ Options:
   --workshop-id <string>             ID of the workshop
   --cdk-project-path <string>        Path to the cdk app. It needs to be commited into a git repository
   --stack-name <string>              Name of the stack to deploy
+  --enable-docker                    Enable building Docker images when deploying the CDK stacks
   --deploy-buildspec-name <string>   Name of the buildspec available in the cdk app to deploy the stack.
                                      (Required if --destroy-buildspec-name is provided)
   --destroy-buildspec-name <string>  Name of the buildspec available in the cdk app to destroy the stack.
