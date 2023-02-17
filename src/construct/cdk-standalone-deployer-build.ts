@@ -12,6 +12,14 @@ env:
     CFN_REQUEST_ID: CFN_REQUEST_ID_NOT_SET
     CFN_LOGICAL_RESOURCE_ID: CFN_LOGICAL_RESOURCE_ID_NOT_SET
 phases:
+  pre_build:
+    on-failure: ABORT
+    commands:
+      - echo "Default destroy buildspec"
+      - cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION
+      - sudo apt-get install python3 && python -m
+        ensurepip --upgrade && python -m pip install --upgrade pip && python -m
+        pip install -r requirements.txt
   build:
     on-failure: ABORT
     commands:
