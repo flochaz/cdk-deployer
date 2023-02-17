@@ -194,8 +194,8 @@ describe ('CdkStandaloneDeployer test default', () => {
               Name: 'CDK_QUALIFIER',
               Type: 'PLAINTEXT',
               Value: {
-                Ref: "CDKQUALIFIER"
-              }
+                Ref: 'CDKQUALIFIER',
+              },
             },
           ],
           Image: 'aws/codebuild/standard:5.0',
@@ -245,6 +245,7 @@ describe ('CdkStandaloneDeployer test default', () => {
                 's3:PutBucketVersioning',
                 's3:DeleteBucket',
                 's3:PutBucketPolicy',
+                's3:PutLifecycleConfiguration',
               ],
               Effect: 'Allow',
               Resource: '*',

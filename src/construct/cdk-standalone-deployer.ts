@@ -195,6 +195,7 @@ export class CdkStandaloneDeployer extends cdk.Stack {
               's3:PutBucketVersioning',
               's3:DeleteBucket',
               's3:PutBucketPolicy',
+              's3:PutLifecycleConfiguration',
             ],
           }),
           new PolicyStatement({
