@@ -17,7 +17,8 @@ phases:
     commands:
       - \"export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)\"
       - 'echo \"AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID\"'
-      - npx cdk@2.65.0 destroy --force --all --require-approval never -c @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER
+      - CDK_VERSION=$(grep aws-cdk-lib requirements.txt | cut -d= -f3)
+      - npx cdk@$CDK_VERSION destroy --force --all --require-approval never -c @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER
 `;
 
 const defaultDeployBuildSpec = `
@@ -39,15 +40,18 @@ phases:
       - sudo apt-get install python3 && python -m
         ensurepip --upgrade && python -m pip install --upgrade pip && python -m
         pip install -r requirements.txt
+      - # extract version of aws-cdk-lib from requirements.txt
+      - CDK_VERSION=$(grep aws-cdk-lib requirements.txt | cut -d= -f3)
       - \"export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)\"
       - 'echo \"AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID\"'
-      - npx cdk@2.65.0 bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION --qualifier $CDK_QUALIFIER --toolkit-stack-name CDKToolkit-$CDK_QUALIFIER
+      - npx cdk@$CDK_VERSION bootstrap aws://$AWS_ACCOUNT_ID/$AWS_REGION --qualifier $CDK_QUALIFIER --toolkit-stack-name CDKToolkit-$CDK_QUALIFIER
   build:
     on-failure: ABORT
     commands:
       - \"export AWS_ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)\"
       - 'echo \"AWS_ACCOUNT_ID: $AWS_ACCOUNT_ID\"'
-      - npx cdk@2.65.0 deploy $STACKNAME $PARAMETERS --require-approval=never -c @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER
+      - CDK_VERSION=$(grep aws-cdk-lib requirements.txt | cut -d= -f3)
+      - npx cdk@$CDK_VERSION deploy $STACKNAME $PARAMETERS --require-approval=never -c @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER
 `;
 
 // workaround to get a Lambda function with inline code and packaged into the ARA library
