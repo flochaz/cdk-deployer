@@ -132,6 +132,9 @@ To do so, you have 2 options:
 
 You can also pass parameters to your CDK app through context using the `--cdk-parameters` option. It takes a list of key=value pair separated by a space. Those parameters will be then customizable by the user when deploying the stack through the AWS CloudFormation Console.
 
+## Architecture
+
+![Architecture](./docs/CDK-Deployer-link.png)
 
 # CDK App deployer - Workshop Studio
 
@@ -258,6 +261,10 @@ Options:
   --verbose                          Verbose mode
   -h, --help                         display help for command
 ```
+
+## Architecture
+
+![Architecture](./docs/CDK-Deployer-WorkshopStudio.png)
 
 ## TODO
 
