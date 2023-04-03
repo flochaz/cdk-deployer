@@ -30,7 +30,7 @@ export function createBuildspecs(options: any) {
             nodejs: 14,
           },
           'commands': [
-            `cd $CODEBUILD_SRC_DIR/${options.cdkProjectPath}`,
+            'cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION',
             options.installCommand,
           ],
         },
@@ -70,7 +70,10 @@ export function createBuildspecs(options: any) {
           'runtime-versions': {
             nodejs: 14,
           },
-          'commands': [`cd $CODEBUILD_SRC_DIR/${options.cdkProjectPath}`, options.installCommand],
+          'commands': [
+            'cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION',
+            options.installCommand,
+          ],
         },
         build: {
           'on-failure': 'ABORT',
