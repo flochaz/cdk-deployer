@@ -47,6 +47,8 @@ async function run() {
     .option('--deploy-command <string>', 'Command to run to deploy the cdk app', 'npx cdk deploy $PARAMETERS --all --require-approval never -c @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER')
     .option('--destroy-command <string>', 'Command to run to destroy the cdk app', 'npx cdk destroy --all --force -c @aws-cdk/core:bootstrapQualifier=$CDK_QUALIFIER')
     .option('--cdk-qualifier <string>', 'CDK qualifier to use', 'deployer')
+    .option('--runtime-name <string>', 'runtime name for the code build project, allowing support for CDK projects in other languages (android, dotnet, golang, java, nodejs, php, python, ruby)', 'nodejs')
+    .option('--runtime-version <string>', 'runtime version for the code build project, allowing support for CDK project in other languages and versions (see https://docs.aws.amazon.com/codebuild/latest/userguide/runtime-versions.html)', '18')
     .option('--cdk-parameters [pair...]', 'add an entry (or several separated by a space) key=value that will be passed to the cdk app through context (--context)')
     .option('--verbose', 'Verbose mode')
     .parse();

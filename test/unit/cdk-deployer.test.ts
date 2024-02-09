@@ -198,7 +198,7 @@ describe ('CdkStandaloneDeployer test default', () => {
               },
             },
           ],
-          Image: 'aws/codebuild/standard:5.0',
+          Image: 'aws/codebuild/standard:7.0',
           ImagePullCredentialsType: 'CODEBUILD',
           Type: 'LINUX_CONTAINER',
         },
