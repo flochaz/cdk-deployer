@@ -1,6 +1,8 @@
 import { BuildSpec } from 'aws-cdk-lib/aws-codebuild';
 
 export function createBuildspecs(options: any) {
+  let runtimeName = options.runtimeName?.toString();
+  let runtimeVersion = options.runtimeVersion?.toString();
   if (options.deployBuildspecName || options.destroyBuildspecName) {
     const potentialMissingOptions = [options.deployBuildspecName, options.deployBuildspecName].find(
       (v) => v === undefined,
@@ -27,7 +29,7 @@ export function createBuildspecs(options: any) {
         install: {
           'on-failure': 'ABORT',
           'runtime-versions': {
-            nodejs: 14,
+            [runtimeName]: runtimeVersion
           },
           'commands': [
             'cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION',
@@ -68,7 +70,7 @@ export function createBuildspecs(options: any) {
         install: {
           'on-failure': 'ABORT',
           'runtime-versions': {
-            nodejs: 14,
+            [runtimeName]: runtimeVersion
           },
           'commands': [
             'cd $CODEBUILD_SRC_DIR/$CDK_APP_LOCATION',

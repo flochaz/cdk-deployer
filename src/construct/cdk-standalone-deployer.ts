@@ -288,7 +288,7 @@ export class CdkStandaloneDeployer extends cdk.Stack {
       // use encryptionKey from alias key alias/aws/s3
       encryptionKey: Alias.fromAliasName(this, 'defaultS3KmsKey', 'alias/aws/s3'),
       environment: {
-        buildImage: LinuxBuildImage.STANDARD_5_0,
+        buildImage: LinuxBuildImage.STANDARD_7_0,
         computeType: ComputeType.SMALL,
         privileged: props.enableDocker,
         environmentVariables: {
